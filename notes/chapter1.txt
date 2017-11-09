@@ -20,3 +20,49 @@ Concerns:
 * Priority queue: elements are inserted with a priority, and the smallest
   element is removed. This function is usually called `deleteMin`.
 * LIFO queue: a stack; add and remove are called `push` and `pop`.
+* Deque: generalisation of these
+  * `addFirst(x)`
+  * `removeFirst(x)`
+  * `addLast(x)`
+  * `removeLast(x)`
+* Stack: addFirst, removeFirst
+* Queue: addLast, removeFirst
+
+### List interface
+
+The List interface subsumes the Queue interface. A list is just a sequence of
+values, and a Queue becomes a special case of it.
+
+Interface:
+
+* size()
+* get(i): get i'th element
+* set(i, x): set the i'th element to x
+* add(i, x): insert x at position i
+* remove(i): remove the i'th element
+
+### USet (unordered sets)
+
+USets are a collection of unique items in no particular order; this mimics a
+mathematical set.
+
+Interface:
+
+* `size()`: returns the number of elements in the set
+* `add(x)`: add x to the set if it doesn't already exist
+* `remove(x)`: remove x from the set if it doesn't already exist
+* `find(y)`: membership test
+
+Note that y and x may be distinct objects, and only need to satisfy an
+equality test. For example, a dictionary or hashmap is created using a tuple
+`(key, value)`; `find` compares on `key` and two objects are considered equal
+if their keys match.
+
+### SSet (sorted set)
+
+A USet where order matters. Its interface only changes in the `find` function:
+
+* `find(x)`: find the smallest y s.t. y >= x. thereby returning a useful value
+  even if x isn't in the set. AKA successor search.
+
+Difference between USet and SSet
