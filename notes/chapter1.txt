@@ -1,0 +1,22 @@
+# Chapter 1
+
+## Efficiency
+
+Concerns:
+1. Number of operations
+2. Processor speeds
+3. Storage space
+
+## Interfaces
+
+* Interface / abstract data type
+
+### Queue interface
+
+* `add(x)` (aka `queue`): add `x` to the queue
+* `remove()` (aka `dequeue`): remove the next value from queue and return it
+
+* Normal queue: the first element inserted is removed first
+* Priority queue: elements are inserted with a priority, and the smallest
+  element is removed. This function is usually called `deleteMin`.
+* LIFO queue: a stack; add and remove are called `push` and `pop`.
