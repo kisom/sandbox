@@ -9,7 +9,7 @@ AC_INIT([ods],
 AM_INIT_AUTOMAKE([1.11 foreign])
 
 AC_CONFIG_SRCDIR([src/ch01ex01.cc])
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile data/Makefile])
 AC_CONFIG_MACRO_DIR([m4])
 
 PKG_PROG_PKG_CONFIG

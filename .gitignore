@@ -1,14 +1,25 @@
+# data files
 data/corpus.txt
+data/cpp
+data/ods-cpp.tgz
+
+# autotools junk files
+.deps
+Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache/
 compile
-config.guess
-config.sub
+config.*
 configure
 depcomp
 install-sh
+libtool
 ltmain.sh
 m4/
 missing
-src/Makefile.in
+
+# build artifacts
+src/*.o
+src/ch??ex??
+

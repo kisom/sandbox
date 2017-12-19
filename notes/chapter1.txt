@@ -132,6 +132,10 @@ Run times come in three flavours:
    and pop() operations. Show how, using only a FIFO Queue, q, you can
    reverse the order of all elements in s.
 
+   See src/ch01ex04.cc: you just pop each element from the stack → queue,
+   then pop the elements off the queue. If you wanted to reverse the stack
+   itself, you'd just push the elements back onto the stack.
+
 5. Using a USet, implement a Bag. A Bag is like a USet—it supports the add(x),
    remove(x) and find(x) methods—but it allows duplicate elements to be
    stored. The find(x) operation in a Bag returns some element (if any) that
