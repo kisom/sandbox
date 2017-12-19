@@ -103,3 +103,27 @@ Run times come in three flavours:
    a sequence of m operations takes at most m f(n) time.
 3. Expected: the actual run time is a random variable, and the expected
    value of this run time is at most f(n).
+
+## Exercises
+
+1. See src/ch01ex01.cc --- note that the last three exercises were skipped for
+   time.
+
+2. A Dyck word is a sequence of +1’s and -1’s with the property that the
+   sum of any prefix of the sequence is never negative. For example,
+   +1,−1,+1,−1 is a Dyck word, but +1,−1,−1,+1 is not a Dyck word since the
+   prefix +1 − 1 − 1 < 0. Describe any relationship between Dyck words and
+   Stack push(x) and pop() operations.
+
+   A +1 corresponds to a push, and a -1 corresponds to a pop. At any point,
+   the stack must not overflow.
+
+3. A matched string is a sequence of {, }, (, ), [, and ] characters that are
+   properly matched. For example, “{{()[]}}” is a matched string, but this
+   “{{()]}” is not, since the second { is matched with a ]. Show how to use a
+   stack so that, given a string of length n, you can determine if it is a
+   matched string in O(n) time.
+
+   The program should push each opening character onto a stack. When a closing
+   character is encountered, the top of the stack should be the matching
+   opening character. See src/ch01ex03.cc.
