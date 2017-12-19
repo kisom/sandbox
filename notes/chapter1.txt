@@ -127,3 +127,25 @@ Run times come in three flavours:
    The program should push each opening character onto a stack. When a closing
    character is encountered, the top of the stack should be the matching
    opening character. See src/ch01ex03.cc.
+
+4. Suppose you have a Stack, s, that supports only the push(x)
+   and pop() operations. Show how, using only a FIFO Queue, q, you can
+   reverse the order of all elements in s.
+
+5. Using a USet, implement a Bag. A Bag is like a USet—it supports the add(x),
+   remove(x) and find(x) methods—but it allows duplicate elements to be
+   stored. The find(x) operation in a Bag returns some element (if any) that
+   is equal to x. In addition, a Bag supports the findAll(x) operation that
+   returns a list of all elements in the Bag that are equal to x.
+
+6. From scratch, write and test implementations of the List, USet and SSet
+   interfaces. These do not have to be efficient. They can be used later to
+   test the correctness and performance of more efficient implementations.
+
+7. Work to improve the performance of your implementations
+   from the previous question using any tricks you can think of. Experiment
+   and think about how you could improve the performance of add(i,x) and
+   remove(i) in your List implementation. Think about how you could improve
+   the performance of the find(x) operation in your USet and SSet
+   implementations. This exercise is designed to give you a feel for how
+   difficult it can be to obtain efficient implementations of these interfaces
