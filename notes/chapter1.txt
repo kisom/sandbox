@@ -65,4 +65,41 @@ A USet where order matters. Its interface only changes in the `find` function:
 * `find(x)`: find the smallest y s.t. y >= x. thereby returning a useful value
   even if x isn't in the set. AKA successor search.
 
-Difference between USet and SSet
+Difference between USet and SSet: sorting requires more steps (run time) and
+complexity. A USet should be used unless an SSet is explicitly required.
+
+## Mathematical background
+
+(See notebook).
+
+## The model of computation
+
+Proper analysis requires a mathematical model of computation. The model in the
+book is on a w-bit word-RAM model.
+
+* we can access cells of memory, each of which stores a w-bit word
+* basic operations (arithmetic and logical) take constant time
+* cells can be read or written in constant time
+* the memory manager allows allocating a block of k cells of memory in O(k)
+  time
+* size constraint: w >= log(n) where n is the number of elements stored in a
+  data structure
+* data structures use a generic type T such that T occupies one word
+
+## Correctness, time complexity, and space complexity
+
+Three factors for analysing a data structure:
+
+* correctness: data structure must implement the interface
+* time complexity: run times of operations on the data structure should
+  be as small as possible
+* space complexity: the storage space used by a data structure should be
+  as small as possible
+
+Run times come in three flavours:
+
+1. Worst-case: an operation never takes longer than this
+2. Amortized: if a data structure has an amortized run time of f(n), then
+   a sequence of m operations takes at most m f(n) time.
+3. Expected: the actual run time is a random variable, and the expected
+   value of this run time is at most f(n).
