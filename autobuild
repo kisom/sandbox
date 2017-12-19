@@ -1,0 +1,29 @@
+#!/bin/sh
+set -eux
+
+command -v clang 2>&1 > /dev/null && CXX=clang++
+CXX=${CXX:-g++}
+CONFOPTS="CXX=$CXX"
+
+SILENT="${SILENT:-yes}"
+if [ "${SILENT}" = "yes" ]
+then
+	CONFOPTS="$CONFOPTS --enable-silent-rules"
+fi
+
+[ -d m4 ] || mkdir m4
+
+if [ "$(uname -o)" = "Android" ]
+then
+	SRCDIR="$(pwd)"
+	BUILDDIR=$HOME/build/ods
+	[ -d "$BUILDDIR" ] && rm -rf $BUILDDIR
+	mkdir -p $BUILDDIR && cd $BUILDDIR
+	autoreconf -i $SRCDIR
+	bash $SRCDIR/configure $CONFOPTS
+else
+	autoreconf -i
+	./configure $CONFOPTS
+fi
+pwd
+make
