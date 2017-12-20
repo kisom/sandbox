@@ -8,7 +8,7 @@ CONFOPTS="CXX=$CXX"
 SILENT="${SILENT:-yes}"
 if [ "${SILENT}" = "yes" ]
 then
-	CONFOPTS="$CONFOPTS --enable-silent-rules"
+	CONFOPTS="$CONFOPTS"
 fi
 
 [ -d m4 ] || mkdir m4
