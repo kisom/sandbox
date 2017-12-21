@@ -21,6 +21,8 @@ then
 	mkdir -p $BUILDDIR && cd $BUILDDIR
 	autoreconf -i $SRCDIR
 	bash $SRCDIR/configure $CONFOPTS
+	[ -d "$BUILDDIR/data" ] || mkdir "$BUILDDIR/data"
+	cp $SRCDIR/data/corpus* "$BUILDDIR/data"
 else
 	autoreconf -i
 	./configure $CONFOPTS

@@ -148,6 +148,8 @@ Run times come in three flavours:
    interfaces. These do not have to be efficient. They can be used later to
    test the correctness and performance of more efficient implementations.
 
+   In progress: src/ch01ex06.cc, src/ods/simplist.h, src/ods/uset.h.
+
 7. Work to improve the performance of your implementations
    from the previous question using any tricks you can think of. Experiment
    and think about how you could improve the performance of add(i,x) and
