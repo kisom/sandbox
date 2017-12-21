@@ -22,4 +22,5 @@ missing
 # build artifacts
 src/*.o
 src/ch??ex??
+src/*.la
 

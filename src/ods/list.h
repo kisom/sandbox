@@ -1,8 +1,7 @@
-#ifndef __ODS_LIST__
-#define __ODS_LIST__
+#ifndef __ODS_ODS_LIST__
+#define __ODS_ODS_LIST__
 
-
-#include <cstddef>
+#include <cstdlib>
 
 namespace ods {
 
@@ -10,11 +9,12 @@ namespace ods {
 template<typename T>
 class List {
 public:
-	virtual std::size_t size(void);
-	virtual T get(std::size_t);
-	virtual T set(std::size_t, T);
-	virtual void add(std::size_t, T);
-	virtual T remove(std::size_t);
+	virtual ~List(void) {};
+	virtual std::size_t size(void) =0;
+	virtual T get(std::size_t) =0;
+	virtual T set(std::size_t, T) =0;
+	virtual void add(std::size_t, T) =0;
+	virtual T remove(std::size_t) =0;
 };
 
 } // end namespace ods

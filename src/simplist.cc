@@ -10,18 +10,18 @@ namespace ods {
 template<typename T>
 SimpList<T>::SimpList()
 {
-	this->arr = new T[DEFAULT_SIZE];
-	this->cap = 0;
-	this->len = 0;
+	arr = new T[DEFAULT_SIZE];
+	cap = 0;
+	len = 0;
 }
 
 
-template <typename T>
+template<typename T>
 std::size_t
 SimpList<T>::size(void)
 {
 	assert(len <= cap);
-	return this->len();
+	return this->len;
 }
 
 
@@ -29,22 +29,31 @@ template <typename T>
 T
 SimpList<T>::get(std::size_t i)
 {
-	i = 0;
-	throw std::invalid_argument("invalid argument");
+	if (i >= this->len) {
+		throw std::invalid_argument("index out of range");
+	}
+
+	return this->arr[i];
 }
 
 
 template <typename T>
 T
-SimpList<T>::set(std::size_t, T)
+SimpList<T>::set(std::size_t i, T value)
 {
-	throw std::invalid_argument("invalid argument");
+	if (i >= this->len) {
+		throw std::invalid_argument("index out of range");
+	}
+	// check size, grow as needed
+	// simple case: check append
+	// complex case: insertion
+	return value;
 }
 
 
 template <typename T>
 void
-SimpList<T>::add(std::size_t, T)
+SimpList<T>::add(std::size_t i, T value)
 {
 	return;
 }
@@ -52,9 +61,13 @@ SimpList<T>::add(std::size_t, T)
 
 template <typename T>
 T
-SimpList<T>::remove(std::size_t)
+SimpList<T>::remove(std::size_t i)
 {
-	throw std::invalid_argument("invalid argument");
+	if (i >= this->len) {
+		throw std::invalid_argument("index out of range");
+	}
+
+	return this->arr[i];
 }
 
 } // end namespace ods
