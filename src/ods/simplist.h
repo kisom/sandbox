@@ -22,6 +22,8 @@ private:
 	T		*arr;
 	std::size_t	 cap;
 	std::size_t	 len;
+	void		 grow();
+	void		 shrink();
 
 	const std::size_t DEFAULT_SIZE = 8;
 };
@@ -71,10 +73,10 @@ SimpList<T>::set(std::size_t i, T value)
 	if (i >= this->len) {
 		throw std::invalid_argument("index out of range");
 	}
-	// check size, grow as needed
-	// simple case: check append
-	// complex case: insertion
-	return value;
+
+	T old = this->arr[i];
+	this->arr[i] = value;
+	return old;
 }
 
 
@@ -82,12 +84,28 @@ template <typename T>
 void
 SimpList<T>::add(std::size_t i, T value)
 {
-	if (i >= this->len) {
+	if (i > this->len) {
 		throw std::invalid_argument("index out of range");
 	}
 	assert(value);
-
-	return;
+	
+	// check size, grow as needed
+	if (len == (cap - 1)) {
+		this->grow();
+	}
+	
+	// simple case: check append
+	if (i == len) {
+		this->arr[len++] = value;
+		return;
+	}
+	
+	// complex case: insertion
+	for (std::size_t j = this->len; j > i; j--) {
+		this->arr[j] = this->arr[j-1];
+	}
+	this->arr[i] = value;
+	this->len++;
 }
 
 
@@ -95,11 +113,39 @@ template <typename T>
 T
 SimpList<T>::remove(std::size_t i)
 {
-	if (i >= this->len) {
+	if (i > this->len) {
 		throw std::invalid_argument("index out of range");
 	}
+	
+	T old = this->arr[i];
+	
+	if (i == this->len) {
+		this->len--;
+		return old;
+	}
+	
+	for (std::size_t j = i; j < this->len; j++) {
+		this->arr[j] = this->arr[j+1];
+	}
+	this->len--;
 
-	return this->arr[i];
+	return old;
+}
+
+template<typename T>
+void
+SimpList<T>::grow()
+{
+	std::size_t	 new_cap = this->cap * 2;
+	T		*new_arr = new T[new_cap];
+	
+	for (std::size_t i = 0; i < this->len; i++) {
+		new_arr[i] = this->arr[i];
+	}
+	
+	delete this->arr;
+	this->arr = new_arr;
+	this->cap = new_cap;
 }
 
 } // end namespace ods
