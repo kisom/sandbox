@@ -62,6 +62,20 @@ check_simpuset(void)
 	ods::SimpUSet<int>	us;
 	
 	assert(us.add(1));
+	assert(us.size() == 1);
+	assert(us.find(1));
+	assert(!us.add(1));
+	assert(us.size() == 1);
+	assert(us.add(2));
+	assert(us.find(2));
+	assert(us.add(3));
+	assert(us.size() == 3);
+	assert(us.find(3));
+	
+	auto removed = us.remove(2);
+	assert(removed == 2);
+	assert(us.size() == 2);
+	assert(!us.find(2));
 }
 
 

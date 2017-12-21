@@ -3,6 +3,7 @@
 
 
 #include <optional>
+#include <ods/simplist.h>
 #include <ods/uset.h>
 
 namespace ods {
@@ -15,6 +16,8 @@ public:
 	bool add(T);
 	std::optional<T> remove(T);
 	std::optional<T> find(T);
+private:
+	SimpList<T>	list;
 };
 
 template<typename T>
@@ -32,22 +35,35 @@ template<typename T>
 std::size_t
 SimpUSet<T>::size()
 {
-	return 0;
+	return this->list.size();
 }
 
 template<typename T>
 bool
 SimpUSet<T>::add(T value)
 {
-	assert(value);
-	return false;
+	for (std::size_t i = 0; i < this->list.size(); i++) {
+		if (this->list.get(i) == value) {
+			return false;
+		}
+	}
+	
+	this->list.add(this->list.size(), value);
+	return true;
 }
 
 template<typename T>
 std::optional<T>
 SimpUSet<T>::remove(T value)
 {
-	assert(value);
+	for (std::size_t i = 0; i < this->list.size(); i++) {
+		if (this->list.get(i) == value) {
+			auto removed = this->list.get(i);
+			this->list.remove(i);
+			return removed;
+		}
+	}
+	
 	return std::nullopt;
 }
 
@@ -55,7 +71,12 @@ template<typename T>
 std::optional<T>
 SimpUSet<T>::find(T value)
 {
-	assert(value);
+	for (std::size_t i = 0; i < this->list.size(); i++) {
+		if (this->list.get(i) == value) {
+			return this->list.get(i);
+		}
+	}
+	
 	return std::nullopt;
 }
 
