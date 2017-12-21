@@ -9,7 +9,7 @@
 namespace ods {
 
 template<typename T>
-class SimpList : List<T> {
+class SimpList : public List<T> {
 public:
 	SimpList();
 	~SimpList(void);

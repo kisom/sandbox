@@ -14,7 +14,7 @@ check_simplist(void)
 	sl.add(1, 2);
 	sl.add(2, 3);
 	assert(sl.size() == 3);
-	
+
 	sl.add(0, 4);
 	sl.add(1, 5);
 	sl.add(2, 6);

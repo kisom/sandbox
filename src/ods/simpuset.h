@@ -8,7 +8,7 @@
 
 namespace ods {
 template<typename T>
-class SimpUSet : USet<T> {
+class SimpUSet : public USet<T> {
 public:
 	SimpUSet(void);
 	~SimpUSet(void);
