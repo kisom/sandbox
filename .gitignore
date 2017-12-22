@@ -23,4 +23,4 @@ missing
 src/*.o
 src/ch??ex??
 src/*.la
-
+src/*_bench
