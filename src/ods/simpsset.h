@@ -53,7 +53,10 @@ SimpSSet<T>::add(T value)
 			continue;
 		}
 		this->list.add(i, value);
+		return true;
 	}
+	
+	this->list.add(this->list.size(), value);
 	return true;
 }
 

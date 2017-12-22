@@ -2,6 +2,8 @@
 #include <iostream>
 #include <ods/simplist.h>
 #include <ods/simpuset.h>
+#include <ods/simpsset.h>
+#include <ods/linked_list.h>
 using namespace std;
 
 
@@ -79,10 +81,67 @@ check_simpuset(void)
 }
 
 
+static void
+check_simpsset(void)
+{
+	ods::SimpSSet<int>	ss;
+	
+	assert(ss.add(2));
+	assert(ss.size() == 1);
+	assert(ss.find(2));
+	assert(!ss.add(2));
+	assert(ss.size() == 1);
+	assert(ss.add(1));
+	assert(ss.find(1));
+	assert(ss.size() == 2);
+	assert(ss.add(3));
+	assert(ss.size() == 3);
+	assert(ss.find(3));
+	
+	auto removed = ss.remove(2);
+	assert(removed == 2);
+	assert(ss.size() == 2);
+	assert(!ss.find(2));
+}
+
+void check_linkedlist(void);
+
+void
+check_linkedlist()
+{
+	ods::LinkedList<int>	ll;
+	
+	ll.add(0, 1);
+	assert(ll.size() == 1);
+	assert(ll.get(0) == 1);
+	ll.add(0, 2);
+	assert(ll.size() == 2);
+	assert(ll.get(0) == 2);
+	ll.add(2, 4);
+	assert(ll.get(2) == 4);
+	assert(ll.size() == 3);
+	
+	ll.set(1, 5);
+	assert(ll.get(1) == 5);
+	
+	ll.remove(1);
+	assert(ll.size() == 2);
+	assert(ll.get(1) == 4);
+	ll.remove(1);
+	assert(ll.size() == 1);
+	ll.remove(0);
+	assert(ll.size() == 0);
+	
+	ll.add(0, 1);
+}
+
+
 int
 main(void)
 {
 	check_simplist();
 	check_simpuset();
+	check_simpsset();
+	check_linkedlist();
 	cout << "OK" << endl;
 }

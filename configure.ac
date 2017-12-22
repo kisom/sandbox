@@ -12,6 +12,8 @@ AC_CONFIG_SRCDIR([src/ch01ex01.cc])
 AC_CONFIG_FILES([Makefile src/Makefile data/Makefile])
 AC_CONFIG_MACRO_DIR([m4])
 
+: ${CXXFLAGS=""}
+
 PKG_PROG_PKG_CONFIG
 AC_CHECK_HEADERS
 

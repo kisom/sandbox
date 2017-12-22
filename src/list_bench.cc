@@ -7,6 +7,7 @@
 #include <ods/list.h>
 #include <ods/simplist.h>
 #include <ods/vlist.h>
+#include <ods/linked_list.h>
 
 using namespace std;
 
@@ -128,4 +129,7 @@ main(int argc, char *argv[])
 	
 	ods::VList<int>		vl;
 	run("VList", vl, ops);
+	
+	ods::LinkedList<int>	ll;
+	run("LinkedList", ll, ops);
 }

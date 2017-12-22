@@ -1,0 +1,13 @@
+cd src && make benchmarks
+make[1]: Entering directory '/home/build/ods/src'
+LIST BENCHMARKS
+SimpList @ 1000000 ops: 1.96438s
+VList @ 1000000 ops: 1.91541s
+LinkedList @ 1000000 ops: 4.02349s
+
+USET BENCHMARKS
+SimpUSet @ 1000000 ops: 1.19608s
+
+SSET BENCHMARKS
+SimpSSet @ 1000000 ops: 1.29316s
+make[1]: Leaving directory '/home/build/ods/src'
