@@ -157,3 +157,15 @@ Run times come in three flavours:
    the performance of the find(x) operation in your USet and SSet
    implementations. This exercise is designed to give you a feel for how
    difficult it can be to obtain efficient implementations of these interfaces
+
+   Some initial ideas:
+   1. A linked list could improve add --- instead of having to move elements
+      in place, you would just insert in between. For a forward-iterating
+      insertion (e.g. for j := 0; j < i; j++), there are decreasing benefits
+      as you insert elements farther in the list. A potential improvement
+      might be a doubly-linked list with the iteration direction determined by
+      distance from the centre, though this comes at the cost of additional
+      complexity. The same improvements would apply to remove.
+   2. For the sorted list, a basic improvement for find would be to pick the
+      middle of the list and do an equality check, basically bisecting to
+      find where the value *would* be.
