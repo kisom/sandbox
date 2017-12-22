@@ -56,6 +56,7 @@ benchmark(ods::List<int>& list, int ops)
 
 			cout << "\tget " << j << endl;
 			assert(list.get(j) != -1);
+			break;
 		// set
 		case 1:
 			if (list.size() == 0) {
