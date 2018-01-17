@@ -140,6 +140,14 @@ yes
 no
 ```
 
+Answer (in `succ.pl`):
+
+```
+greater_than(succ(succ(X)), succ(0)).
+greater_than(succ(X), succ(Y)) :-
+    greater_than(X, Y).
+```
+
 #### Exercise 3.5
 
 Binary trees are trees where all internal nodes have exactly two children. The
@@ -160,3 +168,5 @@ tree that is its first argument. For example:
 T  =  tree(leaf(4),  tree(leaf(2),  leaf(1))).
 yes
 ```
+
+This one took a lot of thinking, but the solution is in `tree.pl`.
