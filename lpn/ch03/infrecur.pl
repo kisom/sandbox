@@ -1,0 +1,2 @@
+%% infinite recursion.
+p :- p.
