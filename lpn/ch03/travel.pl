@@ -57,3 +57,26 @@ travel(X, Y) :- travel(X, Z),
 %%  	      go(metz,paris,
 %%  		    go(paris,losAngeles)))
 %% to the query travel(valmont,losAngeles,X).
+
+%% First, we need set up the terminal scenario:
+%% travel(X, Y, go(travelDirect(X, Y))) :- travelDirect(X, Y).
+
+%% Next, we recurse.
+%% travel(X, Y, go(travelDirect(X, Z), W)) :-
+%%  	   travelDirect(X, Z),
+%%  	   travel(Z, Y, W).
+
+%% The next exercise says we should modify this to include the
+%% mechanism of transport. This is more tedious, but doable.
+travel(X, Y, go(byCar(X, Y))) :- byCar(X, Y).
+travel(X, Y, go(byCar(X, Z), W)) :-
+    byCar(X, Z),
+    travel(Z, Y, W).
+travel(X, Y, go(byPlane(X, Y))) :- byPlane(X, Y).
+travel(X, Y, go(byPlane(X, Z), W)) :-
+    byPlane(X, Z),
+    travel(Z, Y, W).
+travel(X, Y, go(byTrain(X, Y))) :- byTrain(X, Y).
+travel(X, Y, go(byTrain(X, Z), W)) :-
+    byTrain(X, Z),
+    travel(Z, Y, W).
