@@ -34,10 +34,9 @@ min([H|T], N) :-
 %% should yield
 %%    Result  =  [6,21,12]
 scalarMult(_, [], []).
-scalarMult(K, [H|T], R) :-
-	V is K * H, 
-	scalarMult(K, T, [R|V]).
-	
+scalarMult(K, [H|T], [V|R]) :-
+	V is K * H,
+	scalarMult(K, T, R).
 
 %% 3. Another fundamental operation on vectors is the dot product. This
 %% operation combines two vectors of the same dimension and yields a
@@ -52,3 +51,8 @@ scalarMult(K, [H|T], R) :-
 %%    ?-  dot([2,5,6],[3,4,1],Result).
 %% should yield
 %%    Result  =  32
+dot([], [], 0).
+dot([X|TX], [Y|TY], R) :-
+	dot(TX, TY, R2),
+	V is X * Y,
+	R is R2 + V.
