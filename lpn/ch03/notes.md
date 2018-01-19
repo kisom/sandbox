@@ -1,4 +1,4 @@
-## Recursion
+## Chapter 3: Recursion
 
 Recursive definitions require that the recursive function isn't the first
 clause, ex:

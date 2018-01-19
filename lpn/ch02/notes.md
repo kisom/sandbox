@@ -1,4 +1,4 @@
-## Unification
+## Chapter 2: Unification
 
 Two terms unify if they are
 1. The same term

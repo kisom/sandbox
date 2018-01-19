@@ -1,4 +1,4 @@
-## Some basic syntax
+## Chapter 1: Some basic syntax
 
 ```
 property(name).
