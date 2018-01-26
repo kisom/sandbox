@@ -1,0 +1,3177 @@
+==10897== Memcheck, a memory error detector
+==10897== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==10897== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==10897== Command: src/list_bench
+==10897== 
+--10897-- Valgrind options:
+--10897--    -v
+--10897-- Contents of /proc/version:
+--10897--   Linux version 4.13.0-16-generic (buildd@lcy01-02) (gcc version 7.2.0 (Ubuntu 7.2.0-8ubuntu2)) #19-Ubuntu SMP Wed Oct 11 18:35:14 UTC 2017
+--10897-- 
+--10897-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-rdtscp-sse3-avx
+--10897-- Page sizes: currently 4096, max supported 4096
+--10897-- Valgrind library directory: /usr/lib/valgrind
+--10897-- Reading syms from /home/kyle/code/ods/src/list_bench
+--10897-- Reading syms from /lib/x86_64-linux-gnu/ld-2.26.so
+--10897--   Considering /lib/x86_64-linux-gnu/ld-2.26.so ..
+--10897--   .. CRC mismatch (computed 8e133c77 wanted 4706bdfa)
+--10897--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.26.so ..
+--10897--   .. CRC is valid
+--10897-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--10897--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--10897--   .. CRC mismatch (computed 9fa343a0 wanted dc854ea8)
+--10897--    object doesn't have a symbol table
+--10897--    object doesn't have a dynamic symbol table
+--10897-- Scheduler: using generic scheduler lock implementation.
+--10897-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==10897== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-10897-by-kyle-on-???
+==10897== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-10897-by-kyle-on-???
+==10897== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-10897-by-kyle-on-???
+==10897== 
+==10897== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==10897== don't want to do, unless you know exactly what you're doing,
+==10897== or are doing some strange experiment):
+==10897==   /usr/lib/valgrind/../../bin/vgdb --pid=10897 ...command...
+==10897== 
+==10897== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==10897==   /path/to/gdb src/list_bench
+==10897== and then give GDB the following command
+==10897==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=10897
+==10897== --pid is optional if only one valgrind process is running
+==10897== 
+--10897-- REDIR: 0x401f7b0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--10897-- REDIR: 0x401f590 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--10897-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--10897--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--10897--   .. CRC mismatch (computed f3fb86a7 wanted 0b99f9ab)
+--10897--    object doesn't have a symbol table
+--10897-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--10897--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--10897--   .. CRC mismatch (computed 5ffa922b wanted 4228a583)
+--10897--    object doesn't have a symbol table
+==10897== WARNING: new redirection conflicts with existing -- ignoring it
+--10897--     old: 0x0401f7b0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--10897--     new: 0x0401f7b0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--10897-- REDIR: 0x401d820 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--10897-- REDIR: 0x401fcf0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--10897-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.24
+--10897--    object doesn't have a symbol table
+--10897-- Reading syms from /lib/x86_64-linux-gnu/libm-2.26.so
+--10897--   Considering /lib/x86_64-linux-gnu/libm-2.26.so ..
+--10897--   .. CRC mismatch (computed 5c7a687c wanted e7414330)
+--10897--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.26.so ..
+--10897--   .. CRC is valid
+--10897-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1
+--10897--    object doesn't have a symbol table
+--10897-- Reading syms from /lib/x86_64-linux-gnu/libc-2.26.so
+--10897--   Considering /lib/x86_64-linux-gnu/libc-2.26.so ..
+--10897--   .. CRC mismatch (computed cc2bbe88 wanted e29f45fb)
+--10897--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.26.so ..
+--10897--   .. CRC is valid
+--10897-- REDIR: 0x57c3ef0 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2fb0 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c41d0 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2a00 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2fe0 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c5b50 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c4060 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c3e80 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2f70 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2a70 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c3fc0 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57e1eb0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2f10 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2ae0 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c4220 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2ab0 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c4360 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c3010 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2a30 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c2ee0 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57ce4b0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c4270 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c3e50 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57e2c60 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c32f0 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c41a0 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c4170 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c5b80 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57c42c0 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--10897-- REDIR: 0x57d7100 (libc.so.6:__strrchr_sse2) redirected to 0x4c32790 (__strrchr_sse2)
+--10897-- REDIR: 0x57bde90 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--10897-- REDIR: 0x57d73f0 (libc.so.6:__strlen_sse2) redirected to 0x4c32d30 (__strlen_sse2)
+--10897-- REDIR: 0x58af2a0 (libc.so.6:__memcmp_sse4_1) redirected to 0x4c35d50 (__memcmp_sse4_1)
+--10897-- REDIR: 0x57cfc40 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x4c33da0 (strcmp)
+--10897-- REDIR: 0x57e1230 (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4c34060 (memcpy@GLIBC_2.2.5)
+--10897-- REDIR: 0x57c37f0 (libc.so.6:__GI_strstr) redirected to 0x4c37760 (__strstr_sse2)
+--10897-- REDIR: 0x4ecc500 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x4c30830 (operator new[](unsigned long))
+--10897-- REDIR: 0x57e1210 (libc.so.6:__mempcpy_sse2_unaligned) redirected to 0x4c37130 (mempcpy)
+	add 0 938664
+	add 0 174000
+	get 1
+	remove 1
+	set 0 from 174000 to 110067
+	set 0 from 110067 to 146670
+	remove 0
+	add 0 783067
+	remove 0
+	add 0 787688
+	remove 0
+	add 0 208428
+	get 0
+	add 0 798477
+	set 1 from 208428 to 231693
+	add 0 124053
+	get 1
+	remove 1
+	get 0
+	get 0
+	add 0 366231
+	get 0
+	get 2
+	remove 1
+	add 0 962319
+	remove 1
+	add 0 643491
+	remove 0
+	remove 1
+	add 0 1353
+	add 0 861904
+	get 0
+	get 2
+	get 1
+	add 0 434933
+	set 2 from 1353 to 348269
+	add 3 433867
+	remove 0
+	get 1
+	remove 3
+	set 2 from 433867 to 530832
+	add 1 437750
+	remove 3
+	get 0
+	remove 2
+	remove 1
+	remove 0
+	add 0 897006
+	add 0 264521
+	set 1 from 897006 to 615218
+	remove 0
+	add 0 282943
+	remove 0
+	add 0 918946
+	add 1 515489
+	remove 0
+	get 1
+	add 0 627902
+	add 0 487162
+	add 1 379320
+	remove 3
+	get 3
+	add 0 656114
+	add 4 374314
+	set 2 from 379320 to 797736
+	remove 4
+	get 2
+	get 0
+	get 3
+	remove 1
+	remove 0
+	set 1 from 627902 to 146677
+	add 2 53559
+	get 3
+	remove 1
+	remove 2
+	get 1
+	add 1 404915
+	add 1 401525
+	set 1 from 401525 to 109482
+	set 1 from 109482 to 102964
+	remove 1
+	set 1 from 404915 to 143466
+	set 0 from 797736 to 918583
+	add 0 445767
+	get 1
+	set 0 from 445767 to 192591
+	remove 1
+	get 0
+	get 0
+	add 2 84076
+	add 0 764044
+	get 3
+	add 3 55918
+	set 3 from 55918 to 851755
+	get 4
+	set 0 from 764044 to 348149
+	add 1 715971
+	remove 1
+	remove 4
+	get 4
+	add 3 6272
+	set 5 from 53559 to 303294
+	get 5
+	add 3 235426
+	remove 4
+	add 2 405798
+	set 1 from 192591 to 285431
+--10897-- REDIR: 0x4eca380 (libstdc++.so.6:operator delete(void*)) redirected to 0x4c311d0 (operator delete(void*))
+==10897== Mismatched free() / delete / delete []
+==10897==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x40692E: ods::SimpList<int>::grow() (simplist.h:146)
+==10897==    by 0x406693: ods::SimpList<int>::add(unsigned long, int) (simplist.h:94)
+==10897==    by 0x40297F: benchmark(ods::List<int>&, int) (list_bench.cc:81)
+==10897==    by 0x4025F7: run(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, ods::List<int>&, int) (list_bench.cc:108)
+==10897==    by 0x402395: main (list_bench.cc:128)
+==10897==  Address 0x5b20ef0 is 0 bytes inside a block of size 32 alloc'd
+==10897==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x402DE3: ods::SimpList<int>::SimpList() (simplist.h:34)
+==10897==    by 0x402350: main (list_bench.cc:127)
+==10897== 
+	add 6 320018
+	remove 7
+	add 3 815072
+	add 1 216211
+	remove 1
+	remove 2
+	add 6 992999
+	remove 2
+	set 2 from 143466 to 211984
+	set 5 from 992999 to 244841
+	get 2
+	add 1 893599
+	remove 2
+	remove 1
+	set 2 from 235426 to 388683
+	add 0 195665
+	set 3 from 388683 to 789864
+	remove 5
+	remove 1
+	add 1 698456
+	set 0 from 195665 to 495986
+	add 3 662946
+	remove 6
+	remove 4
+	set 0 from 495986 to 93238
+	remove 1
+	get 1
+	get 0
+	add 0 870667
+	add 3 451832
+	get 0
+	get 5
+	add 4 147505
+	add 3 917471
+	set 2 from 211984 to 169579
+	remove 1
+	remove 3
+	get 1
+	add 5 258618
+	get 4
+	remove 6
+	set 5 from 258618 to 775753
+	set 2 from 917471 to 48953
+	remove 3
+	add 1 145710
+	remove 5
+	add 4 144951
+	get 3
+	remove 1
+	remove 2
+	remove 2
+	add 0 816627
+	get 3
+	add 2 745197
+	add 2 745109
+	remove 0
+	set 3 from 169579 to 803380
+	set 4 from 662946 to 262779
+	get 1
+	remove 0
+	set 2 from 803380 to 836683
+	remove 2
+	remove 1
+	add 0 740313
+	add 0 261411
+	remove 0
+	add 1 137179
+	remove 3
+	get 1
+	get 1
+	remove 0
+	remove 0
+	set 0 from 745109 to 431294
+	remove 0
+	add 0 158044
+	get 0
+	set 0 from 158044 to 387605
+	set 0 from 387605 to 399398
+	set 0 from 399398 to 741105
+	remove 0
+	add 0 686932
+	remove 0
+	add 0 179188
+	remove 0
+	add 0 161134
+	get 0
+	set 0 from 161134 to 633158
+	remove 0
+	add 0 134008
+	set 0 from 134008 to 379628
+	add 0 287690
+	get 0
+	set 1 from 379628 to 42566
+	add 1 832212
+	set 2 from 42566 to 160396
+	set 1 from 832212 to 345601
+	add 0 997971
+	remove 0
+	set 0 from 287690 to 757917
+	remove 0
+	remove 0
+	remove 0
+	add 0 256379
+	remove 0
+	add 0 236437
+	remove 0
+	add 0 655722
+	add 0 759208
+	get 0
+	add 0 661982
+	get 0
+	get 0
+	add 0 244086
+	get 1
+	set 1 from 661982 to 739566
+	get 1
+	get 2
+	add 1 730436
+	set 4 from 655722 to 228717
+	set 3 from 759208 to 474418
+	set 1 from 730436 to 669436
+	set 2 from 739566 to 298232
+	set 4 from 228717 to 938861
+	set 0 from 244086 to 168429
+	set 3 from 474418 to 904167
+	get 4
+	remove 0
+	add 1 901486
+	remove 4
+	remove 0
+	set 0 from 901486 to 790175
+	remove 0
+	remove 0
+	remove 0
+	add 0 739764
+	remove 0
+	add 0 735319
+	get 0
+	set 0 from 735319 to 104915
+	remove 0
+	add 0 413771
+	add 0 310870
+	get 1
+	add 0 624960
+	set 0 from 624960 to 41902
+	get 2
+	remove 1
+	get 1
+	set 0 from 41902 to 246234
+	remove 0
+	get 0
+	get 0
+	get 0
+	get 0
+	add 0 128180
+	get 1
+	add 0 93939
+	add 2 73632
+	set 1 from 128180 to 426587
+	remove 1
+	add 0 172709
+	add 0 944966
+	add 0 557352
+	get 5
+	add 4 658870
+	add 5 968491
+	remove 7
+	get 0
+	add 6 528762
+	get 4
+	get 0
+	remove 7
+	remove 4
+	get 5
+	get 4
+	remove 4
+	get 4
+	set 4 from 528762 to 16869
+	remove 3
+	add 2 538006
+	add 2 999323
+	get 0
+	set 4 from 172709 to 623786
+	set 2 from 999323 to 145071
+	get 1
+	set 1 from 944966 to 38958
+	set 0 from 557352 to 221454
+	remove 4
+	add 1 742432
+	add 4 388571
+	set 2 from 38958 to 702643
+	remove 1
+	get 3
+	get 4
+	remove 2
+	get 0
+	set 1 from 702643 to 49545
+	add 3 734539
+	add 4 992015
+	set 3 from 734539 to 460726
+	set 5 from 538006 to 440761
+	set 3 from 460726 to 464793
+	add 4 602065
+	add 1 736186
+	get 6
+	add 7 457991
+	remove 8
+	remove 6
+	remove 3
+	remove 0
+	get 4
+	remove 4
+	set 0 from 736186 to 98896
+	set 0 from 98896 to 312824
+	add 1 355456
+	add 3 766987
+	add 2 115917
+	remove 1
+	add 0 769279
+	set 4 from 766987 to 792404
+	add 0 33477
+	get 0
+	add 2 745053
+	remove 2
+	add 1 419721
+	add 3 286405
+	get 10
+	set 6 from 49545 to 595775
+	set 8 from 464793 to 222312
+	get 3
+	remove 7
+	remove 3
+	get 5
+	remove 6
+	add 1 998795
+	get 8
+	set 8 from 16869 to 358662
+	remove 2
+	get 5
+	get 5
+	add 4 208739
+	set 4 from 208739 to 182466
+	set 6 from 595775 to 62860
+	add 3 426867
+	set 7 from 62860 to 293204
+	remove 2
+	set 2 from 426867 to 557736
+	get 6
+	get 8
+	add 3 8823
+	remove 5
+	get 1
+	add 5 557585
+	remove 6
+	set 8 from 358662 to 621839
+	remove 7
+	add 5 74016
+	add 0 813767
+	remove 0
+	get 3
+	remove 8
+	get 2
+	remove 7
+	add 4 644331
+	get 1
+	get 1
+	add 2 885783
+	get 5
+	get 3
+	get 6
+	add 2 369518
+	add 4 965197
+	set 3 from 885783 to 452564
+	add 5 731741
+	remove 4
+	remove 10
+	get 9
+	get 9
+	remove 9
+	add 0 280252
+	get 1
+	get 2
+	remove 2
+	set 4 from 731741 to 744094
+	remove 2
+	set 0 from 280252 to 908203
+	remove 3
+	remove 6
+	get 0
+	add 4 752089
+	get 0
+	get 0
+	remove 3
+	get 4
+	set 0 from 908203 to 274626
+	get 0
+	set 1 from 33477 to 139510
+	remove 0
+	remove 4
+	get 3
+	remove 2
+	add 1 922889
+	add 3 25012
+	set 4 from 8823 to 388809
+	remove 1
+	get 3
+	get 0
+	remove 0
+	remove 0
+	set 1 from 388809 to 498287
+	get 1
+	get 1
+	add 0 845435
+	get 2
+	remove 0
+	remove 1
+	set 0 from 25012 to 736911
+	add 0 713212
+	add 1 222186
+	get 2
+	set 2 from 736911 to 866974
+	remove 2
+	remove 0
+	remove 0
+	add 0 306606
+	add 0 477920
+	add 0 561540
+	remove 0
+	set 0 from 477920 to 745218
+	set 1 from 306606 to 630184
+	add 0 274271
+	get 1
+	remove 2
+	get 0
+	set 0 from 274271 to 631304
+	get 1
+	remove 0
+	remove 0
+	add 0 156216
+	get 0
+	set 0 from 156216 to 664258
+	add 0 279862
+	add 1 759073
+	set 2 from 664258 to 729437
+	get 0
+	add 0 351391
+	add 0 792460
+	get 1
+	add 0 321003
+	set 3 from 279862 to 633133
+	add 3 296166
+	add 5 757459
+	get 3
+	get 5
+	remove 3
+	remove 3
+	remove 1
+	remove 2
+	set 0 from 321003 to 105736
+	add 0 955643
+	add 1 15099
+	get 0
+	add 2 421798
+	set 1 from 15099 to 478369
+	remove 4
+	get 1
+	set 1 from 478369 to 811041
+	get 5
+	set 1 from 811041 to 673982
+	remove 3
+	get 3
+	remove 2
+	set 3 from 729437 to 678054
+	remove 0
+	set 1 from 759073 to 27286
+	set 2 from 678054 to 74324
+	get 1
+	get 1
+	set 0 from 673982 to 431386
+	set 1 from 27286 to 340913
+	get 0
+	set 1 from 340913 to 976579
+	get 0
+	set 0 from 431386 to 248224
+	get 1
+	remove 2
+	set 1 from 976579 to 70458
+	get 0
+	remove 0
+	set 0 from 70458 to 7588
+	add 0 703011
+	remove 0
+	get 0
+	add 0 938666
+	set 1 from 7588 to 382881
+	get 1
+	add 0 401983
+	remove 1
+	remove 0
+	get 0
+	add 0 301894
+	add 1 49383
+	set 1 from 49383 to 435042
+	remove 2
+	get 1
+	add 0 146520
+	remove 2
+	set 1 from 301894 to 619526
+	remove 1
+	add 0 425274
+	add 1 661004
+	add 0 652132
+	add 2 250801
+	remove 2
+	add 1 743064
+	get 2
+	remove 2
+	set 3 from 146520 to 872064
+	get 2
+	set 1 from 743064 to 384351
+	add 0 646485
+	get 1
+	add 4 286922
+	remove 5
+	remove 2
+	add 0 263445
+	get 0
+	add 0 461346
+	get 2
+	set 3 from 652132 to 276548
+	add 2 820291
+	set 3 from 646485 to 35092
+	get 4
+	set 5 from 661004 to 718508
+	get 5
+	get 2
+	add 4 784055
+	remove 4
+	remove 4
+	get 1
+	set 4 from 718508 to 318545
+	set 2 from 820291 to 867334
+	get 5
+	add 0 514903
+	remove 4
+	add 2 652633
+	get 3
+	add 4 743505
+	add 1 18386
+	set 2 from 461346 to 423392
+	add 6 94512
+	get 1
+	set 8 from 318545 to 566704
+	add 5 676849
+	remove 1
+	remove 2
+	set 2 from 263445 to 684401
+	add 5 425380
+	get 4
+	remove 8
+	set 1 from 423392 to 262632
+	set 0 from 514903 to 485214
+	get 7
+	remove 7
+	remove 2
+	get 2
+	add 6 47907
+	get 7
+	remove 3
+	set 2 from 676849 to 911446
+	remove 5
+	remove 2
+	set 0 from 485214 to 570397
+	remove 3
+	add 3 942894
+	set 4 from 286922 to 18052
+	remove 1
+	add 3 701745
+	get 0
+	get 1
+	remove 0
+	remove 1
+	get 1
+	remove 1
+	remove 1
+	set 0 from 425380 to 172072
+	get 0
+	get 0
+	get 0
+	add 0 698776
+	remove 1
+	remove 0
+	add 0 994985
+	remove 0
+	add 0 357837
+	set 0 from 357837 to 243482
+	remove 0
+	add 0 265166
+	get 0
+	remove 0
+	add 0 572441
+	set 0 from 572441 to 962978
+	add 0 550295
+	get 0
+	remove 1
+	set 0 from 550295 to 45406
+	add 0 411940
+	remove 1
+	get 0
+	set 0 from 411940 to 230771
+	add 0 740683
+	set 1 from 230771 to 671431
+	remove 1
+	get 0
+	add 0 116072
+	set 1 from 740683 to 393223
+	set 1 from 393223 to 488951
+	add 1 599762
+	add 1 828243
+	add 3 831911
+	get 0
+	remove 4
+	remove 1
+	set 2 from 831911 to 771098
+	add 1 406813
+	add 1 748131
+	get 3
+	set 2 from 406813 to 646830
+	set 0 from 116072 to 130184
+	get 2
+	remove 4
+	get 1
+	add 2 270246
+	add 1 303019
+	add 5 171232
+	remove 0
+	set 4 from 171232 to 915783
+	get 3
+	set 2 from 270246 to 174010
+	get 1
+	get 2
+	get 0
+	set 2 from 174010 to 995332
+	set 3 from 646830 to 730660
+	get 4
+	get 1
+	set 1 from 748131 to 506953
+	set 0 from 303019 to 247994
+	set 5 from 599762 to 503893
+	set 1 from 506953 to 312755
+	get 0
+	remove 3
+	add 0 164892
+	remove 2
+	remove 0
+	set 3 from 503893 to 649270
+	get 3
+	add 2 805665
+	add 2 281184
+	remove 1
+	set 4 from 649270 to 528410
+	set 3 from 915783 to 935036
+	set 4 from 528410 to 909887
+	remove 2
+	set 3 from 909887 to 873691
+	remove 3
+	remove 1
+	set 1 from 935036 to 308614
+	remove 0
+	add 0 827934
+	add 1 890587
+	remove 1
+	set 1 from 308614 to 317207
+	remove 1
+	add 0 18279
+	get 1
+	get 0
+	set 0 from 18279 to 218601
+	set 1 from 827934 to 958925
+	remove 1
+	get 0
+	remove 0
+	add 0 746804
+	remove 0
+	add 0 242988
+	remove 0
+	add 0 90598
+	add 0 855062
+	add 0 325760
+	remove 0
+	add 0 737827
+	remove 0
+	set 0 from 855062 to 229589
+	get 0
+	get 0
+	add 0 298786
+	remove 0
+	get 1
+	remove 0
+	get 0
+	set 0 from 90598 to 352204
+	set 0 from 352204 to 884174
+	remove 0
+	add 0 830824
+	get 0
+	get 0
+	get 0
+	get 0
+	set 0 from 830824 to 323409
+	add 0 408282
+	set 0 from 408282 to 316390
+	add 1 970924
+	get 1
+	remove 1
+	get 1
+	get 1
+	set 1 from 323409 to 682475
+	set 0 from 316390 to 674622
+	remove 0
+	remove 0
+	add 0 987751
+	add 0 827466
+	set 1 from 987751 to 940034
+	remove 0
+	get 0
+	get 0
+	get 0
+	get 0
+	add 0 710850
+	remove 0
+	add 0 11958
+	add 1 958282
+	get 2
+	get 1
+	set 1 from 958282 to 911493
+	set 0 from 11958 to 25181
+	get 1
+	set 0 from 25181 to 364579
+	set 0 from 364579 to 560492
+	get 2
+	add 0 34809
+	set 2 from 911493 to 893500
+	remove 3
+	get 1
+	set 1 from 560492 to 29876
+	add 2 673772
+	get 0
+	get 2
+	get 0
+	remove 2
+	remove 1
+	add 0 810477
+	get 0
+	add 1 601059
+	get 0
+	get 2
+	get 0
+	get 3
+	set 1 from 601059 to 414238
+	get 1
+	set 0 from 810477 to 608461
+	remove 3
+	set 0 from 608461 to 497850
+	get 0
+	set 1 from 414238 to 112713
+	get 1
+	get 2
+	add 1 639742
+	remove 0
+	add 0 85237
+	set 1 from 639742 to 902788
+	add 0 200332
+	add 3 626001
+	set 3 from 626001 to 576098
+	get 3
+	get 0
+	add 2 52131
+	add 0 669127
+	add 7 933391
+	remove 6
+	get 4
+	remove 3
+	get 0
+	add 2 253704
+	add 6 820057
+	add 0 284937
+	set 8 from 933391 to 749102
+	set 0 from 284937 to 600073
+	remove 2
+	set 1 from 669127 to 541531
+	remove 8
+	remove 2
+	remove 5
+	add 0 641808
+	add 5 682015
+	set 6 from 576098 to 81318
+	add 6 443502
+	get 3
+	add 2 322495
+	remove 9
+	set 1 from 600073 to 742566
+	set 4 from 85237 to 859593
+	set 6 from 682015 to 245890
+	add 5 907110
+	set 5 from 907110 to 600110
+	set 5 from 600110 to 416000
+	set 8 from 443502 to 324552
+	set 7 from 245890 to 233987
+	add 0 769864
+	remove 6
+	set 7 from 233987 to 91388
+	add 4 298155
+	set 6 from 859593 to 448393
+	get 6
+	remove 8
+	add 2 275629
+	remove 3
+	get 3
+	set 6 from 448393 to 663661
+	add 8 468837
+	remove 5
+	remove 7
+	add 6 23048
+	remove 3
+	remove 4
+	remove 2
+	get 3
+	remove 5
+	get 5
+	add 3 933624
+	add 0 166523
+	set 3 from 298155 to 340306
+	add 1 502012
+	get 3
+	set 6 from 23048 to 120180
+	set 2 from 769864 to 95683
+	remove 6
+	get 6
+	get 7
+	remove 2
+	remove 5
+	add 2 81171
+	get 4
+	get 4
+	set 4 from 340306 to 902176
+	add 6 833802
+	set 3 from 641808 to 985483
+	remove 3
+	get 2
+	remove 1
+	remove 2
+	remove 0
+	add 2 351671
+	remove 2
+	add 3 235056
+	get 1
+	get 3
+	get 2
+	add 3 682696
+	add 4 708425
+	add 0 182443
+	remove 2
+	remove 4
+	add 4 480914
+	remove 2
+	get 3
+	add 2 771126
+	remove 6
+	get 4
+	set 0 from 182443 to 425556
+	remove 0
+	set 1 from 771126 to 377671
+	set 0 from 81171 to 150420
+	remove 2
+	add 3 274140
+	set 4 from 235056 to 271836
+	get 3
+	set 4 from 271836 to 565234
+	remove 4
+	set 0 from 150420 to 211126
+	set 0 from 211126 to 772636
+	get 2
+	set 3 from 274140 to 235098
+	get 3
+	remove 2
+	set 0 from 772636 to 215658
+	set 2 from 235098 to 155744
+	add 2 570655
+	remove 2
+	set 2 from 155744 to 625033
+	remove 1
+	get 1
+	set 1 from 625033 to 527945
+	add 1 103025
+	add 1 947006
+	add 0 278487
+	set 1 from 215658 to 588232
+	add 3 421465
+	set 4 from 103025 to 42735
+	add 3 513704
+	get 4
+	add 0 67377
+	add 7 420527
+	add 7 230684
+	remove 5
+	set 5 from 42735 to 217721
+	remove 3
+	set 0 from 67377 to 988106
+	get 2
+	add 1 881063
+	get 7
+	add 0 107367
+	add 0 862189
+	remove 10
+	remove 8
+	set 4 from 278487 to 792994
+	set 1 from 107367 to 716978
+	get 7
+	remove 0
+	get 2
+	set 6 from 217721 to 481142
+	get 0
+	set 1 from 988106 to 135547
+	remove 1
+	get 1
+	add 3 922973
+	add 0 388761
+	remove 3
+	get 1
+	remove 7
+	remove 5
+	set 4 from 588232 to 367235
+	add 0 94301
+	remove 5
+	remove 5
+	add 1 255203
+	add 3 95318
+	remove 2
+	get 5
+	add 3 386778
+	get 4
+	add 3 138406
+	remove 4
+	add 0 368584
+	add 3 970352
+	set 8 from 922973 to 115887
+	add 0 283579
+	get 1
+	remove 7
+	add 3 819453
+	get 4
+	set 0 from 283579 to 228003
+	remove 8
+	add 4 152082
+	remove 4
+	remove 3
+	add 7 674103
+	add 7 348757
+	set 2 from 94301 to 824907
+	remove 5
+	add 8 939617
+	remove 1
+	remove 3
+	set 4 from 348757 to 416249
+	set 5 from 674103 to 518497
+	set 1 from 824907 to 262080
+	set 5 from 518497 to 203925
+	get 3
+	get 3
+	get 7
+	get 6
+	set 5 from 203925 to 707699
+	set 4 from 416249 to 156779
+	remove 4
+	remove 4
+	set 5 from 115887 to 901760
+	remove 2
+	remove 4
+	get 3
+	set 3 from 939617 to 652217
+	get 1
+	remove 2
+	remove 2
+	remove 1
+	remove 0
+	add 0 208464
+	set 0 from 208464 to 7907
+	add 0 419892
+	set 0 from 419892 to 130849
+	add 1 360072
+	remove 0
+	add 0 919076
+SimpList @ 1000 ops: --10897-- REDIR: 0x57d6ef0 (libc.so.6:__strchrnul_sse2) redirected to 0x4c37020 (strchrnul)
+--10897-- REDIR: 0x57d1740 (libc.so.6:__memchr_sse2) redirected to 0x4c33f80 (memchr)
+0.186746s
+--10897-- REDIR: 0x4ecc440 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4c30110 (operator new(unsigned long))
+	add 0 154151
+	set 0 from 154151 to 403671
+	get 0
+	remove 0
+	add 0 570198
+	set 0 from 570198 to 754024
+	get 0
+	set 0 from 754024 to 91950
+	set 0 from 91950 to 11041
+	get 0
+	set 0 from 11041 to 236041
+	remove 0
+	add 0 374963
+	set 0 from 374963 to 263334
+	add 0 155924
+	remove 0
+	remove 0
+	add 0 389853
+	get 0
+	add 0 797009
+	remove 0
+	get 0
+	add 0 903056
+	add 1 954683
+	remove 0
+	set 1 from 389853 to 676810
+	remove 1
+	add 0 132109
+	add 0 665090
+	set 2 from 954683 to 953063
+	get 0
+	add 2 71476
+	set 1 from 132109 to 717903
+	add 2 379790
+	get 0
+	get 0
+	remove 0
+	remove 1
+	remove 1
+	add 0 279339
+	get 0
+	set 2 from 953063 to 78412
+	set 1 from 717903 to 779595
+	add 1 442921
+	add 0 728040
+	add 0 227086
+	set 5 from 78412 to 427351
+	remove 3
+	get 4
+	remove 4
+	remove 2
+	set 0 from 227086 to 840258
+	get 2
+	add 2 949244
+	set 1 from 728040 to 637353
+	get 3
+	set 0 from 840258 to 443921
+	add 3 659653
+	add 4 291211
+	get 0
+	remove 1
+	get 1
+	get 0
+	add 0 96197
+	add 1 393155
+	remove 2
+	add 0 257290
+	remove 4
+	add 3 851658
+	remove 1
+	add 1 292153
+	set 3 from 851658 to 651639
+	get 3
+	remove 4
+	get 4
+	remove 4
+	get 2
+	remove 1
+	remove 0
+	remove 1
+	set 1 from 779595 to 490655
+	set 1 from 490655 to 109629
+	set 0 from 393155 to 958863
+	remove 0
+	set 0 from 109629 to 578969
+	add 0 99436
+	get 1
+	add 1 889504
+	add 1 94769
+	add 0 688293
+	set 2 from 94769 to 936513
+	get 3
+	add 4 100684
+	set 0 from 688293 to 765185
+	remove 0
+	get 4
+	add 1 763991
+	remove 3
+	add 1 67862
+	get 5
+	remove 5
+	remove 1
+	set 3 from 100684 to 715633
+	remove 3
+	set 0 from 99436 to 353308
+	get 2
+	remove 1
+	remove 1
+	add 0 287101
+	get 0
+	set 0 from 287101 to 618133
+	add 0 290531
+	set 1 from 618133 to 510122
+	get 1
+	set 2 from 353308 to 60653
+	set 0 from 290531 to 737314
+	set 0 from 737314 to 472289
+	remove 2
+	remove 1
+	set 0 from 472289 to 387131
+	remove 0
+	add 0 176910
+	set 0 from 176910 to 60793
+	remove 0
+	add 0 198401
+	remove 0
+	add 0 867568
+	set 0 from 867568 to 15875
+	get 0
+	get 0
+	set 0 from 15875 to 511698
+	remove 0
+	add 0 870698
+	remove 0
+	add 0 896151
+	add 0 7532
+	add 0 109630
+	add 2 630413
+	set 1 from 7532 to 199637
+	set 0 from 109630 to 27632
+	get 2
+	add 0 461381
+	set 3 from 630413 to 79717
+	add 1 242939
+	remove 3
+	set 1 from 242939 to 99023
+	set 2 from 27632 to 96216
+	get 1
+	add 1 640894
+	remove 4
+	add 0 760565
+	remove 2
+	get 4
+	add 1 466911
+	remove 5
+	get 3
+	remove 4
+	add 3 908137
+	remove 4
+	get 2
+	set 2 from 461381 to 350953
+	add 2 250457
+	remove 3
+	get 2
+	remove 3
+	remove 0
+	add 0 424108
+	set 2 from 250457 to 775341
+	set 2 from 775341 to 2469
+	remove 2
+	add 1 633914
+	remove 0
+	set 0 from 633914 to 339713
+	set 0 from 339713 to 236603
+	set 1 from 466911 to 316804
+	add 0 312589
+	add 2 372981
+	set 1 from 236603 to 176743
+	set 0 from 312589 to 616101
+	remove 1
+	set 0 from 616101 to 154543
+	get 0
+	add 0 91614
+	remove 2
+	remove 0
+	get 1
+	remove 1
+	set 0 from 154543 to 244078
+	remove 0
+	add 0 838417
+	remove 0
+	add 0 205932
+	set 0 from 205932 to 116255
+	get 0
+	add 0 926097
+	add 1 697799
+	add 1 749964
+	set 3 from 116255 to 264351
+	remove 1
+	get 2
+	set 2 from 264351 to 80093
+	remove 1
+	remove 0
+	remove 0
+	add 0 370351
+	get 0
+	set 0 from 370351 to 40802
+	add 0 626846
+	add 1 731409
+	set 1 from 731409 to 735340
+	get 1
+	get 1
+	remove 2
+	remove 0
+	remove 0
+	add 0 227123
+	remove 0
+	add 0 698120
+	remove 0
+	add 0 325469
+	add 0 148967
+	set 0 from 148967 to 757339
+	get 1
+	set 0 from 757339 to 89752
+	set 1 from 325469 to 603744
+	add 0 186415
+	add 1 188764
+	add 1 426638
+	get 2
+	remove 4
+	remove 1
+	get 2
+	remove 0
+	get 1
+	add 0 803790
+	set 0 from 803790 to 673341
+	remove 0
+	remove 1
+	add 0 814256
+	add 0 738780
+	set 0 from 738780 to 95984
+	set 0 from 95984 to 264791
+	get 2
+	remove 2
+	set 1 from 814256 to 351151
+	remove 0
+	remove 0
+	add 0 205171
+	set 0 from 205171 to 212024
+	remove 0
+	add 0 321255
+	add 0 658861
+	set 1 from 321255 to 853331
+	set 1 from 853331 to 110391
+	set 1 from 110391 to 156705
+	set 1 from 156705 to 398960
+	remove 0
+	get 0
+	add 0 437268
+	remove 1
+	remove 0
+	add 0 967610
+	get 0
+	remove 0
+	add 0 927168
+	set 0 from 927168 to 980290
+	remove 0
+	add 0 829076
+	get 0
+	set 0 from 829076 to 924639
+	get 0
+	add 0 670419
+	add 1 123247
+	remove 1
+	set 0 from 670419 to 319405
+	set 1 from 924639 to 470606
+	set 0 from 319405 to 16156
+	get 0
+	remove 0
+	get 0
+	add 0 938092
+	remove 1
+	get 0
+	get 0
+	add 0 11821
+	get 0
+	get 0
+	get 1
+	get 1
+	get 0
+	get 1
+	remove 1
+	add 0 240342
+	remove 0
+	set 0 from 11821 to 487589
+	set 0 from 487589 to 733605
+	set 0 from 733605 to 446268
+	remove 0
+	add 0 335596
+	remove 0
+	add 0 668891
+	remove 0
+	add 0 862330
+	remove 0
+	add 0 658079
+	get 0
+	get 0
+	set 0 from 658079 to 804643
+	add 0 368433
+	get 1
+	get 0
+	add 1 81648
+	add 2 171151
+	remove 2
+	get 2
+	set 1 from 81648 to 901347
+	remove 1
+	remove 0
+	add 0 659024
+	set 0 from 659024 to 553521
+	set 1 from 804643 to 995195
+	add 0 655918
+	get 0
+	add 0 797923
+	remove 3
+	get 1
+	set 2 from 553521 to 224439
+	get 2
+	set 2 from 224439 to 361531
+	remove 0
+	remove 1
+	set 0 from 655918 to 58931
+	add 0 268892
+	add 0 999011
+	get 1
+	set 0 from 999011 to 706246
+	get 2
+	add 0 785270
+	add 0 225109
+	get 1
+	get 3
+	add 0 481412
+	remove 5
+	remove 4
+	set 0 from 481412 to 617308
+	remove 2
+	set 2 from 706246 to 198840
+	get 2
+	set 0 from 617308 to 753901
+	remove 2
+	add 1 149440
+	add 1 32610
+	remove 2
+	get 1
+	get 0
+	set 2 from 225109 to 545547
+	get 2
+	add 2 205897
+	remove 0
+	get 2
+	set 0 from 32610 to 319987
+	remove 1
+	set 0 from 319987 to 586906
+	get 1
+	get 0
+	set 1 from 545547 to 514035
+	add 1 468159
+	add 2 262353
+	remove 2
+	get 1
+	set 1 from 468159 to 885692
+	add 2 265567
+	remove 3
+	add 2 949676
+	add 1 554687
+	get 3
+	remove 2
+	remove 0
+	remove 2
+	add 0 236345
+	set 1 from 554687 to 807881
+	add 0 821076
+	get 2
+	set 3 from 949676 to 162277
+	set 2 from 807881 to 262292
+	get 1
+	add 0 100009
+	add 2 293125
+	set 2 from 293125 to 400912
+	set 4 from 262292 to 871885
+	add 5 88557
+	remove 0
+	set 1 from 400912 to 996856
+	get 5
+	add 0 442727
+	add 3 440312
+	get 2
+	remove 6
+	set 6 from 162277 to 389899
+	get 6
+	remove 6
+	get 2
+	set 0 from 442727 to 988956
+	get 0
+	remove 5
+	set 1 from 821076 to 918389
+	add 3 216904
+	remove 0
+	set 1 from 996856 to 749090
+	add 4 882130
+	add 5 802659
+	get 2
+	set 5 from 802659 to 980849
+	remove 2
+	add 5 305675
+	get 2
+	set 0 from 918389 to 495840
+	set 5 from 305675 to 292663
+	get 3
+	add 3 988228
+	set 0 from 495840 to 280566
+	set 3 from 988228 to 819125
+	remove 5
+	remove 2
+	set 5 from 236345 to 114126
+	get 0
+	set 4 from 292663 to 378674
+	get 1
+	remove 3
+	set 1 from 749090 to 325702
+	add 1 73596
+	add 5 995279
+	add 1 245273
+	set 6 from 995279 to 254121
+	set 7 from 114126 to 539538
+	set 0 from 280566 to 682010
+	add 1 398751
+	add 2 263233
+	set 0 from 682010 to 215820
+	get 0
+	set 7 from 378674 to 789885
+	remove 8
+	set 0 from 215820 to 42718
+	remove 8
+	remove 2
+	add 0 205991
+	remove 1
+	set 6 from 789885 to 802792
+	add 0 187620
+	add 1 82605
+	add 7 146381
+	set 7 from 146381 to 707236
+	set 6 from 325702 to 998766
+	get 8
+	add 0 197916
+	get 1
+	add 4 164845
+	get 11
+	get 4
+	remove 7
+	add 2 794869
+	remove 1
+	set 6 from 245273 to 846759
+	remove 9
+	remove 4
+	get 5
+	remove 2
+	remove 6
+	add 0 833586
+	set 7 from 802792 to 664948
+	get 3
+	remove 6
+	add 4 246422
+	add 4 787559
+	add 3 691396
+	set 2 from 794869 to 576763
+	remove 5
+	remove 2
+	get 2
+	get 7
+	get 5
+	add 6 306077
+	set 8 from 664948 to 325967
+	remove 7
+	add 1 917490
+	set 5 from 246422 to 364436
+	add 3 252679
+	remove 7
+	set 4 from 691396 to 630581
+	get 7
+	get 8
+	remove 5
+	add 7 259184
+	add 1 28641
+	remove 7
+	get 3
+	set 0 from 833586 to 682404
+	add 5 917165
+	set 6 from 630581 to 309979
+	get 3
+	remove 6
+	get 6
+	get 4
+	remove 4
+	get 2
+	set 3 from 197916 to 947736
+	add 1 637047
+	get 8
+	set 6 from 364436 to 143889
+	remove 8
+	get 0
+	remove 1
+	get 5
+	set 6 from 259184 to 483743
+	get 0
+	set 3 from 947736 to 528678
+	get 3
+	remove 0
+	set 2 from 528678 to 676701
+	remove 2
+	get 4
+	get 3
+	set 0 from 28641 to 472972
+	remove 2
+	remove 0
+	add 0 388329
+	remove 2
+	get 0
+	get 2
+	remove 0
+	get 1
+	set 1 from 483743 to 91691
+	remove 1
+	set 0 from 917490 to 120038
+	get 0
+	remove 0
+	add 0 715637
+	add 0 729853
+	remove 0
+	remove 0
+	add 0 969938
+	remove 0
+	add 0 75152
+	set 0 from 75152 to 67621
+	set 0 from 67621 to 136339
+	get 0
+	set 0 from 136339 to 568512
+	set 0 from 568512 to 844196
+	set 0 from 844196 to 368194
+	remove 0
+	add 0 814387
+	get 0
+	add 0 681921
+	remove 1
+	set 0 from 681921 to 549003
+	add 0 104691
+	get 0
+	get 1
+	get 1
+	set 1 from 549003 to 148123
+	set 1 from 148123 to 587984
+	add 0 399735
+	set 1 from 104691 to 274527
+	remove 1
+	get 1
+	add 0 985970
+	remove 2
+	remove 0
+	add 0 441426
+	set 0 from 441426 to 788578
+	remove 0
+	get 0
+	add 0 951494
+	remove 0
+	get 0
+	remove 0
+	add 0 91627
+	add 0 336429
+	remove 1
+	get 0
+	remove 0
+	add 0 174079
+	add 0 735456
+	add 1 689966
+	remove 2
+	add 0 754283
+	remove 0
+	set 1 from 689966 to 884639
+	get 1
+	get 1
+	get 1
+	get 1
+	add 1 260204
+	add 0 100752
+	remove 1
+	set 2 from 884639 to 111357
+	remove 1
+	add 1 578076
+	get 1
+	remove 1
+	set 1 from 111357 to 730505
+	add 0 351703
+	remove 2
+	add 1 674174
+	set 1 from 674174 to 388126
+	add 1 94101
+	remove 3
+	set 2 from 388126 to 93202
+	remove 0
+	remove 1
+	get 0
+	remove 0
+	add 0 539088
+	set 0 from 539088 to 366313
+	get 0
+	remove 0
+	add 0 526473
+	remove 0
+	add 0 500639
+	remove 0
+	add 0 67157
+	set 0 from 67157 to 134694
+	add 0 128984
+	add 1 459321
+	set 0 from 128984 to 613355
+	set 2 from 134694 to 406489
+	remove 0
+	remove 0
+	add 0 43881
+	get 0
+	get 0
+	get 1
+	set 1 from 406489 to 882451
+	add 1 489501
+	add 2 292488
+	remove 1
+	get 2
+	set 1 from 292488 to 952744
+	get 1
+	get 1
+	set 2 from 882451 to 782806
+	get 0
+	add 1 532092
+	get 1
+	set 3 from 782806 to 524874
+	get 2
+	add 1 714633
+	remove 0
+	set 0 from 714633 to 92689
+	set 3 from 524874 to 44396
+	add 1 149992
+	remove 3
+	remove 2
+	get 2
+	get 1
+	add 0 610192
+	get 2
+	set 2 from 149992 to 365773
+	set 2 from 365773 to 808040
+	set 0 from 610192 to 821357
+	remove 0
+	remove 2
+	get 0
+	get 0
+	remove 1
+	get 0
+	set 0 from 92689 to 380952
+	remove 0
+	add 0 867823
+	remove 0
+	add 0 315875
+	set 0 from 315875 to 725795
+	remove 0
+	add 0 514612
+	set 0 from 514612 to 519250
+	get 0
+	get 0
+	get 0
+	add 0 299454
+	set 0 from 299454 to 982105
+	add 0 514921
+	set 0 from 514921 to 564479
+	remove 2
+	get 1
+	add 1 407098
+	get 1
+	remove 1
+	get 0
+	add 1 729042
+	add 0 321505
+	remove 1
+	remove 0
+	remove 0
+	get 0
+	set 0 from 982105 to 148309
+	remove 0
+	add 0 720693
+	set 0 from 720693 to 546900
+	add 0 460265
+	add 0 50462
+	get 2
+	add 2 68847
+	set 1 from 460265 to 990264
+	set 1 from 990264 to 896072
+	get 0
+	add 2 686072
+	add 2 651209
+	get 2
+	remove 5
+	get 1
+	add 3 338500
+	get 5
+	add 3 330172
+	get 3
+	get 3
+	set 6 from 68847 to 502261
+	add 6 183834
+	remove 3
+	get 5
+	set 5 from 183834 to 644961
+	set 6 from 502261 to 458026
+	add 3 103946
+	remove 0
+	remove 1
+	set 0 from 896072 to 193799
+	set 2 from 338500 to 218732
+	add 2 84061
+	add 3 128413
+	get 5
+	add 2 645502
+	set 0 from 193799 to 575175
+	get 4
+	set 7 from 644961 to 147804
+	add 4 633266
+	add 1 219752
+	set 7 from 218732 to 980634
+	add 8 563429
+	remove 7
+	remove 1
+	add 1 379317
+	get 9
+	set 4 from 84061 to 434276
+	get 2
+	set 6 from 128413 to 814642
+	get 5
+	remove 0
+	remove 3
+	remove 7
+	get 5
+	add 7 44430
+	add 5 188260
+	remove 1
+	get 5
+	set 7 from 44430 to 579204
+	set 1 from 645502 to 31645
+	remove 7
+	remove 4
+	set 0 from 379317 to 765394
+	get 4
+	remove 0
+	set 5 from 458026 to 215811
+	get 5
+	set 4 from 686072 to 802086
+	add 3 826576
+	set 3 from 826576 to 999215
+	set 6 from 215811 to 27773
+	add 2 609480
+	set 4 from 999215 to 645828
+	get 2
+	set 5 from 563429 to 933071
+	add 5 140688
+	remove 4
+	remove 0
+	set 0 from 633266 to 83606
+	remove 4
+	set 0 from 83606 to 931887
+	add 4 417233
+	remove 1
+	add 2 77109
+	add 0 828067
+	add 2 4451
+	set 2 from 4451 to 375077
+	remove 3
+	remove 5
+	remove 0
+	set 5 from 27773 to 640729
+	set 3 from 140688 to 22840
+	set 2 from 77109 to 425853
+	set 0 from 931887 to 165682
+	remove 3
+	remove 0
+	add 1 531883
+	set 1 from 531883 to 52075
+	remove 2
+	add 0 346438
+	set 1 from 375077 to 776878
+	get 0
+	set 3 from 802086 to 313510
+	get 1
+	get 0
+	remove 0
+	remove 2
+	get 2
+	add 2 300282
+	remove 0
+	set 0 from 52075 to 624208
+	add 2 498916
+	add 3 648758
+	remove 0
+	add 3 780580
+	get 3
+	get 1
+	set 1 from 498916 to 780632
+	set 2 from 648758 to 48025
+	add 1 826047
+	set 1 from 826047 to 172053
+	add 1 1230
+	remove 3
+	remove 2
+	set 3 from 780580 to 504861
+	set 0 from 300282 to 569553
+	set 2 from 48025 to 486047
+	get 3
+	remove 0
+	get 1
+	set 3 from 640729 to 523918
+	get 1
+	set 0 from 1230 to 472491
+	remove 3
+	get 1
+	add 0 944605
+	remove 3
+	add 1 924966
+	remove 1
+	set 2 from 486047 to 848632
+	add 0 902987
+	get 2
+	add 0 545933
+	set 2 from 944605 to 596506
+	add 3 370922
+	get 2
+	set 3 from 370922 to 677823
+	get 4
+	add 1 830800
+	set 4 from 677823 to 18123
+	get 5
+	remove 3
+	add 4 90130
+	remove 1
+	get 1
+	add 1 853784
+	remove 2
+	set 0 from 545933 to 914256
+	add 0 454939
+	set 1 from 914256 to 644756
+	get 3
+	add 5 34935
+	add 6 713431
+	get 7
+	set 4 from 90130 to 533172
+	remove 7
+	add 7 297570
+	get 4
+	set 0 from 454939 to 209766
+	set 5 from 34935 to 237232
+	remove 6
+	remove 2
+	add 0 463628
+	remove 4
+	get 6
+	set 4 from 237232 to 313923
+	set 6 from 848632 to 225243
+	add 5 923983
+	remove 2
+	get 5
+	add 6 30657
+	remove 5
+	remove 2
+	remove 2
+	set 0 from 463628 to 905675
+	add 1 189882
+	remove 2
+	add 4 709465
+	add 3 49808
+	add 1 328726
+	get 2
+	set 7 from 225243 to 947909
+	set 0 from 905675 to 191311
+	add 4 980315
+	set 2 from 189882 to 193930
+	remove 4
+	get 2
+	set 0 from 191311 to 524871
+	add 1 33115
+	set 5 from 49808 to 468967
+	get 5
+	set 3 from 193930 to 9890
+	get 4
+	set 8 from 947909 to 623960
+	get 4
+	set 2 from 328726 to 522427
+	add 3 753926
+	get 1
+	set 6 from 468967 to 878239
+	remove 2
+	get 2
+	set 5 from 878239 to 950449
+	set 4 from 923983 to 508862
+	remove 6
+	add 0 795584
+	set 3 from 753926 to 478987
+	set 3 from 478987 to 748170
+	remove 0
+	remove 1
+	set 6 from 623960 to 483998
+	add 5 635721
+	remove 0
+	get 1
+	get 3
+	add 1 27924
+	add 7 256907
+	set 2 from 9890 to 372119
+	remove 1
+	remove 5
+	set 0 from 748170 to 446551
+	add 1 878127
+	remove 5
+	add 6 847911
+	add 2 146350
+	set 3 from 372119 to 501953
+	remove 1
+	get 5
+	remove 3
+	set 3 from 950449 to 928127
+	remove 4
+	set 3 from 928127 to 160432
+	add 3 652753
+	set 5 from 847911 to 716640
+	set 2 from 501953 to 126686
+	get 4
+	add 4 247065
+	set 6 from 716640 to 531321
+	set 1 from 146350 to 946420
+	add 0 732958
+	remove 1
+	remove 0
+	set 1 from 126686 to 42884
+	add 0 349092
+	remove 1
+	get 2
+	set 0 from 349092 to 104518
+	get 3
+	add 3 96685
+	get 6
+	set 7 from 483998 to 644295
+	get 1
+	get 7
+	get 0
+	add 0 316381
+	add 3 658150
+	add 1 542911
+	remove 3
+	add 4 777501
+	add 10 138278
+	get 5
+	add 9 916846
+	set 2 from 104518 to 434097
+	add 10 114710
+	get 4
+	remove 11
+	add 10 827585
+	set 3 from 658150 to 480104
+	get 2
+	remove 9
+	remove 2
+	remove 4
+	add 4 327747
+	set 8 from 827585 to 72396
+	remove 2
+	remove 10
+	remove 9
+	remove 1
+	get 2
+	add 2 437280
+	get 5
+	get 8
+	add 6 865943
+	remove 6
+	get 1
+	remove 1
+	remove 3
+	remove 1
+	get 1
+	set 1 from 327747 to 606271
+	set 5 from 114710 to 216521
+	set 1 from 606271 to 918947
+	set 4 from 72396 to 622784
+	add 0 962541
+	remove 1
+	get 0
+VList @ 1000 ops: 0.228199s
+	add 0 574040
+	set 0 from 574040 to 284392
+	remove 0
+	add 0 955753
+	get 0
+	set 0 from 955753 to 491913
+	set 0 from 491913 to 409808
+	remove 0
+	add 0 981960
+	remove 0
+	add 0 488446
+	set 0 from 488446 to 945070
+	add 0 637827
+	get 1
+	remove 0
+	get 0
+	get 0
+	get 0
+	set 0 from 945070 to 40826
+	add 0 51237
+	set 0 from 51237 to 617729
+	set 0 from 617729 to 307712
+	get 0
+	set 1 from 40826 to 865761
+	get 1
+	add 0 84567
+	get 1
+	remove 0
+	remove 0
+	get 0
+	add 0 254597
+	add 1 631668
+	get 2
+	set 1 from 631668 to 354540
+	get 0
+	set 1 from 354540 to 95574
+	add 1 93919
+	add 0 527243
+	add 3 562781
+	remove 5
+	set 2 from 93919 to 661471
+	remove 4
+	add 2 296536
+	remove 4
+	set 1 from 254597 to 794681
+	get 1
+	set 3 from 661471 to 846516
+	set 2 from 296536 to 153246
+	remove 0
+	get 1
+	remove 2
+	get 1
+	remove 0
+	remove 0
+	add 0 685154
+	remove 0
+	add 0 86725
+	get 0
+	add 0 640178
+	add 1 398629
+	add 1 556920
+	remove 1
+	get 2
+	get 0
+	add 1 64403
+	set 2 from 398629 to 750967
+	set 2 from 750967 to 177366
+	set 2 from 177366 to 479717
+	remove 1
+	set 1 from 479717 to 532423
+	get 1
+	remove 0
+	get 0
+	add 0 52232
+	set 0 from 52232 to 660953
+	remove 0
+	add 0 397553
+	set 2 from 86725 to 77193
+	set 1 from 532423 to 83480
+	get 1
+	set 2 from 77193 to 413474
+	get 2
+	get 1
+	add 0 40379
+	set 1 from 397553 to 30352
+	add 1 549515
+	remove 1
+	add 1 526253
+	get 3
+	add 0 980618
+	add 5 374387
+	add 3 331996
+	get 2
+	set 1 from 40379 to 662072
+	get 6
+	remove 3
+	remove 4
+	add 0 215929
+	add 3 142047
+	set 0 from 215929 to 779780
+	get 3
+	add 4 494448
+	remove 8
+	add 5 206649
+	remove 0
+	remove 4
+	get 4
+	remove 4
+	get 5
+	remove 4
+	set 1 from 662072 to 732188
+	remove 1
+	get 1
+	remove 1
+	remove 1
+	add 0 41027
+	remove 2
+	remove 0
+	remove 0
+	add 0 843587
+	set 0 from 843587 to 800160
+	remove 0
+	add 0 851731
+	remove 0
+	add 0 157574
+	set 0 from 157574 to 151827
+	get 0
+	get 0
+	remove 0
+	add 0 805420
+	set 0 from 805420 to 483953
+	add 0 607102
+	set 1 from 483953 to 726890
+	add 0 405194
+	add 0 853433
+	add 0 575180
+	add 1 148084
+	remove 0
+	set 0 from 148084 to 755834
+	set 2 from 405194 to 207756
+	add 2 749441
+	set 2 from 749441 to 457288
+	get 3
+	remove 3
+	add 4 105249
+	add 2 362097
+	set 3 from 457288 to 449574
+	set 5 from 105249 to 471204
+	get 3
+	add 5 529178
+	remove 0
+	add 0 154173
+	get 1
+	get 5
+	get 1
+	add 1 713336
+	add 4 488197
+	get 5
+	remove 5
+	remove 3
+	get 1
+	add 3 945244
+	set 2 from 853433 to 281955
+	get 3
+	get 4
+	get 0
+	get 6
+	set 1 from 713336 to 743726
+	remove 6
+	set 3 from 945244 to 438947
+	set 6 from 471204 to 203300
+	add 2 102442
+	set 7 from 203300 to 227945
+	get 2
+	remove 6
+	add 1 558277
+	set 1 from 558277 to 760078
+	remove 3
+	set 4 from 438947 to 157643
+	get 0
+	add 1 640662
+	set 3 from 743726 to 517513
+	set 2 from 760078 to 581839
+	set 4 from 281955 to 292827
+	set 3 from 517513 to 31687
+	add 1 339377
+	remove 6
+	get 0
+	get 7
+	set 8 from 726890 to 442899
+	add 2 647950
+	get 2
+	get 1
+	set 5 from 31687 to 899132
+	remove 4
+	set 3 from 640662 to 266439
+	remove 6
+	remove 4
+	add 1 325134
+	remove 5
+	add 5 686149
+	remove 4
+	get 6
+	add 3 202196
+	add 1 90916
+	remove 2
+	get 1
+	set 2 from 339377 to 760019
+	remove 7
+	add 5 852952
+	remove 4
+	set 5 from 686149 to 542671
+	set 0 from 154173 to 503341
+	remove 2
+	get 4
+	set 3 from 852952 to 420424
+	set 2 from 202196 to 851745
+	remove 3
+	get 4
+	set 3 from 542671 to 209582
+	set 3 from 209582 to 759815
+	add 3 580690
+	get 2
+	get 3
+	get 4
+	set 0 from 503341 to 127075
+	add 2 817759
+	get 5
+	remove 5
+	set 3 from 851745 to 180882
+	remove 5
+	set 2 from 817759 to 790678
+	get 2
+	get 3
+	remove 2
+	add 3 240272
+	add 2 963612
+	add 4 239866
+	remove 5
+	remove 1
+	get 3
+	add 0 434440
+	get 0
+	get 5
+	get 0
+	get 1
+	remove 3
+	get 3
+	add 2 639948
+	add 2 640888
+	get 2
+	add 5 314295
+	set 2 from 640888 to 606178
+	set 2 from 606178 to 116030
+	get 4
+	add 1 896351
+	add 5 912422
+	get 8
+	get 5
+	get 3
+	get 2
+	add 4 440109
+	remove 7
+	set 6 from 912422 to 441220
+	set 6 from 441220 to 391421
+	get 8
+	get 8
+	set 0 from 434440 to 387128
+	set 5 from 639948 to 690434
+	remove 2
+	set 7 from 239866 to 381374
+	add 7 30087
+	remove 4
+	add 1 800671
+	add 0 506296
+	remove 6
+	add 6 782888
+	remove 6
+	set 8 from 381374 to 867927
+	remove 1
+	get 0
+	add 3 738575
+	get 1
+	add 9 193698
+	remove 1
+	get 7
+	add 5 760971
+	remove 4
+	remove 9
+	set 3 from 116030 to 421319
+	add 6 980801
+	remove 6
+	remove 8
+	set 5 from 314295 to 97096
+	add 1 912542
+	get 3
+	add 4 665271
+	remove 1
+	get 1
+	set 7 from 30087 to 173738
+	add 2 567815
+	set 8 from 173738 to 487532
+	add 5 158949
+	remove 8
+	add 5 101849
+	get 10
+	get 10
+	remove 0
+	set 3 from 665271 to 329352
+	set 6 from 421319 to 124986
+	add 2 85577
+	get 1
+	set 7 from 124986 to 355950
+	get 10
+	get 4
+	remove 8
+	add 1 561636
+	add 1 575397
+	set 9 from 355950 to 684350
+	add 10 727397
+	set 11 from 487532 to 976522
+	remove 4
+	add 0 192842
+	get 5
+	get 1
+	remove 3
+	set 4 from 738575 to 352425
+	get 9
+	remove 6
+	get 4
+	get 3
+	add 2 967097
+	add 9 744484
+	set 8 from 684350 to 797371
+	add 7 978084
+	add 12 771716
+	set 3 from 575397 to 549325
+	set 1 from 896351 to 38483
+	get 10
+	add 4 669821
+	set 6 from 352425 to 414301
+	remove 15
+	set 1 from 38483 to 635176
+	remove 11
+	remove 12
+	remove 10
+	get 5
+	add 1 480281
+	add 9 817606
+	remove 10
+	add 9 895006
+	set 3 from 967097 to 505837
+	add 13 741142
+	remove 3
+	remove 11
+	get 4
+	remove 2
+	remove 8
+	remove 10
+	remove 6
+	add 2 108115
+	set 0 from 192842 to 968703
+	set 0 from 968703 to 415895
+	set 3 from 549325 to 412788
+	remove 8
+	add 6 395747
+	add 8 650394
+	get 4
+	remove 6
+	get 8
+	add 5 672604
+	add 4 797425
+	remove 3
+	remove 9
+	get 9
+	add 5 791020
+	set 1 from 480281 to 44368
+	remove 7
+	remove 0
+	get 2
+	remove 2
+	set 0 from 44368 to 843196
+	add 2 16899
+	get 6
+	set 5 from 672604 to 389654
+	get 7
+	add 7 318877
+	add 6 667183
+	add 7 535276
+	set 5 from 389654 to 289157
+	add 9 374367
+	get 7
+	add 11 943376
+	set 9 from 374367 to 128504
+	get 5
+	set 9 from 128504 to 147312
+	remove 13
+	add 2 832903
+	get 11
+	remove 8
+	get 12
+	add 4 99572
+	set 5 from 669821 to 632457
+	get 9
+	remove 12
+	set 6 from 791020 to 910063
+	remove 6
+	remove 8
+	set 1 from 108115 to 913701
+	get 10
+	add 7 574821
+	set 3 from 16899 to 220157
+	get 7
+	get 5
+	set 10 from 318877 to 59539
+	remove 7
+	remove 0
+	add 4 548143
+	set 0 from 913701 to 609948
+	set 3 from 99572 to 916988
+	get 6
+	get 0
+	add 8 40550
+	get 1
+	get 9
+	set 3 from 916988 to 274569
+	add 11 954225
+	set 3 from 274569 to 823677
+	set 5 from 632457 to 657036
+	add 3 334404
+	set 2 from 220157 to 367564
+	set 8 from 667183 to 758580
+	get 7
+	set 12 from 954225 to 378111
+	set 9 from 40550 to 121426
+	get 11
+	get 11
+	set 4 from 823677 to 116407
+	set 13 from 650394 to 171406
+	set 7 from 289157 to 392105
+	add 0 140775
+	add 14 502870
+	get 8
+	set 8 from 392105 to 852512
+	add 0 997929
+	set 15 from 502870 to 858079
+	get 15
+	get 5
+	remove 11
+	remove 15
+	get 7
+	remove 2
+	remove 7
+	set 6 from 548143 to 33455
+	set 0 from 997929 to 970988
+	remove 3
+	set 10 from 378111 to 406222
+	get 9
+	set 5 from 33455 to 13196
+	remove 3
+	remove 7
+	add 8 399596
+	remove 7
+	set 6 from 758580 to 289055
+	add 2 759235
+	add 0 461156
+	get 2
+	get 9
+	remove 4
+	remove 10
+	add 6 718569
+	set 3 from 759235 to 547209
+	get 8
+	set 10 from 406222 to 283307
+	set 4 from 116407 to 760622
+	add 2 662554
+	add 1 405361
+	add 11 427921
+	add 12 853315
+	get 3
+	remove 12
+	remove 5
+	add 4 32481
+	remove 7
+	set 9 from 289055 to 382683
+	remove 6
+	remove 2
+	add 9 851672
+	remove 0
+	remove 1
+	remove 2
+	add 6 537905
+	remove 4
+	get 7
+	set 6 from 851672 to 680751
+	remove 7
+	get 4
+	remove 2
+	get 5
+	get 3
+	get 0
+	add 0 49039
+	add 0 307491
+	set 4 from 852512 to 905717
+	add 2 483902
+	add 0 335550
+	remove 1
+	set 3 from 405361 to 847807
+	set 0 from 335550 to 961002
+	get 8
+	add 7 502066
+	add 9 794929
+	set 7 from 502066 to 263777
+	remove 9
+	add 0 550254
+	add 6 303007
+	add 5 883956
+	get 10
+	add 7 310519
+	get 12
+	get 8
+	set 6 from 32481 to 714326
+	set 9 from 905717 to 156745
+	add 10 176263
+	get 6
+	set 13 from 537905 to 571449
+	add 9 70695
+	get 4
+	get 0
+	add 15 910646
+	set 1 from 961002 to 581606
+	get 7
+	add 8 770452
+	set 15 from 571449 to 853730
+	set 17 from 680751 to 413428
+	add 4 292703
+	add 12 324850
+	set 14 from 176263 to 694353
+	get 6
+	get 19
+	get 17
+	add 16 894049
+	remove 15
+	add 20 97267
+	get 19
+	remove 10
+	get 1
+	set 17 from 910646 to 931413
+	remove 10
+	remove 16
+	set 8 from 310519 to 401424
+	remove 9
+	add 11 422931
+	set 16 from 413428 to 657063
+	add 5 140423
+	remove 3
+	remove 13
+	get 7
+	get 11
+	add 13 186385
+	add 1 507094
+	get 7
+	get 19
+	remove 9
+	remove 11
+	remove 8
+	set 12 from 263777 to 347364
+	set 10 from 694353 to 250181
+	add 1 510776
+	get 10
+	remove 4
+	set 0 from 550254 to 142143
+	get 2
+	remove 10
+	remove 8
+	remove 2
+	add 10 971341
+	get 9
+	remove 14
+	remove 4
+	get 8
+	add 8 859065
+	remove 5
+	set 2 from 581606 to 940516
+	remove 10
+	get 0
+	set 4 from 847807 to 175503
+	add 9 134127
+	set 9 from 134127 to 65629
+	get 0
+	remove 5
+	set 0 from 142143 to 27701
+	remove 7
+	get 7
+	remove 10
+	get 7
+	get 4
+	remove 2
+	set 4 from 186385 to 521149
+	set 8 from 657063 to 207894
+	remove 4
+	get 4
+	set 7 from 207894 to 189143
+	remove 0
+	remove 1
+	get 3
+	get 2
+	add 3 61973
+	set 4 from 65629 to 873403
+	set 5 from 971341 to 391229
+	remove 3
+	set 3 from 873403 to 870298
+	get 2
+	remove 4
+	remove 4
+	get 3
+	get 2
+	remove 3
+	add 0 573579
+	remove 1
+	get 1
+	add 2 293756
+	set 1 from 175503 to 79870
+	add 3 200832
+	add 4 242333
+	remove 0
+	remove 4
+	add 3 745079
+	set 1 from 293756 to 983661
+	set 4 from 242333 to 676031
+	remove 4
+	add 1 803739
+	set 4 from 745079 to 773979
+	get 1
+	get 2
+	remove 0
+	add 1 925531
+	remove 3
+	remove 3
+	remove 0
+	get 0
+	get 0
+	add 0 657195
+	set 2 from 983661 to 336257
+	add 0 506328
+	add 3 869967
+	set 0 from 506328 to 368241
+	add 0 508950
+	get 4
+	add 5 585978
+	get 2
+	remove 5
+	remove 1
+	remove 2
+	add 3 535
+	add 3 801768
+	add 4 856530
+	get 6
+	get 3
+	remove 5
+	get 5
+	set 1 from 657195 to 651513
+	get 2
+	add 2 655429
+	add 4 130761
+	get 2
+	remove 2
+	get 3
+	set 4 from 801768 to 725194
+	set 2 from 869967 to 721793
+	get 6
+	remove 4
+	get 2
+	get 2
+	get 3
+	remove 5
+	remove 2
+	set 2 from 130761 to 348842
+	remove 0
+	add 0 603519
+	add 0 951727
+	set 0 from 951727 to 975950
+	add 3 923659
+	set 5 from 856530 to 691722
+	add 1 838899
+	get 5
+	set 4 from 923659 to 404990
+	set 4 from 404990 to 859388
+	add 3 62328
+	get 2
+	remove 4
+	set 4 from 859388 to 459448
+	remove 3
+	remove 1
+	remove 4
+	add 3 405442
+	add 3 326905
+	add 1 829230
+	get 1
+	get 5
+	remove 3
+	get 0
+	remove 3
+	remove 4
+	set 3 from 405442 to 167698
+	remove 2
+	add 2 287001
+	remove 0
+	remove 1
+	set 1 from 167698 to 815110
+	add 0 295920
+	add 2 836790
+	get 3
+	set 1 from 829230 to 200642
+	get 1
+	add 2 915960
+	add 1 366827
+	get 5
+	remove 2
+	add 2 53973
+	remove 2
+	remove 1
+	add 2 844194
+	add 1 874791
+	add 0 363876
+	add 0 23019
+	add 0 863442
+	get 8
+	add 7 648484
+	get 5
+	add 5 966491
+	set 0 from 863442 to 712913
+	set 9 from 836790 to 385240
+	set 5 from 966491 to 471085
+	set 2 from 363876 to 368646
+	remove 10
+	remove 7
+	set 2 from 368646 to 435824
+	set 7 from 648484 to 42991
+	get 1
+	remove 8
+	get 2
+	get 0
+	get 7
+	add 5 673180
+	add 7 584482
+	add 2 773584
+	add 10 453299
+	remove 4
+	remove 0
+	get 5
+	get 5
+	remove 1
+	get 0
+	set 6 from 915960 to 746986
+	get 0
+	get 0
+	get 7
+	add 2 575614
+	remove 5
+	get 2
+	remove 0
+	set 6 from 453299 to 800184
+	add 6 818389
+	remove 0
+	remove 0
+	get 4
+	get 6
+	get 0
+	add 3 894757
+	add 1 423319
+	get 4
+	set 4 from 894757 to 960416
+	remove 2
+	set 3 from 960416 to 396574
+	remove 5
+	add 1 495128
+	add 2 262893
+	add 5 496753
+	get 1
+	get 5
+	add 7 635484
+	remove 7
+	get 1
+	set 1 from 495128 to 125680
+	set 9 from 42991 to 454394
+	add 2 619078
+	add 8 659711
+	set 1 from 125680 to 656895
+	add 6 73024
+	remove 6
+	set 6 from 496753 to 78591
+	get 3
+	set 8 from 659711 to 883309
+	add 1 842356
+	get 4
+	remove 2
+	remove 3
+	set 8 from 746986 to 413551
+	get 9
+	get 4
+	set 0 from 874791 to 492854
+	add 6 989771
+	set 3 from 423319 to 817204
+	add 9 226502
+	remove 12
+	set 2 from 619078 to 755431
+	add 0 11620
+	set 1 from 492854 to 245432
+	remove 5
+	get 9
+	add 8 364456
+	add 2 919085
+	add 0 887710
+	remove 13
+	remove 11
+	get 12
+	get 10
+	add 8 191778
+	add 2 720452
+	remove 2
+	get 0
+	set 6 from 817204 to 182212
+	get 6
+	remove 1
+	add 5 180284
+	get 9
+	add 5 114015
+	remove 10
+	set 10 from 396574 to 70820
+	remove 5
+	set 6 from 182212 to 306517
+	set 9 from 70820 to 74635
+	remove 7
+	get 9
+	add 7 115572
+	remove 6
+	add 8 307423
+	set 6 from 115572 to 313341
+	get 5
+	add 4 73212
+	get 13
+	set 6 from 180284 to 862808
+	set 1 from 245432 to 213117
+	remove 0
+	get 12
+	add 7 228693
+	add 8 979448
+	remove 12
+	remove 9
+	get 2
+	add 0 648199
+	add 5 726294
+	add 3 524237
+	get 9
+	add 11 789963
+	get 6
+	remove 12
+	add 1 73362
+	remove 3
+	set 13 from 74635 to 9357
+	get 1
+	remove 12
+	get 0
+	get 6
+	set 4 from 842356 to 181853
+	remove 14
+	set 4 from 181853 to 325980
+	add 1 423256
+	remove 10
+	get 9
+	add 10 170993
+	add 1 589036
+	remove 4
+	remove 3
+	remove 2
+	add 3 995117
+	get 1
+	set 7 from 755431 to 162827
+	add 1 713937
+	get 5
+	set 7 from 726294 to 395881
+	get 0
+	get 9
+	remove 12
+	set 6 from 73212 to 493510
+	get 0
+	remove 8
+	set 8 from 862808 to 229301
+	add 1 945850
+	get 8
+	get 3
+	add 6 209834
+	remove 0
+	get 8
+	add 1 511737
+	get 6
+	set 1 from 511737 to 67106
+	get 1
+	set 0 from 945850 to 304225
+	get 10
+	add 9 76209
+	add 3 447103
+	set 4 from 589036 to 557276
+	set 3 from 447103 to 397005
+	set 0 from 304225 to 761627
+	add 0 432867
+	remove 0
+	set 7 from 209834 to 348840
+	get 10
+	remove 9
+	get 5
+	set 7 from 348840 to 604082
+	get 2
+	set 13 from 228693 to 363845
+	set 12 from 170993 to 876063
+	add 3 278466
+	set 6 from 524237 to 405908
+	add 3 730442
+	get 12
+	remove 13
+	remove 0
+	remove 10
+	add 9 391794
+	remove 6
+	set 11 from 876063 to 273353
+	get 11
+	add 9 309813
+	set 7 from 604082 to 166890
+	set 8 from 391794 to 108526
+	add 2 555852
+	get 1
+	remove 16
+	remove 1
+	add 0 881282
+	get 14
+	remove 9
+	add 5 908900
+	get 1
+	get 0
+	remove 6
+	remove 9
+	set 7 from 995117 to 221143
+	get 9
+	get 3
+	add 11 781303
+	add 8 84585
+	remove 3
+	set 3 from 278466 to 943123
+	add 13 203562
+	remove 12
+	get 8
+	remove 3
+	remove 13
+	add 3 894330
+	set 10 from 395881 to 64530
+	add 9 435034
+	remove 12
+	add 0 841779
+	add 11 381896
+	add 5 212485
+	set 9 from 84585 to 268496
+	remove 12
+	add 3 912780
+	set 3 from 912780 to 938368
+	remove 13
+	get 9
+	set 13 from 64530 to 71484
+	get 0
+	set 12 from 435034 to 786513
+	get 14
+	remove 8
+	set 8 from 221143 to 460021
+	get 11
+	set 10 from 166890 to 699835
+	set 10 from 699835 to 372072
+	remove 3
+	set 13 from 363845 to 76001
+	remove 3
+	remove 1
+	remove 3
+	get 9
+	add 3 665656
+	set 9 from 71484 to 392580
+	add 11 314844
+	remove 10
+	add 9 269498
+	get 9
+	get 10
+	remove 10
+	set 9 from 269498 to 100372
+	get 3
+	get 4
+	set 9 from 100372 to 630176
+	get 10
+	set 3 from 665656 to 981283
+	set 2 from 894330 to 609264
+	remove 3
+	set 9 from 314844 to 219922
+	add 1 249031
+LinkedList @ 1000 ops: 0.165524s
+==10897== Mismatched free() / delete / delete []
+==10897==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x402FFF: ods::SimpList<int>::~SimpList() (simplist.h:42)
+==10897==    by 0x4024BD: main (list_bench.cc:135)
+==10897==  Address 0x5b21f90 is 0 bytes inside a block of size 64 alloc'd
+==10897==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x4068C3: ods::SimpList<int>::grow() (simplist.h:140)
+==10897==    by 0x406693: ods::SimpList<int>::add(unsigned long, int) (simplist.h:94)
+==10897==    by 0x40297F: benchmark(ods::List<int>&, int) (list_bench.cc:81)
+==10897==    by 0x4025F7: run(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, ods::List<int>&, int) (list_bench.cc:108)
+==10897==    by 0x402395: main (list_bench.cc:128)
+==10897== 
+--10897-- REDIR: 0x57be390 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==10897== 
+==10897== HEAP SUMMARY:
+==10897==     in use at exit: 0 bytes in 0 blocks
+==10897==   total heap usage: 273 allocs, 273 frees, 81,780 bytes allocated
+==10897== 
+==10897== All heap blocks were freed -- no leaks are possible
+==10897== 
+==10897== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==10897== 
+==10897== 1 errors in context 1 of 2:
+==10897== Mismatched free() / delete / delete []
+==10897==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x402FFF: ods::SimpList<int>::~SimpList() (simplist.h:42)
+==10897==    by 0x4024BD: main (list_bench.cc:135)
+==10897==  Address 0x5b21f90 is 0 bytes inside a block of size 64 alloc'd
+==10897==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x4068C3: ods::SimpList<int>::grow() (simplist.h:140)
+==10897==    by 0x406693: ods::SimpList<int>::add(unsigned long, int) (simplist.h:94)
+==10897==    by 0x40297F: benchmark(ods::List<int>&, int) (list_bench.cc:81)
+==10897==    by 0x4025F7: run(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, ods::List<int>&, int) (list_bench.cc:108)
+==10897==    by 0x402395: main (list_bench.cc:128)
+==10897== 
+==10897== 
+==10897== 1 errors in context 2 of 2:
+==10897== Mismatched free() / delete / delete []
+==10897==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x40692E: ods::SimpList<int>::grow() (simplist.h:146)
+==10897==    by 0x406693: ods::SimpList<int>::add(unsigned long, int) (simplist.h:94)
+==10897==    by 0x40297F: benchmark(ods::List<int>&, int) (list_bench.cc:81)
+==10897==    by 0x4025F7: run(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, ods::List<int>&, int) (list_bench.cc:108)
+==10897==    by 0x402395: main (list_bench.cc:128)
+==10897==  Address 0x5b20ef0 is 0 bytes inside a block of size 32 alloc'd
+==10897==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==10897==    by 0x402DE3: ods::SimpList<int>::SimpList() (simplist.h:34)
+==10897==    by 0x402350: main (list_bench.cc:127)
+==10897== 
+==10897== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CONTAINER="{CONTAINER:-cc-build:latest}"
+
+docker run -i -t -v $(pwd):/workspace ${CONTAINER} bash
