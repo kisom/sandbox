@@ -1,0 +1,4 @@
+# ignore intermediate and build objects
+*.fasl
+*.pyc
+*.o
