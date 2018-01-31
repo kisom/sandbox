@@ -8,5 +8,6 @@ Projects
 --------
 
 + ``lpn/``: `Learn Prolog Now <http://lpn.swi-prolog.org/>`_
++ ``misc/``: A scratchpad of random programs
++ ``par/``: `A Pamphlet Against R <https://panicz.github.io/pamphlet/>`_
 + ``uc/``: `Understanding Computation <http://computationbook.com/>`_
-
