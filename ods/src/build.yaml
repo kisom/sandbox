@@ -8,3 +8,9 @@ targets:
     ch01ex03: []
     ch01ex04: []
     ch01ex05: []
+
+    # disabled due to flakey C++17 support.
+    # ch01ex06: []
+    # list_bench: []
+    # sset_bench: []
+    # uset_bench: []
