@@ -1,0 +1,10 @@
+compilers:
+  cxx: clang++-5.0
+  ld: clang++-5.0
+
+targets:
+  cc:
+    ch01ex01: []
+    ch01ex03: []
+    ch01ex04: []
+    ch01ex05: []
