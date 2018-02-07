@@ -2,3 +2,8 @@
 *.fasl
 *.pyc
 *.o
+
+# ignore build systems
+.ninja_deps
+.ninja_log
+*.ninja
