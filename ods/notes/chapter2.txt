@@ -1,0 +1,15 @@
+# Chapter 2 (Array-based lists)
+
+These data structures have common advantages and limitations:
+
+* constant-time access
+
+* resizing the array adds potentially non-trivial complexity, both in time and
+  storage, as a new array generally must be created and the old array copied
+  over.
+
+* arrays aren't dynamic, which means inserting or deleting in the middle of an
+  array requires shifting all the following elements.
+
+With some careful management, the additional *amortised* complexity added by
+resizing isn't too bad.

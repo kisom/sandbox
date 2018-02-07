@@ -1,6 +1,6 @@
 compilers:
-  cxx: clang++-5.0
-  ld: clang++-5.0
+  cxx: clang++
+  ld: clang++
 
 targets:
   cc:

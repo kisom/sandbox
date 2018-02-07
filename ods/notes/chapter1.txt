@@ -166,6 +166,12 @@ Run times come in three flavours:
       might be a doubly-linked list with the iteration direction determined by
       distance from the centre, though this comes at the cost of additional
       complexity. The same improvements would apply to remove.
+
+      On a randomised benchmark (random operation, random value, random index),
+      the array-backed list still outperforms a from-scratch linked list and
+      an STL vector wrapper. The linked list performs the worst, with wildly
+      varying run times.
+
    2. For the sorted list, a basic improvement for find would be to pick the
       middle of the list and do an equality check, basically bisecting to
       find where the value *would* be.
