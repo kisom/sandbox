@@ -13,3 +13,9 @@ These data structures have common advantages and limitations:
 
 With some careful management, the additional *amortised* complexity added by
 resizing isn't too bad.
+
+## Array stack
+
+* Uses backing array *a*.
+* Typically, the array will be larger than necessary, so an element *n* is
+  used to track the actual number of elements stored in the stack.

@@ -8,6 +8,7 @@ targets:
     ch01ex03: []
     ch01ex04: []
     ch01ex05: []
+    array_test: []
 
     # disabled due to flakey C++17 support.
     # ch01ex06: []
