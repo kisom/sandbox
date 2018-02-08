@@ -2,8 +2,41 @@
 *.fasl
 *.pyc
 *.o
+*.pdf
+.d
 
 # ignore build systems
 .ninja_deps
 .ninja_log
 *.ninja
+
+# editor crap
+.vscode/*
+!.vscode/settings.json
+
+# data files
+ods/data/corpus.txt
+ods/data/cpp
+ods/data/ods-cpp.tgz
+ods/data/ods-cpp.pdf
+
+# autotools junk files
+.deps
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+compile
+config.*
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+m4/
+missing
+
+ch??ex??
+*_test
+*.la
+*_bench

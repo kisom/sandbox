@@ -1,6 +1,8 @@
 #include <iostream>
 #include <ods/array.h>
+#include <ods/array_stack.h>
 using namespace std;
+using namespace ods;
 
 int
 main(void)
@@ -10,5 +12,15 @@ main(void)
 	cout << "a[0] " << a[0] << endl;
 	
 	b = a;
-	cout << "a[0] " << a[0] << endl;
+	cout << "b[0] " << b[0] << endl;
+
+	ArrayStack<int>	as(5);
+	for (int i = 0; i < 3; i++) {
+		as.set(i, i+1);
+	}
+	as.add(1, 42);
+	cout << "as[0] " << as.get(0) << endl;
+	cout << "as[1] " << as.get(1) << endl;
+	as.remove(0);
+	cout << "as[0] " << as.get(0) << endl;
 }
