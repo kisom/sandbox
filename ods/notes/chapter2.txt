@@ -19,3 +19,15 @@ resizing isn't too bad.
 * Uses backing array *a*.
 * Typically, the array will be larger than necessary, so an element *n* is
   used to track the actual number of elements stored in the stack.
+* Add and remove requires shifting all the elements after i (O(n - i)
+  complexity), ignoring potential calls to resize
+* Resizing is triggered when we run out of room in an add or when a remove
+  brings us to the point where the array is more than 3n elements
+* Resizing creates a new array of size 2n and copies all the elements over;
+  this then has complexity O(n).
+* The analysis of add and remove didn't consider cost of resize.
+* An amortised analysis is done instead that considers the cost of all calls
+  to add and remove, given a sequence of *m* calls to either.
+* Lemma: if an empty ArrayStack is created and any sequence of *m* >= 1 calls
+  to add and remove are performed, the total time spent in calls to resize is 
+  O(m).

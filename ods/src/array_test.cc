@@ -23,4 +23,11 @@ main(void)
 	cout << "as[1] " << as.get(1) << endl;
 	as.remove(0);
 	cout << "as[0] " << as.get(0) << endl;
+
+	cout << "size: " << as.size() << ", cap: " << as.cap() << endl;
+	as.add(0, 47);
+	as.add(0, 11);
+	as.add(0, 17);
+	as.add(0, 1);
+	cout << "size: " << as.size() << ", cap: " << as.cap() << endl;
 }

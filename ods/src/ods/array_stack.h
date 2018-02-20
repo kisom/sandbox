@@ -11,9 +11,13 @@ template<typename T>
 class ArrayStack {
 public:
 	ArrayStack(int len) : n(0), a(Array<T>(len)) {}
-	int size(void) { return a.length; }
+	int size(void) { return n; }
+	int cap(void)  { return a.length; }
 	T get(int i) { return a[i]; }
-	T set(int i, T x) { 
+	T set(int i, T x) {
+		if (i > n) {
+			n = i+1;
+		}
 		T y = a[i];
 		a[i] = x;
 		return y;
@@ -35,7 +39,6 @@ public:
 	T remove(int i) {
 		T x = a[i];
 		for (int j = i; j < (n-1); j++) {
-			std::cout << j << "\t" << i << "\t" << a[j] << std::endl;
 			a[j] = a[j+1];
 		}
 		n--;
@@ -47,7 +50,26 @@ public:
 		return x;
 	}
 
-	void resize(void) {}
+	static inline int max(int x, int y) {
+		return x > y ? x : y;
+	}
+
+	void resize(void) {
+		int nlen = max(2 * n, 1);
+		Array<T> b(nlen);
+		for (int i = 0; i < n; i++) {
+			b[i] = a[i];
+		}
+		a = b;
+	}
+
+	T pop(void) {
+		return a.remove(n - 1);
+	}
+
+	void push(T x) {
+		return a.add(n, x);
+	}
 private:
 	int		n;
 	Array<T>	a;
