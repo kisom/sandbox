@@ -1,7 +1,6 @@
 #ifndef __ODS_ODS_ARRAY_STACK__
 #define __ODS_ODS_ARRAY_STACK__
 
-#include <iostream>
 #include <ods/array.h>
 
 namespace ods {
