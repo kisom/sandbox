@@ -55,6 +55,28 @@ public:
 		n++;
 	}
 
+	T remove(int i) {
+		T x = a[index(i)];
+		if (i < (n/2)) {
+			for (int k = i; k > 0; k--) {
+				a[index(k)] = a[index(k-1)];
+			}
+			j = index(1);
+		}
+		else {
+			for (int k = i; k < n-1; k++) {
+				a[index(k)] = a[index(k+1)];
+			}
+		}
+		n--;
+
+		if (a.length > 3 * n) {
+			resize();
+		}
+
+		return x;
+	}
+
 	void resize(void) {
 		Array<T> b(max(2 * n, 1));
 		for (int k = 0; k < n; k++) {

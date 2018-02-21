@@ -28,6 +28,32 @@ resizing isn't too bad.
 * The analysis of add and remove didn't consider cost of resize.
 * An amortised analysis is done instead that considers the cost of all calls
   to add and remove, given a sequence of *m* calls to either.
-* Lemma: if an empty ArrayStack is created and any sequence of *m* >= 1 calls
-  to add and remove are performed, the total time spent in calls to resize is 
-  O(m).
+* **Lemma**: if an empty ArrayStack is created and any sequence of *m* >= 1
+  calls to add and remove are performed, the total time spent in calls to 
+  resize is O(m).
+* Optimisations (FastArrayStack): using memcpy or std::copy to copy blocks of
+  data, not one element at a time.
+
+## ArrayQueue
+
+* ArrayStack is a bad implementation for a FIFO queue; either add or remove
+  must work from the head with index = 0, which means all calls to that
+  method will result in running time of O(n).
+* We could do this with an infinite array, using an index into the head (*j*)
+  and the size of the backing array. We don't have an infinite array, so we'll
+  have to use modular arithmetic with a finite stack.
+* **Theorem**: Ignoring the cost of calls to resize, an ArrayQueue supports the
+  operations add and remove in O(1) per operation. Beginning with an empty
+  ArrayQueue, any sequence of m add/remove operations will result in a total
+  of O(m) time resizing.
+
+## ArrayDeque
+
+* Implementation of adding and removing from both ends using the same circular
+  buffer technique.
+* add/remove check whether their index is before or after the halfway point and
+  shift from there as a performance benefit.
+* **Theorem**: Ignoring the cost of calls to resize, an ArrayDeque supports
+  set/get in time O(1) time per operation, and add/remove in O(1+min(i, n-1))
+  time per operation. Beginning with an empty ArrayDeque, performing any 
+  sequence of m operations results in a total of O(m) time resizing.

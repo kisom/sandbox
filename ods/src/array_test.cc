@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <ods/array.h>
 #include <ods/array_stack.h>
@@ -51,16 +52,30 @@ main(void)
 	cout << "=== ArrayDeque ===" << endl;
 	ArrayDeque<int>	ad(1);
 	for (int i = 0; i < 5; i++) {
-		ad.add(0, i);
+		ad.add(0, 4-i);
 	}
 	cout << "size: " << ad.size() << ", cap: " << ad.cap() << endl;
 
 	for (int i = 0; i < 5; i++) {
-		ad.add(ad.size() - 1, i);
+		ad.add(ad.size(), i);
 	}
 	cout << "size: " << ad.size() << ", cap: " << ad.cap() << endl;
 
 	for (int i = 0; i < ad.size(); i++) {
 		cout << i << "\t" << ad.get(i) << endl;
 	}
+
+	auto x = ad.remove(1);
+	assert(x == 1);
+	x = ad.remove(7);
+	assert(x == 3);
+	cout << "size: " << ad.size() << ", cap: " << ad.cap() << endl;
+
+	for (int i = 0; i < ad.size(); i++) {
+		cout << i << "\t" << ad.get(i) << endl;
+	}
+	ad.remove(2);
+	ad.remove(3);
+	ad.remove(4);
+	cout << "size: " << ad.size() << ", cap: " << ad.cap() << endl;
 }
