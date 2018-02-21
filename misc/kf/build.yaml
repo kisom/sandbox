@@ -5,5 +5,5 @@ compilers:
 targets:
   cc:
     kf:
-      - io.cc
+      - interface.cc
       - kf.cc

@@ -36,7 +36,9 @@ ltmain.sh
 m4/
 missing
 
-ch??ex??
+# build artifacts
+ods/src/ch??ex??
 *_test
 *.la
 *_bench
+misc/kf/kf
