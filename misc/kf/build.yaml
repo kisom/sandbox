@@ -1,0 +1,9 @@
+compilers:
+  cxx: clang++
+  ld: clang++
+
+targets:
+  cc:
+    kf:
+      - io.cc
+      - kf.cc
