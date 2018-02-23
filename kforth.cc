@@ -1,4 +1,5 @@
 #include "io.h"
+#include "parser.h"
 
 #ifdef __linux__
 #include "linux.h"
