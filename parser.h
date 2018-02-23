@@ -8,7 +8,15 @@ struct Token {
 	uint8_t	 length;
 };
 
-int	parse_next(const char *, const size_t, size_t *, struct Token *);
+typedef enum _PARSE_RESULT_ : uint8_t {
+	PARSE_OK = 0,
+	PARSE_EOB = 1, // end of buffer
+	PARSE_LEN = 2, // token is too long
+	PARSE_FAIL = 3 // catch-all error
+} PARSE_RESULT;
+
+bool		match_token(const char *, const size_t, const char *, const size_t);
+PARSE_RESULT	parse_next(const char *, const size_t, size_t *, struct Token *);
 
 
 #endif // __KF_PARSER_H__

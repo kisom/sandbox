@@ -1,4 +1,4 @@
-CXXSTD :=	c++11
+CXXSTD :=	c++14
 CXXFLAGS :=	-std=$(CXXSTD) -Wall -Werror -g -O0
 OBJS :=		linux/io.o	\
 		parser.o	\

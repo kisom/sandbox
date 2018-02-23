@@ -87,5 +87,15 @@ Stage 4
 Next steps
 ^^^^^^^^^^
 
+I've decided to use C++ for two reasons: it's supported by all the targets I
+want (amd64, arm/arm64, msp430, avr), and I know it well enough (and
+importantly, I know the tooling) to get by. Typically, the TI compilers lag
+behind the others in supporting newer C++ standards, so those will be the
+limiting factor. Fortunately, just a few days before I started this, the TI
+wiki was updated_ to note that the latest compilers now support C++11 and
+C++14, so I'll target C++14.
+
+.. _updated: http://processors.wiki.ti.com/index.php/C%2B%2B_Support_in_TI_Compilers#Status_as_of_February_2018
+
 I don't really know what I'm doing, so in the next section, I'll build out the
 basic framework and set up the build.

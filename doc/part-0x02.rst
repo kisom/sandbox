@@ -20,7 +20,7 @@ The project will also need a build system. For simplicity, I'll at least start
 with a basic Makefile::
 
   # Makefile
-  CXXSTD :=     c++11
+  CXXSTD :=     c++14
   CXXFLAGS :=   -std=$(CXXSTD) -Werror -Wall -g -O0
   OBJS :=       linux/io.o     \
                 kforth.o
@@ -272,3 +272,9 @@ Next steps
 ^^^^^^^^^^
 
 I guess the next thing to do will be to start parsing.
+
+Some housekeeping: I'll keep the state of the code at each part in
+the tag ``part-$PART``; this part, for example is in the tag
+`part-0x02`_.
+
+.. _part-0x02: https://github.com/kisom/kforth/tree/part-0x02
