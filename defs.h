@@ -3,6 +3,9 @@
 
 #ifdef __linux__
 #include "linux/defs.h"
+#else
+typedef int KF_INT;
+constexpr uint8_t STACK_SIZE = 16;
 #endif
 
 constexpr size_t	MAX_TOKEN_LENGTH = 16;

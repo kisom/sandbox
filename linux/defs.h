@@ -4,4 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+typedef int32_t KF_INT;
+constexpr uint8_t	STACK_SIZE = 128;
+
 #endif

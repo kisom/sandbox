@@ -6,7 +6,5 @@
 // build support for linux
 #include "linux/io.h"
 
-constexpr uint8_t STACK_SIZE = 128;
-
 
 #endif // __KF_LINUX_H__

@@ -1,7 +1,9 @@
 #include "io.h"
 #include "parser.h"
+#include "stack.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef __linux__
 #include "linux.h"
@@ -9,6 +11,26 @@
 
 static char     ok[] = "ok.\n";
 static char	bye[] = "bye";
+
+// dstack is the data stack.
+static Stack<KF_INT>	dstack;
+
+
+static void
+write_dstack(IO &interface)
+{
+	KF_INT	tmp;
+	interface.wrch('<');
+	for (size_t i = 0; i < dstack.size(); i++) {
+		if (i > 0) {
+			interface.wrch(' ');
+		}
+
+		dstack.get(i, tmp);
+		write_num(interface, tmp);
+	}
+	interface.wrch('>');
+}
 
 static bool
 parser(IO &interface, const char *buf, const size_t buflen)
@@ -27,6 +49,10 @@ parser(IO &interface, const char *buf, const size_t buflen)
 		interface.wrbuf((char *)"token: ", 7);
 		interface.wrbuf(token.token, token.length);
 		interface.wrln((char *)".", 1);
+
+		if (!parse_num(&token, dstack)) {
+			interface.wrln((char *)"failed to parse numeric", 23);
+		}
 
 		// Temporary hack until the interpreter is working further.
 		if (match_token(token.token, token.length, bye, 3)) {
@@ -58,6 +84,8 @@ interpreter(IO &interface)
 	static char linebuf[81];
 
 	while (true) {
+		write_dstack(interface);
+		interface.wrch('\n');
 		interface.wrch('?');
 		interface.wrch(' ');
 		buflen = interface.rdbuf(linebuf, 80, true, '\n');

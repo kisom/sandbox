@@ -1,5 +1,6 @@
 #include "defs.h"
 #include "parser.h"
+#include "stack.h"
 
 #include <string.h>
 
@@ -68,4 +69,41 @@ parse_next(const char *buf, const size_t length, size_t *offset,
 
 	*offset = cursor;
 	return PARSE_OK;
+}
+
+bool
+parse_num(struct Token *token, Stack<KF_INT> &s)
+{
+	KF_INT	n = 0;
+	uint8_t i = 0;
+	bool    sign = false;
+
+	if (token->length == 0) {
+		return false;
+	}
+
+	if (token->token[i] == '-') {
+		i++;
+		sign = true;
+	}
+
+	while (i < token->length) {
+		if (token->token[i] < '0') {
+			return false;
+		}
+
+		if (token->token[i] > '9') {
+			return false;
+		}
+
+		n *= 10;
+		n += (uint8_t)(token->token[i] - '0');
+		i++;
+	}
+
+	if (sign) {
+		n *= -1;
+	}
+
+	return s.push(n);
 }
