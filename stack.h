@@ -7,9 +7,10 @@ template <typename T>
 class Stack {
 public:
         bool   push(T val);
-	bool   pop(T &val);
+	bool   pop(T *val);
 	bool   get(size_t, T &);
-	size_t size(void) { return this->arrlen; };
+	size_t size(void) { return this->arrlen; }
+	void   clear(void) { this->arrlen = 0; }
 private:
 	T arr[STACK_SIZE];
 	size_t arrlen;
@@ -31,14 +32,15 @@ Stack<T>::push(T val)
 // pop returns false if there was a stack underflow.
 template <typename T>
 bool
-Stack<T>::pop(T &val)
+Stack<T>::pop(T *val)
 {
 	if (this->arrlen == 0) {
 		return false;
 	}
 
-	val = this->arr[this->arrlen - 1];
+	*val = this->arr[this->arrlen - 1];
 	this->arrlen--;
+	return true;
 }
 
 // get returns false on invalid bounds.

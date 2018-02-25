@@ -1,6 +1,7 @@
+#include "dict.h"
 #include "io.h"
 #include "parser.h"
-#include "stack.h"
+#include "system.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -11,33 +12,33 @@
 
 static char     ok[] = "ok.\n";
 static char	bye[] = "bye";
-
-// dstack is the data stack.
-static Stack<KF_INT>	dstack;
+static System	sys;
 
 
 static void
-write_dstack(IO &interface)
+write_dstack()
 {
 	KF_INT	tmp;
-	interface.wrch('<');
-	for (size_t i = 0; i < dstack.size(); i++) {
+	sys.interface->wrch('<');
+	for (size_t i = 0; i < sys.dstack.size(); i++) {
 		if (i > 0) {
-			interface.wrch(' ');
+			sys.interface->wrch(' ');
 		}
 
-		dstack.get(i, tmp);
-		write_num(interface, tmp);
+		sys.dstack.get(i, tmp);
+		write_num(sys.interface, tmp);
 	}
-	interface.wrch('>');
+	sys.interface->wrch('>');
 }
 
 static bool
-parser(IO &interface, const char *buf, const size_t buflen)
+parser(const char *buf, const size_t buflen)
 {
 	static size_t		offset = 0;
 	static struct Token	token;
 	static PARSE_RESULT	result = PARSE_FAIL;
+	static LOOKUP		lresult = LOOKUP_FAILED;
+	static bool		stop = false;
 
 	offset = 0;
 
@@ -46,50 +47,66 @@ parser(IO &interface, const char *buf, const size_t buflen)
 	token.length = 0;
 
 	while ((result = parse_next(buf, buflen, &offset, &token)) == PARSE_OK) {
-		interface.wrbuf((char *)"token: ", 7);
-		interface.wrbuf(token.token, token.length);
-		interface.wrln((char *)".", 1);
-
-		if (!parse_num(&token, dstack)) {
-			interface.wrln((char *)"failed to parse numeric", 23);
+		lresult = lookup(&token, &sys);
+		switch (lresult) {
+		case LOOKUP_OK:
+			continue;
+		case LOOKUP_NOTFOUND:
+			sys.interface->wrln((char *)"word not found", 15);
+			stop = true;
+			break;
+		case LOOKUP_FAILED:
+			sys.interface->wrln((char *)"execution failed", 17);
+			stop = true;
+			break;
+		default:
+			sys.interface->wrln((char *)"*** the world is broken ***", 27);
+			exit(1);
 		}
-
+		
+		if (stop) {
+			stop = false;
+			break;
+		}
+		
 		// Temporary hack until the interpreter is working further.
 		if (match_token(token.token, token.length, bye, 3)) {
-			interface.wrln((char *)"Goodbye!", 8);
+			sys.interface->wrln((char *)"Goodbye!", 8);
 			exit(0);
 		}
 	}
 
 	switch (result) {
+	case PARSE_OK:
+		return false;
 	case PARSE_EOB:
-		interface.wrbuf(ok, 4);
+		sys.interface->wrbuf(ok, 4);
 		return true;
 	case PARSE_LEN:
-		interface.wrln((char *)"parse error: token too long", 27);
+		sys.interface->wrln((char *)"parse error: token too long", 27);
 		return false;
 	case PARSE_FAIL:
-		interface.wrln((char *)"parser failure", 14);
+		sys.interface->wrln((char *)"parser failure", 14);
 		return false;
 	default:
-		interface.wrln((char *)"*** the world is broken ***", 27);
+		sys.interface->wrln((char *)"*** the world is broken ***", 27);
 		exit(1);
 	}
 }
 
 static void
-interpreter(IO &interface)
+interpreter()
 {
 	static size_t buflen = 0;
 	static char linebuf[81];
 
 	while (true) {
-		write_dstack(interface);
-		interface.wrch('\n');
-		interface.wrch('?');
-		interface.wrch(' ');
-		buflen = interface.rdbuf(linebuf, 80, true, '\n');
-		parser(interface, linebuf, buflen);
+		write_dstack();
+		sys.interface->wrch('\n');
+		sys.interface->wrch('?');
+		sys.interface->wrch(' ');
+		buflen = sys.interface->rdbuf(linebuf, 80, true, '\n');
+		parser(linebuf, buflen);
 	}
 }
 
@@ -99,10 +116,12 @@ const size_t	bannerlen = 19;
 int
 main(void)
 {
+	init_dict();
 #ifdef __linux__
 	Console interface;
+	sys.interface = &interface;
 #endif
-	interface.wrbuf(banner, bannerlen);
-	interpreter(interface);
+	sys.interface->wrbuf(banner, bannerlen);
+	interpreter();
 	return 0;
 }

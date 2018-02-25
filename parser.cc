@@ -19,7 +19,22 @@ match_token(const char *a, const size_t alen,
 		return false;
 	}
 
-	return memcmp(a, b, alen) == 0;
+	for (size_t i = 0; i < alen; i++) {
+		if (a[i] == b[i]) {
+			continue;
+		}
+		
+		if ((a[i] ^ 0x20) == b[i]) {
+			continue;
+		}
+		
+		if (a[i] == (b[i] ^ 0x20)) {
+			continue;
+		}
+		
+		return false;
+	}
+	return true;
 }
 
 PARSE_RESULT
@@ -72,9 +87,9 @@ parse_next(const char *buf, const size_t length, size_t *offset,
 }
 
 bool
-parse_num(struct Token *token, Stack<KF_INT> &s)
+parse_num(struct Token *token, KF_INT *n)
 {
-	KF_INT	n = 0;
+	KF_INT	tmp = 0;
 	uint8_t i = 0;
 	bool    sign = false;
 
@@ -83,6 +98,9 @@ parse_num(struct Token *token, Stack<KF_INT> &s)
 	}
 
 	if (token->token[i] == '-') {
+		if (token->length == 1) {
+			return false;
+		}
 		i++;
 		sign = true;
 	}
@@ -96,14 +114,15 @@ parse_num(struct Token *token, Stack<KF_INT> &s)
 			return false;
 		}
 
-		n *= 10;
-		n += (uint8_t)(token->token[i] - '0');
+		tmp *= 10;
+		tmp += (uint8_t)(token->token[i] - '0');
 		i++;
 	}
 
 	if (sign) {
-		n *= -1;
+		tmp *= -1;
 	}
 
-	return s.push(n);
+	*n = tmp;
+	return true;
 }

@@ -21,7 +21,7 @@ public:
 	virtual void	wrln(char *buf, size_t len) = 0;
 };
 
-void	write_num(IO &, KF_INT);
+void	write_num(IO *, KF_INT);
 
 
 #endif // __KF_IO_H__

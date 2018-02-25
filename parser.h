@@ -21,7 +21,7 @@ PARSE_RESULT	parse_next(const char *, const size_t, size_t *, struct Token *);
 
 // TODO(kyle): investigate a better return value, e.g. to differentiate between
 // stack failures and parse failures.
-bool		parse_num(struct Token *, Stack<KF_INT> &);
+bool		parse_num(struct Token *, KF_INT *);
 
 
 #endif // __KF_PARSER_H__

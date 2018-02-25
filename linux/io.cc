@@ -25,6 +25,9 @@ Console::rdbuf(char *buf, size_t len, bool stopat, char stopch)
 
 	while (n < len) {
 		ch = this->rdch();
+		if (ch == 0x04) {
+			break;
+		}
 
 		if (stopat && stopch == ch) {
 			break;

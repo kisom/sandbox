@@ -10,6 +10,7 @@ Contents:
    part-0x02
    part-0x03
    part-0x04
+   part-0x05
 
 Indices and tables
 ==================

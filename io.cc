@@ -6,7 +6,7 @@
 static constexpr size_t	nbuflen = 11;
 
 void
-write_num(IO &interface, KF_INT n)
+write_num(IO *interface, KF_INT n)
 {
 
 	// TODO(kyle): make the size of the buffer depend on the size of
@@ -17,8 +17,12 @@ write_num(IO &interface, KF_INT n)
 	bool neg = n < 0;
 
 	if (n < 0) {
-		interface.wrch('-');
+		interface->wrch('-');
 		n = ~n;
+		if (n == 0) {
+			neg = false;
+			n++;
+		}
 	}
 
 	while (n != 0) {
@@ -30,5 +34,5 @@ write_num(IO &interface, KF_INT n)
 	}
 
 	uint8_t buflen = nbuflen - i % nbuflen;
-	interface.wrbuf(buf+i, buflen);
+	interface->wrbuf(buf+i, buflen);
 }
