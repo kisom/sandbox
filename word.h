@@ -25,13 +25,11 @@ public:
 	Word *next(void);
 	bool  match(struct Token *);
 	void  getname(char *, size_t *);
-	
 private:
 	char		 name[MAX_TOKEN_LENGTH];
 	size_t		 namelen;
 	Word		*prev;
 	bool		(*fun)(System *);
 };
-
 
 #endif // __KF_WORD_H__

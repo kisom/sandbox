@@ -2,6 +2,7 @@
 #include "parser.h"
 #include "stack.h"
 
+#include <ctype.h>
 #include <string.h>
 
 static void
@@ -22,6 +23,10 @@ match_token(const char *a, const size_t alen,
 	for (size_t i = 0; i < alen; i++) {
 		if (a[i] == b[i]) {
 			continue;
+		}
+
+		if (!isalpha(a[i]) || !isalpha(b[i])) {
+			return false;
 		}
 		
 		if ((a[i] ^ 0x20) == b[i]) {

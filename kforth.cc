@@ -11,7 +11,6 @@
 #endif // __linux__
 
 static char     ok[] = "ok.\n";
-static char	bye[] = "bye";
 static System	sys;
 
 
@@ -68,12 +67,6 @@ parser(const char *buf, const size_t buflen)
 			stop = false;
 			break;
 		}
-		
-		// Temporary hack until the interpreter is working further.
-		if (match_token(token.token, token.length, bye, 3)) {
-			sys.interface->wrln((char *)"Goodbye!", 8);
-			exit(0);
-		}
 	}
 
 	switch (result) {
@@ -116,7 +109,7 @@ const size_t	bannerlen = 19;
 int
 main(void)
 {
-	init_dict();
+	init_dict(&sys);
 #ifdef __linux__
 	Console interface;
 	sys.interface = &interface;

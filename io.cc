@@ -24,6 +24,10 @@ write_num(IO *interface, KF_INT n)
 			n++;
 		}
 	}
+	else if (n == 0) {
+		interface->wrch('0');
+		return;
+	}
 
 	while (n != 0) {
 		char ch = (n % 10) + '0';

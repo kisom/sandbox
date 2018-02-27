@@ -4,6 +4,8 @@
 #include "system.h"
 #include "word.h"
 
+#include <string.h>
+
 static bool
 add(System *sys)
 {
@@ -68,7 +70,7 @@ div(System *sys)
 		return false;
 	}
 	
-	b *= a;
+	b /= a;
 	return sys->dstack.push(b);
 }
 
@@ -125,36 +127,61 @@ rot(System *sys)
 static bool
 definitions(System *sys)
 {
-	Word	*cursor = dict;
+	Word	*cursor = sys->dict;
 	char	 buf[MAX_TOKEN_LENGTH];
-	size_t	 buflen = 0;
-	
+	char	 line[72];
+	size_t	 buflen = 0, linelen = 0;
+	bool	 ready = false;
+
 	while (cursor != nullptr) {
+		if (ready) {
+			ready = false;
+			sys->interface->wrln(line, linelen);
+			linelen = 0;
+			continue;
+		}
+
 		cursor->getname(buf, &buflen);
-		sys->interface->wrln(buf, buflen);
+
+		// TODO: get rid of magic numbers
+		if ((buflen + linelen) > 72) {
+			ready = true;
+			continue;
+		}
+		memcpy(line + linelen, buf, buflen);
+		linelen += buflen;
+
+		if (linelen < 71) {
+			line[linelen++] = ' ';
+		}
+		else {
+			ready = true;
+		}
 		cursor = cursor->next();
 	}
-	
+
+	sys->interface->wrln(line, linelen);
 	return true;
 }
 
 void
-init_dict()
+init_dict(System *sys)
 {
-	dict = new Builtin((const char *)"DEFINITIONS", 11, dict, definitions);
-	dict = new Builtin((const char *)"+", 1, dict, add);
-	dict = new Builtin((const char *)"-", 1, dict, sub);
-	dict = new Builtin((const char *)"*", 1, dict, mul);
-	dict = new Builtin((const char *)"/", 1, dict, div);
-	dict = new Builtin((const char *)"SWAP", 4, dict, swap);
-	dict = new Builtin((const char *)"ROT", 3, dict, rot);
+	sys->dict = nullptr;
+	sys->dict = new Builtin((const char *)"DEFINITIONS", 11, sys->dict, definitions);
+	sys->dict = new Builtin((const char *)"+", 1, sys->dict, add);
+	sys->dict = new Builtin((const char *)"-", 1, sys->dict, sub);
+	sys->dict = new Builtin((const char *)"*", 1, sys->dict, mul);
+	sys->dict = new Builtin((const char *)"/", 1, sys->dict, div);
+	sys->dict = new Builtin((const char *)"SWAP", 4, sys->dict, swap);
+	sys->dict = new Builtin((const char *)"ROT", 3, sys->dict, rot);
 }
 
 
 LOOKUP
 lookup(struct Token *token, System *sys)
 {
-	Word	*cursor = dict;
+	Word	*cursor = sys->dict;
 	KF_INT	 n;
 	
 	if (parse_num(token, &n)) {

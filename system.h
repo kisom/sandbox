@@ -8,6 +8,7 @@
 typedef struct _System {
 	Stack<KF_INT>	 dstack;
 	IO		*interface;
+	struct Word	*dict;
 } System;
 
 
