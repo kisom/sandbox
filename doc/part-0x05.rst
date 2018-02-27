@@ -60,20 +60,24 @@ design an abstract class for a Word and implement the first concrete class,
             virtual ~Word() {};
     
 The *eval* method takes a ``System`` structure and executes some function.
+::
 
             virtual bool  eval(System *) = 0;
 
 The dictionary is a linked list, so next is used to traverse the list.
+::
 
             virtual Word *next(void) = 0;
 
 The ``match`` method is used to determine whether this is the word being
 referred to.
+::
 
             virtual bool  match(struct Token *) = 0;
 
 Finally, ``getname`` will fill in a ``char[MAX_TOKEN_SIZE]`` buffer with the
 word's name.
+::
 
             virtual void  getname(char *, size_t *) = 0;
     };
@@ -175,6 +179,7 @@ operating on these anyways. I guess it's best to start with the lookup function
 first so that when I started adding builtins later it'll be easy to just
 recompile and use them.
 ::
+
         LOOKUP
         lookup(struct Token *token, System *sys)
         {
@@ -361,6 +366,7 @@ though:
                         }
                         
 The XOR by 0x20 is just a neat trick for inverting the case of a letter.
+::
 
                         if ((a[i] ^ 0x20) == b[i]) {
                                 continue;
