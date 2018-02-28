@@ -6,14 +6,9 @@
 #include "system.h"
 #include "word.h"
 
-typedef enum _LOOKUP_ : uint8_t {
-	LOOKUP_OK = 0,	     // Lookup executed properly.
-	LOOKUP_NOTFOUND = 1, // The token isn't in the dictionary.
-	LOOKUP_FAILED = 2    // The word failed to execute.
-} LOOKUP;
-
 void	init_dict(System *);
-LOOKUP	lookup(struct Token *, System *);
+void	reset_system(System *);
+bool	lookup(struct Token *, System *);
 
 
 

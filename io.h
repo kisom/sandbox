@@ -2,6 +2,7 @@
 #define __KF_IO_H__
 
 #include "defs.h"
+#include "stack.h"
 
 class IO {
 public:
@@ -19,9 +20,12 @@ public:
 	// Line I/O
 	virtual bool	rdln(char *buf, size_t len, size_t *readlen) = 0;
 	virtual void	wrln(char *buf, size_t len) = 0;
+	
+	virtual void	newline(void) = 0;
 };
 
 void	write_num(IO *, KF_INT);
+void	write_dstack(IO *, Stack<KF_INT>);
 
 
 #endif // __KF_IO_H__

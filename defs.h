@@ -5,6 +5,7 @@
 #include "linux/defs.h"
 #else
 typedef int KF_INT;
+typedef long KF_LONG;
 constexpr uint8_t STACK_SIZE = 16;
 #endif
 

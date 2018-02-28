@@ -9,6 +9,7 @@ public:
         bool   push(T val);
 	bool   pop(T *val);
 	bool   get(size_t, T &);
+	bool   remove(size_t, T *);
 	size_t size(void) { return this->arrlen; }
 	void   clear(void) { this->arrlen = 0; }
 private:
@@ -53,6 +54,23 @@ Stack<T>::get(size_t i, T &val)
 	}
 
 	val = this->arr[i];
+	return true;
+}
+
+// remove returns false on invalid bounds
+template <typename T>
+bool
+Stack<T>::remove(size_t i, T *val)
+{
+	if (i > this->arrlen) {
+		return false;
+	}
+
+	*val = this->arr[i];
+	for (; i < (arrlen - 1); i++) {
+		this->arr[i] = this->arr[i+1];
+	}
+	arrlen--;
 	return true;
 }
 

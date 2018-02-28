@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <string.h>
 
-static void
+static inline void
 reset(struct Token *t)
 {
 	t->token = nullptr;
@@ -48,9 +48,7 @@ parse_next(const char *buf, const size_t length, size_t *offset,
 {
 	size_t	 cursor = *offset;
 
-	// Clear the token.
 	reset(token);
-
 	if (cursor == length) {
 		return PARSE_EOB;
 	}

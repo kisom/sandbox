@@ -17,6 +17,8 @@ public:
 	// Line I/O
 	bool	rdln(char *buf, size_t len, size_t *readlen);
 	void	wrln(char *buf, size_t len);
+	
+	void	newline(void) { this->wrch('\n'); };
 private:
 };
 
