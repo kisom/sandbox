@@ -24,8 +24,8 @@ pop_long(System *sys, KF_LONG *d)
 		return false;
 	}
 	
-	*d = a << dshift;
-	*d += b;
+	*d = static_cast<KF_LONG>(a) << dshift;
+	*d += static_cast<KF_LONG>(b);
 	sys->status = STATUS_OK;
 	return true;
 }
@@ -1002,6 +1002,22 @@ dlt(System *sys)
 }
 
 static bool
+ddot(System *sys)
+{
+	KF_LONG	da;
+
+	if (!pop_long(sys, &da)) {
+		// Status is already set.
+		return false;
+	}
+
+	write_dnum(sys->interface, da);
+	sys->interface->newline();
+	sys->status = STATUS_OK;
+	return true;
+}
+
+static bool
 negate(System *sys)
 {
 	KF_INT	a;
@@ -1023,20 +1039,161 @@ negate(System *sys)
 	return true;
 }
 
+static bool
+dnegate(System *sys)
+{
+	KF_LONG	da;
+
+	if (!pop_long(sys, &da)) {
+		// Status is already set.
+		return false;
+	}
+
+	da = ~da;
+	da++;
+
+	if (!push_long(sys, da)) {
+		// Status is already set.
+		return false;
+	}
+
+	sys->status = STATUS_OK;
+	return true;
+}
+
+static bool
+pick(System *sys)
+{
+	KF_INT	a, b;
+	if (!sys->dstack.pop(&a)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+
+	size_t	i = sys->dstack.size() - a - 1;
+	if (!sys->dstack.get(i, b)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+
+	if (!sys->dstack.push(b)) {
+		sys->status = STATUS_STACK_OVERFLOW;
+		return false;
+	}
+
+	sys->status = STATUS_OK;
+	return true;
+}
+
+static bool
+min(System *sys)
+{
+	KF_INT	a, b;
+	if (!sys->dstack.pop(&a)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+	if (!sys->dstack.pop(&b)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+
+	if (!sys->dstack.push(a < b ? a : b)) {
+		sys->status = STATUS_STACK_OVERFLOW;
+		return false;
+	}
+
+	sys->status = STATUS_OK;
+	return true;
+}
+
+static bool
+max(System *sys)
+{
+	KF_INT	a, b;
+	if (!sys->dstack.pop(&a)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+	if (!sys->dstack.pop(&b)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+
+	if (!sys->dstack.push(a > b ? a : b)) {
+		sys->status = STATUS_STACK_OVERFLOW;
+		return false;
+	}
+
+	sys->status = STATUS_OK;
+	return true;
+}
+
+static bool
+exclusive_or(System *sys)
+{
+	KF_INT	a, b;
+	if (!sys->dstack.pop(&a)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+	if (!sys->dstack.pop(&b)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+
+	if (!sys->dstack.push(a ^ b)) {
+		sys->status = STATUS_STACK_OVERFLOW;
+		return false;
+	}
+
+	sys->status = STATUS_OK;
+	return true;
+}
+
+static bool
+mod(System *sys)
+{
+	KF_INT	a, b;
+	if (!sys->dstack.pop(&a)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+	if (!sys->dstack.pop(&b)) {
+		sys->status = STATUS_STACK_UNDERFLOW;
+		return false;
+	}
+
+	if (!sys->dstack.push(b % a)) {
+		sys->status = STATUS_STACK_OVERFLOW;
+		return false;
+	}
+
+	sys->status = STATUS_OK;
+	return true;
+}
+
 void
 init_dict(System *sys)
 {
 	sys->dict = nullptr;
 	sys->dict = new Builtin((const char *)"SWAP", 4, sys->dict, swap);
+	sys->dict = new Builtin((const char *)"XOR", 3, sys->dict, exclusive_or);
 	sys->dict = new Builtin((const char *)"ROT", 3, sys->dict, rot);
 	sys->dict = new Builtin((const char *)"ROLL", 4, sys->dict, roll);
+	sys->dict = new Builtin((const char *)"PICK", 4, sys->dict, pick);
 	sys->dict = new Builtin((const char *)"OVER", 4, sys->dict, over);
 	sys->dict = new Builtin((const char *)"NEGATE", 6, sys->dict, negate);
 	sys->dict = new Builtin((const char *)"OR", 2, sys->dict, lor);
+	sys->dict = new Builtin((const char *)"MOD", 3, sys->dict, mod);
+	sys->dict = new Builtin((const char *)"MIN", 3, sys->dict, min);
+	sys->dict = new Builtin((const char *)"MAX", 3, sys->dict, max);
 	sys->dict = new Builtin((const char *)"DUP", 3, sys->dict, dup);
 	sys->dict = new Builtin((const char *)"DROP", 4, sys->dict, drop);
 	sys->dict = new Builtin((const char *)"DEPTH", 5, sys->dict, depth);
 	sys->dict = new Builtin((const char *)"DEFINITIONS", 11, sys->dict, definitions);
+	sys->dict = new Builtin((const char *)"DNEGATE", 7, sys->dict, dnegate);
+	sys->dict = new Builtin((const char *)"D.", 2, sys->dict, ddot);
 	sys->dict = new Builtin((const char *)"D<", 2, sys->dict, dlt);
 	sys->dict = new Builtin((const char *)"D+", 2, sys->dict, dplus);
 	sys->dict = new Builtin((const char *)"BYE", 3, sys->dict, bye);

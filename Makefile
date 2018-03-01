@@ -1,5 +1,5 @@
 CXXSTD :=	c++14
-CXXFLAGS :=	-std=$(CXXSTD) -Wall -Werror -Os -static
+CXXFLAGS :=	-std=$(CXXSTD) -Wall -Werror -O0 -g -static
 LDFLAGS :=	-static
 OBJS :=		linux/io.o	\
 		io.o		\
@@ -14,7 +14,6 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
-	strip $@
 
 clean:
 	rm -f $(OBJS) $(TARGET)
