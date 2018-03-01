@@ -1,0 +1,9 @@
+REVISION	SLOC
+0x02		133
+0x03		245
+0x04		369
+0x05		677
+0x06		1436
+
+In part 0x06, I thought it would be interesting to track how the codebase has
+grown over time.
