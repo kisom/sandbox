@@ -1,5 +1,5 @@
 CXXSTD :=	c++14
-CXXFLAGS :=	-std=$(CXXSTD) -Wall -Werror -O0 -g -static
+CXXFLAGS :=	-std=$(CXXSTD) -Wall -Werror -O0 -g
 LDFLAGS :=	-static
 OBJS :=		linux/io.o	\
 		io.o		\
@@ -13,7 +13,7 @@ TARGET :=	kforth
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(TARGET)

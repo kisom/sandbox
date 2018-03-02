@@ -8,6 +8,8 @@ constexpr static char   STATE_STR_STACK_OVERFLOW[] = "stack overflow";
 constexpr static char   STATE_STR_STACK_UNDERFLOW[] = "stack underflow";
 constexpr static char   STATE_STR_EXECUTION_FAILURE[] = "execution failure";
 constexpr static char	STATE_STR_UNKNOWN_WORD[] = "unknown word";
+constexpr static char	STATE_STR_RSTACK_OVERFLOW[] = "return stack overflow";
+constexpr static char	STATE_STR_RSTACK_UNDERFLOW[] = "return stack underflow";
 constexpr static char	STATE_STR_UNKNOWN_STATE[] = "undefined state";
 constexpr static char	STATE_STR_ERROR_CODE[] = " (error code ";
 
@@ -47,6 +49,14 @@ system_write_status(System *sys)
 	case STATUS_UNKNOWN_WORD:
 		buf = (char *)(STATE_STR_UNKNOWN_WORD);
 		len = sizeof STATE_STR_UNKNOWN_WORD;
+		break;
+	case STATUS_RSTACK_OVERFLOW:
+		buf = (char *)(STATE_STR_RSTACK_OVERFLOW);
+		len = sizeof STATE_STR_RSTACK_OVERFLOW;
+		break;
+	case STATUS_RSTACK_UNDERFLOW:
+		buf = (char *)(STATE_STR_RSTACK_UNDERFLOW);
+		len = sizeof STATE_STR_RSTACK_UNDERFLOW;
 		break;
 	default:
 		buf = (char *)(STATE_STR_UNKNOWN_STATE);

@@ -25,6 +25,7 @@ public:
 };
 
 void	write_num(IO *, KF_INT);
+void	write_unum(IO *, KF_UINT);
 void	write_dnum(IO *, KF_LONG);
 void	write_dstack(IO *, Stack<KF_INT>);
 

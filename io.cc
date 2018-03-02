@@ -31,6 +31,29 @@ write_num(IO *interface, KF_INT n)
 }
 
 void
+write_unum(IO *interface, KF_UINT n)
+{
+	static constexpr size_t	nbuflen = 11;
+	char buf[nbuflen];
+	uint8_t i = nbuflen - 1;
+	memset(buf, 0, nbuflen);
+
+	if (n == 0) {
+		interface->wrch('0');
+		return;
+	}
+
+	while (n != 0) {
+		char x = n % 10;
+		x += '0';
+		buf[i--] = x;
+		n /= 10;
+	}
+
+	interface->wrbuf(buf+i, nbuflen - i);
+}
+
+void
 write_dnum(IO *interface, KF_LONG n)
 {
 	static constexpr size_t	dnbuflen = 21;

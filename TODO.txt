@@ -1,20 +1,8 @@
 nucleus layer:
-+ !
-+ +!
-+ @
-+ C!
-+ C@
-+ CMOVE
-+ CMOVE>
-+ COUNT
-+ FILL
-+ EXECUTE
-+ EXIT
-+ I
-+ J
-+ >R
-+ R>
-+ R@
-+ U<
-+ UM*
-+ UM/MOD
++ EXIT: requires better execution control
++ I: requires support for loop index
++ J: requires support for loop index
+
+return addressing / rstack
+dictionary -> fixed size stack / array
+

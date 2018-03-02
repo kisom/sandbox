@@ -9,6 +9,12 @@ X-type series where I'll write up my thinking and planning as I go.
 
 .. _last post: https://dl.kyleisom.net/posts/2018/02/21/2018-02-21-revisiting-forth/
 
+I've always wanted to write a Forth_; I've made a few attempts_ at it in the
+past. This time, I'm actually going to do it.
+
+.. _Forth: https://en.wikipedia.org/wiki/Forth_(programming_language)
+.. _attempts: https://github.com/isrlabs/avr-forth
+
 The basics
 ^^^^^^^^^^
 
