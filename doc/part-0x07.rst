@@ -358,3 +358,8 @@ stack. I guess include some sort of additional fields in the system type.
 
 This starts to jump into the realm of an operating system or virtual machine;
 the OS approach makes more sense for embedded system.
+
+The parser is also going to need some updating to handle strings.
+
+As before, the code for this update is tagged in `part-0x07 <https://github.com/kisom/kforth/tree/part-0x07>`_.
+
