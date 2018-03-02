@@ -205,6 +205,8 @@ is the high part. This is, once again, pretty straightforward: I'll need to
 shift the first number by the appropriate number of bits and then add the
 second number to it.
 
+::
+
         constexpr size_t dshift = (sizeof(KF_INT) * 8) - 1;
 
         static bool

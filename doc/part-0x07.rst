@@ -123,4 +123,238 @@ There's definitely a sense of finangling here.
 The return stack
 ^^^^^^^^^^^^^^^^
 
-The ``>R`` series of words requires a 
+The ``>R`` series of words requires a return stack, so I've added a
+``Stack<KF_ADDR>`` field to the ``System`` structure. The address stack
+manipulation functions I introduced earlier only operate on the data stack, so
+these require some extra verbosity; for example::
+
+        static bool
+        to_r(System *sys)
+        {
+                KF_INT	a;
+
+                if (!sys->dstack.pop(&a)) {
+                        sys->status = STATUS_STACK_UNDERFLOW;
+                        return false;
+                }
+
+                if (!sys->rstack.push(static_cast<KF_ADDR>(a))) {
+                        sys->status = STATUS_RSTACK_OVERFLOW;
+                        return false;
+                }
+
+                sys->status = STATUS_OK;
+                return true;
+        }
+
+Adding the ``rstack`` field also required adding return stack over- and
+underflow status codes.
+
+The arena
+^^^^^^^^^
+
+As I was reading through the words left to implement, I found I'd have to
+implement ``COUNT``. This provides some support for counted strings, which
+are implemented as a byte array where the first byte is the length of the
+string. In my mind, this has two implications:
+
+1. There needs to be some area of user memory that's available for storing
+   strings and the like. I've termed this the arena, and it's a field in the
+   ``System`` structure now.
+2. There needs to be a Word type for addresses.
+
+So now I have this definition for the ``System`` structure::
+
+        typedef struct _System {
+                Stack<KF_INT>	 dstack;
+                Stack<KF_ADDR>	 rstack;
+                IO		*interface;
+                Word		*dict;
+                SYS_STATUS	 status;
+                uint8_t		 arena[ARENA_SIZE];
+        } System;
+
+The ``Address`` type seems like it's easy enough to implement::
+
+        class Address : public Word {
+        public:
+                ~Address() {};
+                Address(const char *name, size_t namelen, Word *head, KF_ADDR addr);
+
+                bool eval(System *);
+                Word *next(void);
+                bool  match(struct Token *);
+                void  getname(char *, size_t *);
+
+        private:
+                char	 name[MAX_TOKEN_LENGTH];
+                size_t	 namelen;
+                Word	*prev;
+                KF_ADDR	 addr;
+        };
+
+And the implementation::
+
+        Address::Address(const char *name, size_t namelen, Word *head, KF_ADDR addr)
+                : prev(head), addr(addr)
+        {
+                memcpy(this->name, name, namelen);
+                this->namelen = namelen;
+        }
+
+        bool
+        Address::eval(System *sys)
+        {
+                KF_INT	a;
+
+                a = static_cast<KF_INT>(this->addr & mask(dshift));
+                if (!sys->dstack.push(a)) {
+                        return false;
+                }
+
+                a = static_cast<KF_INT>((this->addr >> dshift) & mask(dshift));
+                if (!sys->dstack.push(a)) {
+                        return false;
+                }
+
+                return true;
+        }
+
+        Word *
+        Address::next(void)
+        {
+                return this->prev;
+        }
+
+        bool
+        Address::match(struct Token *token)
+        {
+                return match_token(this->name, this->namelen, token->token, token->length);
+        }
+
+        void 
+        Address::getname(char *buf, size_t *buflen)
+        {
+                memcpy(buf, this->name, this->namelen);
+                *buflen = namelen;
+        }
+
+It's kind of cool to see this at work::
+
+        $ ./kforth 
+        kforth interpreter
+        ? arena drop 2+ 0 @ .      
+        0
+        ok.
+        ? arena drop 2+ 0 4 rot rot ! .
+        stack underflow (error code 2).
+        ? arena drop 2+ 0 @ .
+        4
+        ok.
+
+Unsigned numbers
+^^^^^^^^^^^^^^^^
+
+This is really just a bunch of casting::
+
+        static bool
+        u_dot(System *sys)
+        {
+                KF_INT	a;
+                KF_UINT	b;
+
+                if (!sys->dstack.pop(&a)) {
+                        sys->status = STATUS_STACK_UNDERFLOW;
+                        return false;
+                }
+                b = static_cast<KF_UINT>(a);
+
+                write_unum(sys->interface, b);
+                sys->interface->newline();
+                sys->status = STATUS_OK;
+                return true;
+        }
+
+Execute
+^^^^^^^
+
+Implementing ``execute`` was fun, but it begins to highlight the limits of my
+approach so far.
+
+
+          EXECUTE      addr --                       79                   
+               The word definition indicated by addr is executed.  An error
+               condition exists if addr is not a compilation address
+
+For example::
+
+        (gdb) break 83
+        Breakpoint 1 at 0x4077cf: file kforth.cc, line 83.
+        (gdb) run
+        Starting program: /home/kyle/code/kforth/kforth 
+
+        Breakpoint 1, main () at kforth.cc:83
+        83		Console interface;
+        (gdb) p sys.dict->next()->next()->next()->next()
+        $1 = (Word *) 0x7e45b0
+        (gdb) p (Builtin) *sys.dict->next()->next()->next()->next()
+        $2 = {<Word> = {_vptr$Word = 0x55f220 <vtable for Builtin+16>}, name = "+", '\000' <repeats 14 times>, namelen = 1, prev = 0x7e4570, 
+        fun = 0x406eb0 <add(_System*)>}
+        (gdb) p/u 0x7e45b0
+        $3 = 8275376
+        (gdb) c
+        Continuing.
+        kforth interpreter
+        ? 2 3 8275376 0 execute .
+        executing word: +
+        5
+        ok.
+
+In case the ``gdb`` example wasn't clear, I printed the address of the fourth
+entry in the dictionary, which happens to be ``+``. I push the numbers 2 and 3
+onto the stack, then push the address of ``+`` on the stack, then call execute.
+As the dot function shows, it executes correctly, pushing the resulting 5 onto
+the stack. Which leads me to the next section, wherein I need to rethink the
+execution model.
+
+The execution model
+^^^^^^^^^^^^^^^^^^^
+
+In most of the Forth implementations I've, the dictionary is a list of
+contiguous pointers to words. That is, something like::
+
+        Word    *dict[ARRAY_SIZE] = { 0 };
+
+        dict[0] = new Builtin((const char *)"+", 1, add);
+        dict[1] = new Builtin((const char *)"-", 1, sub);
+
+And so forth. Or, maybe,
+
+::
+
+        Word    dict[ARRAY_SIZE] = {
+                Builtin((const char *)"+", 1, add),
+                Builtin((const char *)"-", 1, sub)
+        };
+
+
+So some questions:
+
++ How big should this array be?
++ How do I handle different word types?
++ How do I transfer execution to functions?
+
+I'm thinking something like:
+
++ the parser looks up a word, and pushes the parser function's address onto the
+  return stack.
++ the parser jumps to the word's function pointer and executes it.
++ the function pointer jumps back to the last address on the return stack.
+
+The second step could involve chaining multiple functions in there. I don't
+know how to transfer execution to a random address in memory (maybe ``setjmp``
+and ``longjmp``), or how I'm going to push the current word's address onto the
+stack. I guess include some sort of additional fields in the system type.
+
+This starts to jump into the realm of an operating system or virtual machine;
+the OS approach makes more sense for embedded system.
