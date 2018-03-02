@@ -1629,7 +1629,7 @@ init_dict(System *sys)
 	sys->dict = new Builtin((const char *)"*", 1, sys->dict, mul);
 	sys->dict = new Builtin((const char *)"!", 1, sys->dict, store);
 	sys->dict = new Address((const char *)"ARENA", 5, sys->dict, reinterpret_cast<KF_ADDR>(&sys->arena));
-	sys->dict = new Address((const char *)"DICT", 5, sys->dict, reinterpret_cast<KF_ADDR>(&sys->dict));
+	sys->dict = new Address((const char *)"DICT", 4, sys->dict, reinterpret_cast<KF_ADDR>(&sys->dict));
 }
 
 bool
