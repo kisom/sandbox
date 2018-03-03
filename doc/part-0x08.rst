@@ -16,3 +16,17 @@ Some design choices that didn't really work out:
 + my linked list approach to the dictionary
 + my class-based approach to words
 
+I get the distinct feeling that I could (maybe should) be doing this in C99, so
+I think I'll switch to that.
+
+The new design
+^^^^^^^^^^^^^^
+
+I'll need to provide a few initial pieces:
+
+1. eval.c
+2. stack.c
+3. the platform parts
+
+I'll skip the parser at first and hand hack some things, then try to
+port over my I/O layer from before.

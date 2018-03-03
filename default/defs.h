@@ -1,14 +1,12 @@
-#ifndef __KF_PLATFORM_DEFAULT_H__
-#define __KF_PLATFORM_DEFAULT_H__
+#ifndef __KF_DEFAULT_DEFS_H__
+#define __KF_DEFAULT_DEFS_H__
 
-#include <stdint.h>
-
-typedef int KF_INT;
+typedef int	KF_INT;
 typedef uintptr_t KF_ADDR;
 
-constexpr static size_t STACK_SIZE = 48 / sizeof(KF_INT);
-constexpr static size_t	DICT_SIZE  = 4096;
-constexpr static size_t	ARENA_SIZE = 256;
+static const size_t	DSTACK_SIZE = 12;
+static const size_t	RSTACK_SIZE = 12;
+static const size_t	DICT_SIZE = 4096;
 
+#endif /* __KF_DEFAULT_DEFS_H__ */
 
-#endif // __KF_PLATFORM_DEFAULT_H__

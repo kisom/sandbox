@@ -1,23 +1,28 @@
-CXXSTD :=	c++14
-CXXFLAGS :=	-std=$(CXXSTD) -Wall -Werror -O0 -g
+PLATFORM ?=	default
+CSTD :=		c99
+CFLAGS ?=	-std=$(CSTD) -Wall -Werror -O0 -g -DPLATFORM_$(PLATFORM)
 LDFLAGS :=	-static
-OBJS :=		linux/io.o	\
-		io.o		\
-		system.o	\
-		parser.o	\
+OBJS :=		stack.o		\
+		eval.o		\
 		word.o		\
-		dict.o		\
-		kforth.o
-TARGET :=	kforth
+		kf.o
+TARGET :=	kf-$(PLATFORM)
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS)
 
-clean:
-	rm -f $(OBJS) $(TARGET)
+clean-objs:
+	rm -f $(OBJS)
+
+clean: clean-objs
+	rm -f kf-pc kf-default
 
 install: $(TARGET)
 	cp $(TARGET) ~/bin
 	chmod 0755 ~/bin/$(TARGET)
+
+cross:
+	make PLATFORM=default clean-objs all
+	make PLATFORM=pc clean-objs all
