@@ -4,6 +4,7 @@
 #include <ods/array_stack.h>
 #include <ods/array_queue.h>
 #include <ods/array_deque.h>
+#include <ods/dual_array_deque.h>
 using namespace std;
 using namespace ods;
 
@@ -78,4 +79,34 @@ main(void)
 	ad.remove(3);
 	ad.remove(4);
 	cout << "size: " << ad.size() << ", cap: " << ad.cap() << endl;
+
+	cout << "=== DualArrayDeque ===" << endl;
+	DualArrayDeque<int>	dad(1);
+	for (int i = 0; i < 5; i++) {
+		dad.add(0, 4-i);
+	}
+	cout << "size: " << dad.size() << ", cap: " << dad.cap() << endl;
+
+	for (int i = 0; i < 5; i++) {
+		dad.add(dad.size(), i);
+	}
+	cout << "size: " << dad.size() << ", cap: " << dad.cap() << endl;
+
+	for (int i = 0; i < dad.size(); i++) {
+		cout << i << "\t" << dad.get(i) << endl;
+	}
+
+	x = dad.remove(1);
+	assert(x == 1);
+	x = dad.remove(7);
+	assert(x == 3);
+	cout << "size: " << dad.size() << ", cap: " << dad.cap() << endl;
+
+	for (int i = 0; i < dad.size(); i++) {
+		cout << i << "\t" << dad.get(i) << endl;
+	}
+	dad.remove(2);
+	dad.remove(3);
+	dad.remove(4);
+	cout << "size: " << dad.size() << ", cap: " << dad.cap() << endl;
 }

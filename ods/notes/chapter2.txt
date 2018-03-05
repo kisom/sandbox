@@ -57,3 +57,14 @@ resizing isn't too bad.
   set/get in time O(1) time per operation, and add/remove in O(1+min(i, n-1))
   time per operation. Beginning with an empty ArrayDeque, performing any 
   sequence of m operations results in a total of O(m) time resizing.
+
+## Dual Array Deque 
+
+* Same performance bounds as ArrayDeque using a pair of ArrayStacks.
+* While not better, it's instructive as an example of building a more complex
+  data structure from simpler ones.
+* List is represented as a pair of ArrayStacks; these are fast when a
+  modification occurs at the end. The DAD uses two ArrayStacks called
+  front and back.
+  * front: list elements that are 0...front.size()-1
+  * back: same but reverse order

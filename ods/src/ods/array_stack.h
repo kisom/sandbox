@@ -10,6 +10,7 @@ template<typename T>
 class ArrayStack {
 public:
 	ArrayStack(int len) : n(0), a(Array<T>(len)) {}
+	ArrayStack(Array<T> na, int len) : n(len), a(na) {}
 	int size(void) { return n; }
 	int cap(void)  { return a.length; }
 	T get(int i) { return a[i]; }
