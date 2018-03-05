@@ -27,7 +27,7 @@ execute(const char *name, const uint8_t len)
 		}
 
 		body = word_body(dict+offset);
-		cwexec(dict + body + offset);
+		cwexec((uintptr_t)(dict + body + offset));
 		return true;
 	}
 }

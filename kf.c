@@ -20,7 +20,7 @@ main(void)
 
 	uint8_t	arena[128] = {0};
 	uintptr_t arena_p = (uintptr_t)arena;
-	store_native(arena, hello);
+	store_native(arena, "hello", 5, hello);
 
 	cwexec(arena_p);
 
