@@ -1,0 +1,12 @@
+BOARD:
+
+	|         |
+	+-+-+-+-+-+
+          | | | |
+          4 3 2 1
+
+1: ground (black)
+2: SWCLK (white)
+3: SWDIO (grey)
+4: 3V3 (purple)
+
