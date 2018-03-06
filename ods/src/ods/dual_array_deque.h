@@ -27,7 +27,7 @@ public:
 			return front.set(front.size() - i - 1, x);
 		}
 		else {
-			return back.set(i - front.size());
+			return back.set(i - front.size(), x);
 		}
 	}
 
@@ -65,7 +65,7 @@ private:
 		if ((3 * front.size() < back.size()) ||
 		    (3 * back.size()  < front.size())) {
 			std::cerr << "rebalancing\n";
-			auto n = front.size();
+			auto n = this->size();
 			auto nf = n / 2;
 			Array<T> af(max(2*nf, 1));
 			for (int i = 0; i < nf; i++) {
