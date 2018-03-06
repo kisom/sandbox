@@ -1,6 +1,7 @@
 # configurables
-OBJS :=		blinky.o
+OBJS :=		
 TARGET :=	blinky
+OBJS +=		$(TARGET).o
 
 # targets
 ELF :=		$(TARGET).elf
@@ -31,6 +32,11 @@ all: $(BIN)
 $(ELF): $(OBJS)
 	$(ARMCC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 	$(ARMSIZE) -A $@
+
+.PHONY: strip
+strip: $(ELF)
+	$(ARMTC)-strip $(ELF)
+	$(ARMSIZE) -A $(ELF)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@

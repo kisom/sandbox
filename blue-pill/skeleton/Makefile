@@ -1,6 +1,7 @@
 # configurables
 OBJS :=		
 TARGET :=	
+OBJS += $(TARGET).o
 
 # targets
 ELF :=		$(TARGET).elf
