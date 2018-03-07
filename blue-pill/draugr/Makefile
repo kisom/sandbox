@@ -1,7 +1,7 @@
 # configurables
 OBJS :=		
-TARGET :=	blinky
-OBJS +=		$(TARGET).o
+TARGET :=	blink
+OBJS += $(TARGET).o
 
 # targets
 ELF :=		$(TARGET).elf
@@ -10,15 +10,18 @@ BIN :=		$(TARGET).bin
 # toolchain setup
 ARMTC :=	arm-none-eabi
 ARMCC :=	$(ARMTC)-gcc
+ARMCXX :=	$(ARMTC)-g++
 CC :=		$(ARMCC)
-LD :=		$(ARMCC)
+CXX :=		$(ARMCXX)
+LD :=		$(ARMCXX)
 ARMSIZE :=	$(ARMTC)-size
 OBJCOPY :=	$(ARMTC)-objcopy
 
 # compiler options
-CPUFLAGS :=	-mcpu=cortex-m3 -mthumb -std=c99
+CPUFLAGS :=	-mcpu=cortex-m3 -mthumb
 CFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS)
-LDFLAGS :=	$(CPUFLAGS) -nostartfiles -Wl,-T,bluepill.ld
+CXXFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS) -std=c++14
+LDFLAGS :=	$(CPUFLAGS) -nostartfiles -Wl,-T,stm32f103.ld
 LDLIBS :=	-lc -lnosys
 
 # programmer options
@@ -32,11 +35,6 @@ all: $(BIN)
 $(ELF): $(OBJS)
 	$(ARMCC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 	$(ARMSIZE) -A $@
-
-.PHONY: strip
-strip: $(ELF)
-	$(ARMTC)-strip $(ELF)
-	$(ARMSIZE) -A $(ELF)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@

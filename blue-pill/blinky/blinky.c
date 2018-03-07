@@ -1,5 +1,8 @@
 /* based on example from https://github.com/satoshinm/pill_blink */
 
+#include "bluepill.h"
+#define LED_PIN	13
+
 static inline void
 delay(unsigned long ms)
 {
@@ -8,19 +11,17 @@ delay(unsigned long ms)
 
 static inline void
 led_off() {
-        (*(volatile unsigned int *)(0x40011010)) = (1 << 13);
+	clear_pin(GPIO_C, LED_PIN);
 }
 
 static inline void
 led_on() {
-        (*(volatile unsigned int *)(0x40011014)) = (1 << 13);
+	set_pin(GPIO_C, LED_PIN);
 }
 
 void __attribute__ ((weak, naked)) reset_handler(void) {
-    (*(volatile unsigned int *)(0x40021018)) |= (1 << 4);
-
-    (*(volatile unsigned int *)(0x40011004)) |= (0x00 << (((13 - 8) * 4) + 2));
-    (*(volatile unsigned int *)(0x40011004)) |= (0x02 << ((13 - 8) * 4));
+    *RCC |= (1 << 4); /* enable port C clock */
+    output_mode(GPIO_C, LED_PIN, OUTPUT_GPP, OUTPUT_MAX_2MHZ);
 
     while(1) {
 	    led_off();
