@@ -41,3 +41,7 @@ ods/src/ch??ex??
 *.la
 *_bench
 misc/kf/kf
+*.elf
+*.bin
+blue-pill/*/*.d
+core

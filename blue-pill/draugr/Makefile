@@ -1,5 +1,5 @@
 # configurables
-OBJS :=		
+OBJS :=		startup.o
 TARGET :=	blink
 OBJS += $(TARGET).o
 
@@ -9,18 +9,17 @@ BIN :=		$(TARGET).bin
 
 # toolchain setup
 ARMTC :=	arm-none-eabi
-ARMCC :=	$(ARMTC)-gcc
-ARMCXX :=	$(ARMTC)-g++
-CC :=		$(ARMCC)
-CXX :=		$(ARMCXX)
-LD :=		$(ARMCXX)
+AS :=		$(ARMTC)-as
+CC :=		$(ARMTC)-gcc
+CXX :=		$(ARMTC)-g++
+LD :=		$(ARMTC)-ld
 ARMSIZE :=	$(ARMTC)-size
 OBJCOPY :=	$(ARMTC)-objcopy
 
 # compiler options
 CPUFLAGS :=	-mcpu=cortex-m3 -mthumb
 CFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS)
-CXXFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS) -std=c++14
+CXXFLAGS :=	$(CFLAGS) -std=c++14 -fno-rtti -fno-exceptions -ffunction-sections -fdata-sections -fno-builtin
 LDFLAGS :=	$(CPUFLAGS) -nostartfiles -Wl,-T,stm32f103.ld
 LDLIBS :=	-lc -lnosys
 
@@ -33,7 +32,7 @@ STARTMEM :=	0x8000000
 all: $(BIN)
 
 $(ELF): $(OBJS)
-	$(ARMCC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 	$(ARMSIZE) -A $@
 
 $(BIN): $(ELF)
