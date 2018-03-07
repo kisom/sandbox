@@ -31,12 +31,12 @@ all: $(BIN)
 
 $(ELF): $(OBJS)
 	$(ARMCC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
-	$(ARMSIZE) -A $@
+	$(ARMSIZE) $@
 
 .PHONY: strip
 strip: $(ELF)
 	$(ARMTC)-strip $(ELF)
-	$(ARMSIZE) -A $(ELF)
+	$(ARMSIZE) $(ELF)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@

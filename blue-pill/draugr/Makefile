@@ -33,7 +33,7 @@ all: $(BIN)
 
 $(ELF): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
-	$(ARMSIZE) -A $@
+	$(ARMSIZE) $@
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@

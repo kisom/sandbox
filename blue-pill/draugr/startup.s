@@ -6,6 +6,7 @@
  */
 
 .globl	vectors
+vectors:
 .align	2
 .long	0x100			/* best guess at stack pointer */
 .long	reset_handler		/* reset handler */
@@ -20,7 +21,7 @@
 .skip	4			/* reserved */
 .long	0			/* pendsv handler */
 .long	0			/* systick handler */
-.skip   0x110			/* remaining / IRQ vectors */
+.skip   0xf4			/* remaining / IRQ vectors */
 
 .globl	reset_handler
 reset_handler:
