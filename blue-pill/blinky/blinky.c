@@ -19,7 +19,9 @@ led_on() {
 	set_pin(GPIO_C, LED_PIN);
 }
 
-void __attribute__ ((weak, naked)) reset_handler(void) {
+int
+main(void)
+{
     *RCC |= (1 << 4); /* enable port C clock */
     output_mode(GPIO_C, LED_PIN, OUTPUT_GPP, OUTPUT_MAX_2MHZ);
 
@@ -35,22 +37,3 @@ void __attribute__ ((weak, naked)) reset_handler(void) {
     }
 }
 
-__attribute__ ((section(".vectors")))
-struct {
-    unsigned int *initial_sp_value;
-    void (*reset)(void);
-    void (*nmi)(void);
-    void (*hard_fault)(void);
-    void (*memory_manage_fault)(void);
-    void (*bus_fault)(void);
-    void (*usage_fault)(void);
-    void (*reserved_x001c[4])(void);
-    void (*sv_call)(void);
-    void (*debug_monitor)(void);
-    void (*reserved_x0034)(void);
-    void (*pend_sv)(void);
-    void (*systick)(void);
-    void (*irq[68])(void);
-} vector_table = {
-    .reset = reset_handler,
-};

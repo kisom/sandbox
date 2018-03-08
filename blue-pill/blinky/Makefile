@@ -1,5 +1,5 @@
 # configurables
-OBJS :=		
+OBJS :=		startup.o
 TARGET :=	blinky
 OBJS +=		$(TARGET).o
 
@@ -9,9 +9,9 @@ BIN :=		$(TARGET).bin
 
 # toolchain setup
 ARMTC :=	arm-none-eabi
-ARMCC :=	$(ARMTC)-gcc
-CC :=		$(ARMCC)
-LD :=		$(ARMCC)
+CC :=		$(ARMTC)-gcc
+LD :=		$(ARMTC)-gcc
+AS :=		$(ARMTC)-as
 ARMSIZE :=	$(ARMTC)-size
 OBJCOPY :=	$(ARMTC)-objcopy
 
@@ -30,7 +30,7 @@ STARTMEM :=	0x8000000
 all: $(BIN)
 
 $(ELF): $(OBJS)
-	$(ARMCC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 	$(ARMSIZE) $@
 
 .PHONY: strip
