@@ -10,7 +10,7 @@ main() {
     GPIO_C->enable_clock();
     GPIO_C->pin_mode(LED, true, OUTPUT_GPP, OUTPUT_MAX_2MHZ);
 
-    while(1) {
+    while (true) {
 	    GPIO_C->pin_clear(LED);
 	    delay(LDELAY);
 	    GPIO_C->pin_set(LED);

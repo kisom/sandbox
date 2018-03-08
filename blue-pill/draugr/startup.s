@@ -1,17 +1,17 @@
 /*
  * Startup code for the STM32F103-based blue pill board.
  *
- * TODO: revisit stack pointer
- * TODO: is the IRQv buffer actually needed right now?
+ * The stack pointer is initialised to the top of the stack (which
+ * grows downward), so I pointed it to the end of the SRAM (where the
+ * stack should be).
  */
 
 .cpu cortex-m3
 .thumb
 
-.globl	vectors
 vectors:
 .align	2
-.long	0x20002000		/* best guess at stack pointer */
+.long	0x20005000		/* stack pointer points to top of SRAM */
 .long	reset_handler		/* reset handler */
 .long	hang			/* NMI handler */
 .long	hang			/* hard_fault_handler */
@@ -29,7 +29,6 @@ vectors:
 
 .thumb_func
 hang:   b .
-
 
 .thumb_func
 reset_handler:

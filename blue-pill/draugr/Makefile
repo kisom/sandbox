@@ -15,6 +15,8 @@ CXX :=		$(ARMTC)-g++
 LD :=		$(ARMTC)-ld
 ARMSIZE :=	$(ARMTC)-size
 OBJCOPY :=	$(ARMTC)-objcopy
+PAGER ?=	less
+OPENOCD ?=	/usr/share/openocd
 
 # compiler options
 CPUFLAGS :=	-mcpu=cortex-m3 -mthumb
@@ -26,8 +28,7 @@ LDLIBS :=	-lc -lnosys
 # programmer options
 STARTMEM :=	0x8000000
 
-# targets
-
+### build targets ###
 .PHONY: all
 all: $(BIN)
 
@@ -38,6 +39,11 @@ $(ELF): $(OBJS)
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
+.PHONY: clean
+clean:
+	rm -f *.o *.bin *.elf *.d *.map
+
+### programming targets ###
 .PHONY: flash
 flash: $(BIN)
 	st-flash write $(BIN) $(STARTMEM)
@@ -46,10 +52,22 @@ flash: $(BIN)
 erase:
 	st-flash erase
 
+.PHONY: reset
+reset:
+	st-flash reset
+
 .PHONY: install
-install: erase flash
+install: erase flash reset
 
-.PHONY: clean
-clean:
-	rm -f *.o *.bin *.elf *.d *.map
+### miscellaneous targets ###
+.PHONY: disass
+disass: $(ELF)
+	$(ARMTC)-objdump -D $(ELF) | $(PAGER)
 
+.PHONY: dump
+dump: $(ELF)
+	$(ARMTC)-objdump -D $(ELF) > $(TARGET).dump
+
+.PHONY: ocd
+ocd:
+	openocd -f $(OPENOCD)/scripts/interface/stlink-v2.cfg -f $(OPENOCD)/scripts/target/stm32f1x.cfg
