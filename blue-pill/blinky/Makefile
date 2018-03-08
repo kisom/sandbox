@@ -14,10 +14,11 @@ LD :=		$(ARMTC)-gcc
 AS :=		$(ARMTC)-as
 ARMSIZE :=	$(ARMTC)-size
 OBJCOPY :=	$(ARMTC)-objcopy
+PAGER ?=	less
 
 # compiler options
 CPUFLAGS :=	-mcpu=cortex-m3 -mthumb -std=c99
-CFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS)
+CFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS) -g
 LDFLAGS :=	$(CPUFLAGS) -nostartfiles -Wl,-T,bluepill.ld
 LDLIBS :=	-lc -lnosys
 
@@ -49,10 +50,21 @@ flash: $(BIN)
 erase:
 	st-flash erase
 
+.PHONY: reset
+reset:
+	st-flash reset
+
 .PHONY: install
-install: erase flash
+install: erase flash reset
 
 .PHONY: clean
 clean:
 	rm -f *.o *.bin *.elf *.d *.map
 
+.PHONY: disass
+disass: $(ELF)
+	$(ARMTC)-objdump -D $(ELF) | $(PAGER)
+
+.PHONY: dump
+dump: $(ELF)
+	$(ARMTC)-objcopy -D $(ELF) > $(TARGET).dump

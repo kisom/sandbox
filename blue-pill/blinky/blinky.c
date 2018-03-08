@@ -19,11 +19,12 @@ led_on() {
 	set_pin(GPIO_C, LED_PIN);
 }
 
-int
+void
 main(void)
 {
     *RCC |= (1 << 4); /* enable port C clock */
     output_mode(GPIO_C, LED_PIN, OUTPUT_GPP, OUTPUT_MAX_2MHZ);
+    led_on();
 
     while(1) {
 	    led_off();

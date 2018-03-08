@@ -1,7 +1,7 @@
 # configurables
-OBJS :=		
+OBJS :=		startup.o
 TARGET :=	
-OBJS += $(TARGET).o
+OBJS +=		$(TARGET).o
 
 # targets
 ELF :=		$(TARGET).elf
@@ -9,15 +9,16 @@ BIN :=		$(TARGET).bin
 
 # toolchain setup
 ARMTC :=	arm-none-eabi
-ARMCC :=	$(ARMTC)-gcc
-CC :=		$(ARMCC)
-LD :=		$(ARMCC)
+CC :=		$(ARMTC)-gcc
+LD :=		$(ARMTC)-gcc
+AS :=		$(ARMTC)-as
 ARMSIZE :=	$(ARMTC)-size
 OBJCOPY :=	$(ARMTC)-objcopy
+PAGER ?=	less
 
 # compiler options
-CPUFLAGS :=	-mcpu=cortex-m3 -mthumb
-CFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS)
+CPUFLAGS :=	-mcpu=cortex-m3 -mthumb -std=c99
+CFLAGS :=	-Wall -Wextra -Os -MD $(CPUFLAGS) -g
 LDFLAGS :=	$(CPUFLAGS) -nostartfiles -Wl,-T,bluepill.ld
 LDLIBS :=	-lc -lnosys
 
@@ -30,8 +31,13 @@ STARTMEM :=	0x8000000
 all: $(BIN)
 
 $(ELF): $(OBJS)
-	$(ARMCC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
-	$(ARMSIZE) -A $@
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+	$(ARMSIZE) $@
+
+.PHONY: strip
+strip: $(ELF)
+	$(ARMTC)-strip $(ELF)
+	$(ARMSIZE) $(ELF)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
@@ -44,10 +50,21 @@ flash: $(BIN)
 erase:
 	st-flash erase
 
+.PHONY: reset
+reset:
+	st-flash reset
+
 .PHONY: install
-install: erase flash
+install: erase flash reset
 
 .PHONY: clean
 clean:
 	rm -f *.o *.bin *.elf *.d *.map
 
+.PHONY: disass
+disass: $(ELF)
+	$(ARMTC)-objdump -D $(ELF) | $(PAGER)
+
+.PHONY: dump
+dump: $(ELF)
+	$(ARMTC)-objcopy -D $(ELF) > $(TARGET).dump

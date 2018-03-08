@@ -5,24 +5,32 @@
  * TODO: is the IRQv buffer actually needed right now?
  */
 
+.cpu cortex-m3
+.thumb
+
 .globl	vectors
 vectors:
 .align	2
-.long	0x100			/* best guess at stack pointer */
+.long	0x20002000		/* best guess at stack pointer */
 .long	reset_handler		/* reset handler */
-.long	0			/* NMI handler */
-.long	0			/* hard_fault_handler */
-.long	0			/* memory management handler */
-.long	0			/* bus fault handler */
-.long	0			/* usage fault handler */
+.long	hang			/* NMI handler */
+.long	hang			/* hard_fault_handler */
+.long	hang			/* memory management handler */
+.long	hang			/* bus fault handler */
+.long	hang			/* usage fault handler */
 .skip	0x20			/* reserved */
-.long	0			/* svcall handler */
-.long	0			/* debug handler */
+.long	hang			/* svcall handler */
+.long	hang			/* debug handler */
 .skip	4			/* reserved */
-.long	0			/* pendsv handler */
-.long	0			/* systick handler */
-.skip   0xf4			/* remaining / IRQ vectors */
+.long	hang			/* pendsv handler */
+.long	hang			/* systick handler */
+.skip   0x100			/* remaining / IRQ vectors */
 
-.globl	reset_handler
+
+.thumb_func
+hang:   b .
+
+
+.thumb_func
 reset_handler:
 	bl	main
