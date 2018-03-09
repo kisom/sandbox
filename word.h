@@ -19,6 +19,9 @@
  * The body of a native word points to a function that's compiled in already.
  */
 
+void	append_native_word(const char *, const uint8_t, void(*)(void));
+bool	execute(const char *, const uint8_t);
+bool	lookup(const char *, const uint8_t, uintptr_t *);
 
 /*
  * store_native writes a new dictionary entry for a native-compiled

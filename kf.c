@@ -4,6 +4,7 @@
 #include "word.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void
@@ -18,11 +19,18 @@ main(void)
 	dstack_push(2);
 	dstack_push(3);
 
-	uint8_t	arena[128] = {0};
-	uintptr_t arena_p = (uintptr_t)arena;
-	store_native(arena, "hello", 5, hello);
+	append_native_word("hello", 5, hello);
+	uintptr_t	hwb = 0;
 
-	cwexec(arena_p);
+	if (!lookup("hello", 5, &hwb)) {
+		fprintf(stderr, "failed to lookup 'hello'\n");
+		exit(1);
+	}
+	printf("hello: 0x%lx\n", (unsigned long)hwb);
+	if (!execute("hello", 5)) {
+		fprintf(stderr, "failed to execute 'hello'\n");
+		exit(1);
+	}
 
 	printf("finished\n");
 }

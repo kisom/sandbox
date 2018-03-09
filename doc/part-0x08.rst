@@ -1,7 +1,7 @@
 Write You a Forth, 0x08
 -----------------------
 
-:date: 2018-03-01 19:31
+:date: 2018-03-05 21:42
 :tags: wyaf, forth
 
 After reading some more in Threaded Interpreted Languages (TIL_ from now on),
@@ -199,7 +199,7 @@ Reading TIL has given me some new ideas on how to implement words::
         #endif /* __KF_WORD_H__ */
 
 The codeword is the big changer here. I've put a native evaluator and
-a codeword executor in the ``eval`` files:
+a codeword executor in the ``eval`` files::
 
         #ifndef __KF_EVAL_H__
         #define __KF_EVAL_H__
@@ -238,6 +238,8 @@ The implementations of these are short::
 
 ``nexec`` just casts its target to a void function and calls it.
 
+::
+
         void
         nexec(uintptr_t target)
         {
@@ -247,6 +249,8 @@ The implementations of these are short::
 ``cwexec`` is the magic part: it reads a pair of addresses; the first
 is the executor, and the next is the start of the code body. In the
 case of native execution, this is a pointer to a function.
+
+::
 
         void
         cwexec(uintptr_t entry)
@@ -317,7 +321,7 @@ adds a new word to the dictionary, and the second attempts to look
 up a word by name and execute it::
 
         void
-        append_word(const char *name, const uint8_t len, void(*target)(void))
+        append_native_word(const char *name, const uint8_t len, void(*target)(void))
         {
         	store_native(dict+last, name, len, target);
         }
@@ -340,7 +344,42 @@ up a word by name and execute it::
         		return true;
         	}
         }
+
+Actually, now that I think about it, maybe I should also add in a function
+to return a uintptr_t to the word, too. Should this point to the header or
+to the body? My first instinct is to point to the header and have the caller
+(me) use ``word_body`` to get the actual body. That being said, however,
+we already have the useful information from the header (namely, the name and
+length); the link is only useful for the search phase. Following this logic
+means that ``lookup`` will return a pointer to the body. So say we all::
         
+        bool
+        lookup(const char *name, const uint8_t len, uintptr_t *ptr)
+        {
+        	size_t	offset = 0;
+        	size_t	body = 0;
+        	while (true) {
+        		if (!match_word(dict+offset, name, len)) {
+        			if ((offset = word_link(dict+offset)) == 0) {
+        				return false;
+        			}
+        			continue;
+        		}
+        
+        		body = word_body(dict+offset);
+        		*ptr = (uintptr_t)(dict + offset + body);
+        		return true;
+        	}
+        
+        }
+
+The rest of the functions in the header (all of which are publicly
+visible) are made available for use later. Maybe (but let's be honest,
+probably not) I'll go back later and make these functions private.
+
+The first such function stores a native (built-in) word. This is what
+``append_native_word`` is built around::
+
         void
         store_native(uint8_t *entry, const char *name, const uint8_t len, void(*target)(void))
         {
@@ -358,6 +397,9 @@ up a word by name and execute it::
         	memcpy(entry + sizeof(uintptr_t), (uint8_t *)(&target_p), sizeof(uintptr_t));
         }
         
+The rest of the functions are utility functions. ``match_word`` is used
+to... match words::
+
         bool
         match_word(uint8_t *entry, const char *name, const uint8_t len)
         {
@@ -371,6 +413,10 @@ up a word by name and execute it::
         
         	return true;
         }
+
+Finally, ``word_link`` returns the offset to the next function (e.g. so
+as to be able to do ``entry+offset``) and ``word_body`` returns the offset
+to the body of the word::
         
         size_t
         word_link(uint8_t *entry)
@@ -390,3 +436,6 @@ up a word by name and execute it::
         	return 2 + entry[0] + sizeof(size_t);
         }
         
+
+That about wraps up this chunk of work. Next to maybe start porting builtins? I
+also need to rewrite the parser and I/O layer.

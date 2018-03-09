@@ -8,7 +8,7 @@ static uint8_t	dict[DICT_SIZE] = {0};
 static size_t	last = 0;
 
 void
-append_word(const char *name, const uint8_t len, void(*target)(void))
+append_native_word(const char *name, const uint8_t len, void(*target)(void))
 {
 	store_native(dict+last, name, len, target);
 }
@@ -32,11 +32,32 @@ execute(const char *name, const uint8_t len)
 	}
 }
 
+bool
+lookup(const char *name, const uint8_t len, uintptr_t *ptr)
+{
+	size_t	offset = 0;
+	size_t	body = 0;
+	while (true) {
+		if (!match_word(dict+offset, name, len)) {
+			if ((offset = word_link(dict+offset)) == 0) {
+				return false;
+			}
+			continue;
+		}
+
+		body = word_body(dict+offset);
+		*ptr = (uintptr_t)(dict + offset + body);
+		return true;
+	}
+
+}
+
 void
 store_native(uint8_t *entry, const char *name, const uint8_t len, void(*target)(void))
 {
 	uintptr_t	target_p = (uintptr_t)target;
-	size_t		link = 2 + len + (2 * sizeof(uintptr_t));
+	size_t		offset = 2 + len + sizeof(size_t);
+	size_t		link = offset + (2 * sizeof(uintptr_t));
 
 	/* write the header */
 	entry[0] = len;
@@ -45,8 +66,9 @@ store_native(uint8_t *entry, const char *name, const uint8_t len, void(*target)(
 	memcpy(entry+2+len, &link, sizeof(link));
 
 	/* write the native executor codeword and the function pointer */
-	memcpy(entry, (uint8_t *)(&nexec_p), sizeof(uintptr_t));
-	memcpy(entry + sizeof(uintptr_t), (uint8_t *)(&target_p), sizeof(uintptr_t));
+	memcpy(entry+offset, (uint8_t *)(&nexec_p), sizeof(uintptr_t));
+	offset += sizeof(uintptr_t);
+	memcpy(entry+offset, (uint8_t *)(&target_p), sizeof(uintptr_t));
 }
 
 bool
