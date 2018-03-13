@@ -5,7 +5,7 @@ MEMORY
 }
 
 EXTERN(vectors);
-ENTRY(reset_handler);
+ENTRY(_start);
 
 SECTIONS
 {

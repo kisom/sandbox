@@ -9,6 +9,8 @@
 .cpu cortex-m3
 .thumb
 
+.section	.text
+.global vectors
 vectors:
 .align	2
 .long	0x20005000		/* stack pointer points to top of SRAM */
