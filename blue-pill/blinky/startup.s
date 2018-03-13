@@ -8,29 +8,26 @@
 .cpu cortex-m3
 .thumb
 
-.globl	vectors
+.section .text
+.global	vectors
 vectors:
 .align	2
-.long	0x20002000		/* best guess at stack pointer */
+.long	0x100			/* best guess at stack pointer */
 .long	reset_handler		/* reset handler */
-.long	hang			/* NMI handler */
-.long	hang			/* hard_fault_handler */
-.long	hang			/* memory management handler */
-.long	hang			/* bus fault handler */
-.long	hang			/* usage fault handler */
+.long	0			/* NMI handler */
+.long	0			/* hard_fault_handler */
+.long	0			/* memory management handler */
+.long	0			/* bus fault handler */
+.long	0			/* usage fault handler */
 .skip	0x20			/* reserved */
-.long	hang			/* svcall handler */
-.long	hang			/* debug handler */
+.long	0			/* svcall handler */
+.long	0			/* debug handler */
 .skip	4			/* reserved */
-.long	hang			/* pendsv handler */
-.long	hang			/* systick handler */
-.skip   0x100			/* remaining / IRQ vectors */
-
-
-.thumb_func
-hang:   b .
-
+.long	0			/* pendsv handler */
+.long	0			/* systick handler */
+.skip   0xf4			/* remaining / IRQ vectors */
 
 .thumb_func
+.global	reset_handler
 reset_handler:
 	bl	main

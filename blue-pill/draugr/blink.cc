@@ -4,7 +4,6 @@ constexpr uint32_t	LED = 13;
 constexpr unsigned long	SDELAY = 100000;
 constexpr unsigned long LDELAY = (SDELAY * 10) - (3 * SDELAY);
 
-// void __attribute__ ((weak, naked)) reset_handler(void) {
 int
 main() {
     GPIO_C->enable_clock();
@@ -21,4 +20,3 @@ main() {
 	    delay(SDELAY);
     }
 }
-
