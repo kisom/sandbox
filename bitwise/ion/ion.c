@@ -4,83 +4,42 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+#define MAX(a, b) a < b ? b : a
 
 // stretchy buffers
-static size_t
-buf_len(void *buf)
-{
-	return *(size_t *)(buf - (2 * sizeof(size_t)));
-}
+typedef struct _BufHeader {
+	size_t	len;
+	size_t	cap;
+	char	buf[0]; // C99
+} BufHeader;
 
-static void
-buf_set_len(void *buf, size_t len)
-{
-	*(size_t *)(buf - (2 * sizeof(size_t))) = len;
-}
+#define buf__hdr(b)	(BufHeader *)((char *)buf - offsetof(BufHeader, buf))
+#define buf_fits(b, n)	((buf_len(b) + n) <= buf_cap(b))
+#define buf__fit(b, n) (buf__fits(b, n) ? 0 : (b) = (buf_grow(b, 2*buf_cap(b), sizeof(*b))))
 
-static size_t
-buf_cap(void *buf)
-{
-	return *(size_t *)(buf - sizeof(size_t));
-}
+#define buf_len(b)	((b) ? buf__hdr(b)->len : 0)
+#define buf_cap(b)	((b) ? buf__hdr(b)->cap : 0)
+#define buf_push(b, x)	(buf__fit((b), 1), (b)[buf_len(b)++] = (x))
 
-static size_t
-buf_set_cap(void *buf, size_t cap)
+void *
+buf__grow(const void *buf, size_t nlen, size_t esize)
 {
-	*(size_t *)(buf - sizeof(size_t)) = cap;
-}
-
-static const size_t buf_overhead = 2 * sizeof(size_t);
-
-static void
-buf_allocate(void **buf, size_t nelem, size_t size)
-{
-	size_t	len = 0, cap = nelem * size;
-	if (*buf == NULL) {
-		*buf = malloc(buf_overhead + cap);
-		*buf += buf_overhead;
+	size_t ncap = MAX(1 + 2*buf_cap(buf), new_len);
+	assert(nlen <= ncap);
+	size_t nsize = ncap * esize;
+	BufHdr *nhdr;
+	
+	if (buf) {
+		nhdr = realloc(buf__hdr(buf), nsize)
 	}
 	else {
-		len = buf_len(*buf);
-		assert(len < cap);
-		void *new_buf = malloc(buf_overhead + cap);
-		new_buf += buf_overhead;
-		memcpy(new_buf, *buf, cap);
-		free(*buf);
-		*buf = new_buf;
+		nhdr = malloc(new_size)
+		nhdr->len = 0;
 	}
 
-	buf_set_len(*buf, len);
-	buf_set_cap(*buf, cap);
+	nhdr.cap = ncap;
+	return nhdr;
 }
-
-static bool
-buf_must_grow(void *buf)
-{
-	return (buf == NULL) || (buf_len(buf) == buf_cap(buf));
-}
-
-static const size_t buf_initial_length = 32;
-
-#define buf_push(buf, x)	{ \
-	if ((void *)buf == NULL) { buf_allocate((void **)&(buf), buf_initial_length, sizeof((x))); } \
-	if (buf_must_grow((void *)(buf))) { buf_allocate((void **)&(buf), 2 * buf_cap((void *)(buf)), 1); } \
-	(buf)[buf_len((buf))] = (x); \
-	buf_set_len((void *)(buf), buf_len((void *)(buf)) + 1); \
-} \
-
-static void
-buf_free(void *buf)
-{
-	buf = (void *)buf - buf_overhead;
-	free(buf);
-}
-
-/*
- * 1. NULL? → allocate with default size (32?)
- * 2. 
- */
 
 int
 main(int argc, char *argv[])
@@ -90,7 +49,9 @@ main(int argc, char *argv[])
 	// now buf actually points to a buffer
 	buf_push(buf, 1234);
 
-	printf("buf length: %lu / cap: %lu\n", buf_len(buf), buf_cap(buf));
+	printf("buf length: %lu / cap: %lu\n",
+		(unsigned long)buf_len(buf),
+		(unsigned long)buf_cap(buf));
 	for (int i = 0; i < buf_len(buf); i++) {
 		printf("%d\n", buf[i]);
 	}

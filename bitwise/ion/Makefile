@@ -1,6 +1,6 @@
 TARGET :=	ion
 OBJS :=		$(TARGET).o
-CFLAGS :=	-g
+CFLAGS :=	-g -std=c99
 
 all: $(TARGET)
 

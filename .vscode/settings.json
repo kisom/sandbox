@@ -1,3 +1,8 @@
 {
-	"cppcheck.includePaths": ["${workspaceRoot}/ods/src"]
+	"cppcheck.includePaths": [
+		"${workspaceRoot}/ods/src"
+	],
+	"files.associations": {
+		"*.ipp": "c"
+	}
 }
