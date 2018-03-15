@@ -1,0 +1,11 @@
+NOTES
+=====
+
+2018-03-15
+----------
+
++ chapter 2 - 4.1 of Wirth's [compiler book](http://www.ethoberon.ethz.ch/WirthPubl/CBEAll.pdf)
+
+stretch buffers:
++ dynamically growable arrays such that with a few pitfalls but is easy to generate
++ invented by stb?
