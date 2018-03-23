@@ -45,3 +45,4 @@ misc/kf/kf
 *.bin
 blue-pill/*/*.d
 core
+bitwise/ion/ion

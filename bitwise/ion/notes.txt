@@ -9,3 +9,12 @@ NOTES
 stretch buffers:
 + dynamically growable arrays such that with a few pitfalls but is easy to generate
 + invented by stb?
+
+
+2018-03-22 (day 2)
+------------------
++ lexing: char stream to token stream
+  + ex. '1234 (x+y)' translates to '1234' '(' 'x' '+' 'y' ')'
+  + no semantics yet
+  + simple hand-written approach
+  + mark: 1:06:11

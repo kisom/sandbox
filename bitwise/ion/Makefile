@@ -1,6 +1,6 @@
 TARGET :=	ion
 OBJS :=		$(TARGET).o
-CFLAGS :=	-g -std=c99
+CFLAGS :=	-g -std=c99 -Wall -Werror
 
 all: $(TARGET)
 
