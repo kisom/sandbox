@@ -2,7 +2,11 @@ TARGET :=	ion
 OBJS :=		$(TARGET).o
 CFLAGS :=	-g -std=c99 -Wall -Werror
 
-all: $(TARGET)
+.PHONY: all run
+all: run
+	
+run:$(TARGET)
+	./$(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)

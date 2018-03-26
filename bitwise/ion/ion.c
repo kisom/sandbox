@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <ctype.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -62,7 +63,7 @@ buf_test(void)
 	printf("OK\n");
 }
 typedef enum TokenKind {
-	TOKEN_INT,
+	TOKEN_INT = 128,
 	TOKEN_NAME,
 	// ...
 } TokenKind;
@@ -71,6 +72,8 @@ typedef struct Token {
 	TokenKind	kind;
 	// ...
 } Token;
+
+const char *stream;
 
 Token token;
 void next_token(void) {
@@ -91,8 +94,19 @@ void next_token(void) {
 		token.kind = TOKEN_INT;
 		break;
 	default:
-		token.kind = *stream;
+		token.kind = *stream++;
 		break;
+	}
+}
+
+void lex_test()
+{
+	char source[] = "+()123456+994";
+	stream = source;
+	next_token();
+	while (token.kind) {
+		printf("TOKEN: %d\n", token.kind);
+		next_token();
 	}
 }
 
@@ -100,5 +114,6 @@ int
 main(int argc, char *argv[])
 {
 	buf_test();
+	lex_test();
 	return 0;
 }
