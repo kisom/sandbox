@@ -17,4 +17,26 @@ stretch buffers:
   + ex. '1234 (x+y)' translates to '1234' '(' 'x' '+' 'y' ')'
   + no semantics yet
   + simple hand-written approach
-  + mark: 1:09:11
+  + mark: 1:17:34
+
+dev log:
+  + you can use a union with an anonymous struct to add fields to a struct maybe
+
+struct Thing {
+	int	type;
+	union {
+		uint64_t	val;
+		struct {
+			int start;
+			int end;
+		};
+	};
+};
+  + C99 variadic debug macro:
+
+#ifndef NDEBUG
+#define tprint(...)	do { fprintf(stderr, __VA_ARGS__); } while (false)
+#else
+#define tprint(...)	do {} while (false)
+#endif
+

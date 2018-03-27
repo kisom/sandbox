@@ -2,10 +2,16 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef NDEBUG
+#define tprint(...)	do { fprintf( stderr, __VA_ARGS__ ); } while( false )
+#else
+#define tprint(x)	{}
+#endif
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 
 // stretchy buffers
@@ -25,7 +31,7 @@ void *buf__grow(const void *, size_t, size_t);
 #define buf_push(b, x)	(buf__fit((b), 1), (b)[buf_len((b))] = (x), buf__hdr((b))->len++)
 #define buf_free(b)	((b) ? free(buf__hdr((b))) : 0)
 
-#define prlu(m, v)	(printf("%s: %lu\n", m, (unsigned long)(v)))
+#define prlu(m, v)	(tprint("%s: %lu\n", m, (unsigned long)(v)))
 
 void *
 buf__grow(const void *buf, size_t nlen, size_t esize)
@@ -51,6 +57,8 @@ static void
 buf_test(void)
 {
 	int	*stretchy = NULL;
+
+	tprint("buf_test\n");
 	for (int i = 0; i < 1024; i++) {
 		buf_push(stretchy, i);
 	}
@@ -60,7 +68,7 @@ buf_test(void)
 	}
 
 	buf_free(stretchy);
-	printf("OK\n");
+	tprint("OK\n");
 }
 typedef enum TokenKind {
 	TOKEN_INT = 128,
@@ -70,6 +78,13 @@ typedef enum TokenKind {
 
 typedef struct Token {
 	TokenKind	kind;
+	union {
+		uint64_t	val;
+		struct {
+			const char *start;
+			const char *end;
+		};
+	};
 	// ...
 } Token;
 
@@ -78,6 +93,7 @@ const char *stream;
 Token token;
 void next_token(void) {
 	switch (*stream) {
+	/* Numeric literal */
 	case '0':
 	case '1':
 	case '2':
@@ -87,27 +103,122 @@ void next_token(void) {
 	case '6':
 	case '7':
 	case '8':
-	case '9':
+	case '9': {
+		uint64_t val = 0; /* reset the token's value */
 		while (isdigit(*stream)) {
+			val *= 10;
+			val += (*stream - '0');
 			stream++;
 		}
 		token.kind = TOKEN_INT;
+		token.val = val;
 		break;
+	}
+
+	/* Identifier */
+	case 'a':
+	case 'b':
+	case 'c':
+	case 'd':
+	case 'e':
+	case 'f':
+	case 'g':
+	case 'h':
+	case 'i':
+	case 'j':
+	case 'k':
+	case 'l':
+	case 'm':
+	case 'n':
+	case 'o':
+	case 'p':
+	case 'q':
+	case 'r':
+	case 's':
+	case 't':
+	case 'u':
+	case 'v':
+	case 'w':
+	case 'x':
+	case 'y':
+	case 'z':
+	case 'A':
+	case 'B':
+	case 'C':
+	case 'D':
+	case 'E':
+	case 'F':
+	case 'G':
+	case 'H':
+	case 'I':
+	case 'J':
+	case 'K':
+	case 'L':
+	case 'M':
+	case 'N':
+	case 'O':
+	case 'P':
+	case 'Q':
+	case 'R':
+	case 'S':
+	case 'T':
+	case 'U':
+	case 'V':
+	case 'W':
+	case 'X':
+	case 'Y':
+	case 'Z':
+	case '_': {
+		const char *start = stream++;
+		while (isalnum(*stream) || *stream == '_') {
+			stream++;
+		}
+
+		token.kind = TOKEN_NAME;
+		token.start = start;
+		token.end = stream;
+		break;
+	}
 	default:
 		token.kind = *stream++;
 		break;
 	}
 }
 
-void lex_test()
+void
+print_token(void)
+{
+	tprint("TOKEN: %d", token.kind);
+	switch (token.kind) {
+	case TOKEN_INT:
+		tprint(" VALUE: %lu", token.val);
+		break;
+	case TOKEN_NAME:
+		break;
+	default:
+		break;
+	}
+}
+
+void
+lex_test(void)
 {
 	char source[] = "+()123456+994";
+	tprint("lex_test\n");
 	stream = source;
 	next_token();
 	while (token.kind) {
-		printf("TOKEN: %d\n", token.kind);
+		tprint("TOKEN: %d\n", token.kind);
+		switch (token.kind) {
+		case TOKEN_INT:
+			tprint("\tvalue: %lu\n", (long unsigned)token.val);
+			break;
+		default:
+			break;
+		}
 		next_token();
 	}
+	tprint("OK\n");
 }
 
 int

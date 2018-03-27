@@ -5,7 +5,8 @@ CFLAGS :=	-g -std=c99 -Wall -Werror
 .PHONY: all run
 all: run
 	
-run:$(TARGET)
+run: $(TARGET)
+	@echo "running $(TARGET)"
 	./$(TARGET)
 
 $(TARGET): $(OBJS)
