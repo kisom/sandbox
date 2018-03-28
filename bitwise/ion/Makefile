@@ -18,4 +18,4 @@ clean:
 
 .PHONY: release
 release: clean
-	CFLAGS="$(CFLAGS) -DRELEASE" make $(TARGET) && mv $(TARGET) $(TARGET)-release
+	CFLAGS="$(CFLAGS) -DRELEASE" make $(TARGET)
