@@ -1,6 +1,6 @@
 TARGET :=	ion
 OBJS :=		$(TARGET).o
-CFLAGS :=	-g -std=c99 -Wall -Werror
+CFLAGS ?=	-g -std=c99 -Wall -Werror
 
 .PHONY: all run
 all: run
@@ -15,3 +15,7 @@ $(TARGET): $(OBJS)
 .PHONY: clean
 clean:
 	rm -f $(OBJS) $(TARGET)
+
+.PHONY: release
+release: clean
+	CFLAGS="$(CFLAGS) -DRELEASE" make $(TARGET) && mv $(TARGET) $(TARGET)-release

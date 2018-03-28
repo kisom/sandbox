@@ -7,10 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef NDEBUG
-#define tprint(...)	do { fprintf( stderr, __VA_ARGS__ ); } while( false )
+#ifndef RELEASE
+#define tprint(...)	do { fprintf(stderr, __VA_ARGS__); } while (0)
 #else
-#define tprint(x)	{}
+#define tprint(...)	do {} while (0)
 #endif
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 
@@ -188,34 +188,30 @@ void next_token(void) {
 void
 print_token(void)
 {
-	tprint("TOKEN: %d", token.kind);
-	switch (token.kind) {
-	case TOKEN_INT:
-		tprint(" VALUE: %lu", token.val);
-		break;
-	case TOKEN_NAME:
-		break;
-	default:
-		break;
-	}
+	tprint("TOKEN: ");
+		switch (token.kind) {
+		case TOKEN_INT:
+			tprint("INT VALUE: %lu", token.val);
+			break;
+		case TOKEN_NAME:
+			tprint("NAME VALUE: %.*s", (int)(token.end-token.start), token.start);
+			break;
+		default:
+			tprint("'%c'", token.kind);
+			break;
+		}
+	tprint("\n");
 }
 
 void
 lex_test(void)
 {
-	char source[] = "+()123456+994";
+	char source[] = "+()123456+IDDQD,994_id3kfa";
 	tprint("lex_test\n");
 	stream = source;
 	next_token();
 	while (token.kind) {
-		tprint("TOKEN: %d\n", token.kind);
-		switch (token.kind) {
-		case TOKEN_INT:
-			tprint("\tvalue: %lu\n", (long unsigned)token.val);
-			break;
-		default:
-			break;
-		}
+		print_token();
 		next_token();
 	}
 	tprint("OK\n");
