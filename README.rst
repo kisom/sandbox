@@ -7,6 +7,7 @@ topics.
 Projects
 --------
 
++ ``adsep/``: `Algorithms + Data Structures = Programs <https://en.wikipedia.org/wiki/Algorithms_%2B_Data_Structures_%3D_Programs>`_
 + ``blue-pill/``: blue pill experiments
 + ``lpn/``: `Learn Prolog Now <http://lpn.swi-prolog.org/>`_
 + ``misc/``: A scratchpad of random programs; a replacement for
