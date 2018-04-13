@@ -12,7 +12,7 @@ static std::mt19937		rng;
 static std::random_device	devrand;
 
 
-static void
+void
 reseed()
 {
 	rng.seed(devrand());

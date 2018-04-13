@@ -7,7 +7,7 @@ namespace algotune {
 
 int64_t			display_step = 1000;
 
-
+void			reseed(void);
 
 int			rand_int(int low, int high);
 int64_t			rand_int64(int64_t low, int64_t high);
