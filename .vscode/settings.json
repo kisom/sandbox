@@ -4,5 +4,6 @@
 	],
 	"files.associations": {
 		"*.ipp": "c"
-	}
+	},
+	"python.linting.enabled": false
 }
