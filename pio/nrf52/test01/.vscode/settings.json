@@ -1,0 +1,6 @@
+{
+	"terminal.integrated.env.linux": {
+		"PATH": "/home/kyle/.platformio/penv/bin:/home/kyle/.platformio/penv:/home/kyle/.cargo/bin:/home/kyle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kyle/go/bin",
+		"PLATFORMIO_CALLER": "vscode"
+	}
+}
