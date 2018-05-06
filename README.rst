@@ -18,3 +18,12 @@ Projects
 + ``pio/``: `PlatformIO <https://platformio.org/>`_ projects
 + ``practical_prolog/``: `The Practice of Prolog <https://mitpress.mit.edu/books/practice-prolog>`_
 + ``uc/``: `Understanding Computation <http://computationbook.com/>`_
+
+Related
+-------
+
++ `sketchbooks <https://github.com/kisom/sketchbooks/>`_: my Processing
+  and Arduino sketchbooks
++ `devlog <https://dl.kyleisom.net/>`_: my dev logs
++ `notebook <https://notes.kyleisom.net/>`: my programming notebook
+
