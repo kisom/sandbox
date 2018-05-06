@@ -9,6 +9,7 @@ Projects
 
 + ``adsep/``: `Algorithms + Data Structures = Programs <https://en.wikipedia.org/wiki/Algorithms_%2B_Data_Structures_%3D_Programs>`_
 + ``blue-pill/``: blue pill experiments
++ ``django/``: learning django
 + ``lpn/``: `Learn Prolog Now <http://lpn.swi-prolog.org/>`_
 + ``misc/``: A scratchpad of random programs; a replacement for
   `the basement <https://github.com/kisom/the_basement>`_

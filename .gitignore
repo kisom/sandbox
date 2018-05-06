@@ -46,3 +46,6 @@ misc/kf/kf
 blue-pill/*/*.d
 core
 bitwise/ion/ion
+
+# django db
+/django/*/db.sqlite3
