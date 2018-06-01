@@ -34,7 +34,7 @@ There are a few key points:
   `KnowledgeBase` assert that there is only one relationship → subject
   mapping. For example, the `KnowledgeBase` will admit that
   `('is', 'shrödingers cat', 'alive')` and
-  `('is', 'schrödingers cat', 'dead') are both true simultaneously.
+  `('is', 'schrödingers cat', 'dead')` are both true simultaneously.
 
 ### TODO
 
