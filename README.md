@@ -38,4 +38,7 @@ There are a few key points:
 
 ### TODO
 
++ Inference: given a list of actions, how to go from one state to
+  another. The first step would be single-step, then integrating
+  a search into the inference.
 + Rewrite in C++?

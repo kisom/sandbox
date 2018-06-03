@@ -1,0 +1,61 @@
+Inference example:
+
+Given
+airport_kb = kb.from_facts([
+    ('is', 'N29EO', 'Plane'),
+    ('at', 'N29EO', 'dia'),
+    ('is', 'N10IV', 'Plane'),
+    ('at', 'N10IV', 'oak'),
+    ('is', 'N33FR', 'Plane'),
+    ('at', 'N33FR', 'lga'),
+    ('is', 'dia', 'Airport'),
+    ('is', 'lga', 'Airport'),
+    ('is', 'oak', 'Airport'),
+])
+
+fly = actions.Action(
+    [('is', '?subject', 'Plane'), ('is', '?object', 'Airport')],
+    [('at', '?subject', '?object'),],
+    [('at', '?subject', '?current'),],
+    [('at', '?subject', '?object')])
+
+Should be able to do something like:
+> infer(airport_kb, [fly], ('at', 'N10IV', 'lga'))
+('fly', 'N10IV', 'lga')
+
+
+------------------------------------------------------------------------------
+
+Inference search example:
+
+airport_kb = [
+    ('is', 'N29EO', 'Plane'),
+    ('at', 'N29EO', 'dia'),
+    ('is', 'N10IV', 'Plane'),
+    ('at', 'N10IV', 'oak'),
+    ('is', 'N33FR', 'Plane'),
+    ('at', 'N33FR', 'lga'),
+    ('is', '1Z12345E0205271688', 'Package'),
+    ('at', '1Z12345E0205271688', 'dia'),
+    ('is', '1Z12345E6605272234', 'Package'),
+    ('at', '1Z12345E6605272234', 'dia'),
+    ('is', '1Z12345E0305271640', 'Package'),
+    ('at', '1Z12345E0305271640', 'oak'),
+    ('is', '1Z12345E1305277940', 'Package'),
+    ('at', '1Z12345E1305277940', 'lga'),
+    ('is', '1Z12345E6205277936', 'Package'),
+    ('at', '1Z12345E6205277936', 'lga'),
+    ('is', 'dia', 'Airport'),
+    ('is', 'lga', 'Airport'),
+    ('is', 'oak', 'Airport'),
+]
+
+fly = actions.Action(
+    [('is', '?subject', 'Plane'), ('is', '?object', 'Airport')],
+    [('at', '?subject', '?object'),],
+    [('at', '?subject', '?current'),],
+    [('at', '?subject', '?object')])
+
+Trying to define load which requires that both package and airplane are
+at the same place: how can this be expressed?
+
