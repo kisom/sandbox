@@ -49,3 +49,7 @@ bitwise/ion/ion
 
 # django db
 /django/*/db.sqlite3
+
+# Quantum experiments
+/qc/msqdk/*/obj
+/qc/msqdk/*/bin
