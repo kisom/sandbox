@@ -1,0 +1,12 @@
+[package]
+name = "bareos"
+version = "0.1.0"
+authors = ["Kyle Isom <kyle@imap.cc>"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+[dependencies]

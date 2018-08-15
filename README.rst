@@ -18,6 +18,7 @@ Projects
 + ``pio/``: `PlatformIO <https://platformio.org/>`_ projects
 + ``practical_prolog/``: `The Practice of Prolog <https://mitpress.mit.edu/books/practice-prolog>`_
 + ``qc/``: Quantum computing experiments
++ ``rust-os/``: working through writing an OS in Rust
 + ``uc/``: `Understanding Computation <http://computationbook.com/>`_
 
 Related
