@@ -53,3 +53,10 @@ bitwise/ion/ion
 # Quantum experiments
 /qc/msqdk/*/obj
 /qc/msqdk/*/bin
+
+# apio cruft
+.sconsign.dblite
+hardware.blif
+hardware.asc
+hardware.bin
+
