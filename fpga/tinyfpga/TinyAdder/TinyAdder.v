@@ -1,5 +1,3 @@
-`include "SegmentLCD.v"
-
 /////////////////////////////////////////////////////////////////////////
 /// TinyAdder.v
 /// Author: K. Isom
@@ -52,12 +50,12 @@ module TinyAdder (
 	// state determines what happens when the button is pressed.
 	reg [1:0]	state = 2'b00;
 
-	segment7 low (
+	SegmentLCD low (
 		.number(sum[3:0]),
 		.out({PIN_15, PIN_14, PIN_13, PIN_12, PIN_11, PIN_10, PIN_9})
 	);
 
-	segment7 hi (
+	SegmentLCD hi (
 		.number(sum[7:4]),
 		.out({PIN_22, PIN_21, PIN_20, PIN_19, PIN_18, PIN_17, PIN_16})
 	);
