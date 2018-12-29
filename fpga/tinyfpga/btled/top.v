@@ -12,7 +12,6 @@ module top (
 );
 
 	reg	state = 0;
-	reg	pressed = 0;
 
 	assign LED = state;
 
