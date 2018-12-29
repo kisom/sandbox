@@ -60,3 +60,10 @@ hardware.blif
 hardware.asc
 hardware.bin
 
+# platformio cruft
+.pio
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+
