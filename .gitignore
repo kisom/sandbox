@@ -56,9 +56,10 @@ bitwise/ion/ion
 
 # apio cruft
 .sconsign.dblite
-hardware.blif
 hardware.asc
 hardware.bin
+hardware.blif
+hardware.out
 
 # platformio cruft
 .pio
