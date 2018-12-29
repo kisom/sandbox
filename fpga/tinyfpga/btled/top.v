@@ -1,4 +1,4 @@
-/// bled
+/// btled
 /// Button-toggled LED
 ///
 /// This toggles the LED using a pushbutton on pin 6. The pushbutton
