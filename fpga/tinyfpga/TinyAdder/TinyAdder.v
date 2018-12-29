@@ -28,7 +28,7 @@ module segment7 (
 endmodule
 
 // look in pins.pcf for all the pin names on the TinyFPGA BX board
-module top (
+module TinyAdder (
 	input	CLK,    // 16MHz clock
 	input	PIN_1,	// A[0]
 	input	PIN_2,	// A[1]
