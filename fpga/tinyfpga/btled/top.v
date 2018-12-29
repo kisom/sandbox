@@ -15,6 +15,8 @@ module top (
 	reg	pressed = 0;
 
 	assign LED = state;
+
+	// I found the negedge was better for debouncing.
 	always @(negedge PIN_6)
 		state <= !state;
 
