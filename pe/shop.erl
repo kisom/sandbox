@@ -8,7 +8,8 @@ cost (apples) -> 2;
 cost (pears) -> 9;
 cost (milk) -> 7.
 
-total([]) ->
-    0;
-total([{Item, Count}|Rest]) ->
-    cost(Item) * Count + total(Rest).
+total(ShoppingList) ->
+    lists:sum(
+      lists:map(fun ({Item, Count}) ->
+			Count * cost(Item) end,
+		ShoppingList)).
