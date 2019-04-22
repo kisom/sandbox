@@ -4,6 +4,7 @@
 *.o
 *.pdf
 .d
+*.beam
 
 # ignore build systems
 .ninja_deps
