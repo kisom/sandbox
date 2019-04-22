@@ -1,5 +1,5 @@
 -module(chapter4).
--export([t2l/1, timeit/1]).
+-export([t2l/1, timeit/1, date_string/0]).
 % 2. The BIF tuple_to_list(T) converts the elements of the tuple T to
 % a list. Write a function called my_tuple_to_list(T) that does the
 % same thing only not using the BIF that does this.
@@ -24,6 +24,12 @@ timeit(F) ->
     Started = erlang:system_time(microsecond),
     F(),
     {erlang:system_time(microsecond) - Started, microsecond}.
+
+date_string() ->
+    {Hour, Minute, Second} = erlang:time(),
+    {Year, Month, Day} = erlang:date(),
+    io:format("~w-~2..0w-~2..0w ~2..0w:~2..0w:~2..0w",
+	      [Year, Month, Day, Hour, Minute, Second]).
 
 % 4. Advanced: Look up the manual pages for the Python datetime
 % module. Find out how many of methods in the Python datetime class
