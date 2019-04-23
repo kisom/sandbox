@@ -6,7 +6,9 @@
   perms/1,
   kabs/1,
   kfilter/2,
-  kclassify/1
+  kclassify/1,
+  stash_term/2,
+  retrieve_term/1
 ]).
 
 for(Max, Max, F) ->
@@ -60,4 +62,14 @@ kclassify(N) ->
 	    medium;
 	true ->
 	    low
+    end.
+
+stash_term(Path, Term) ->
+    file:write_file(Path, erlang:term_to_binary(Term)).
+
+retrieve_term(Path) ->
+    case file:read_file(Path) of
+	{ok, BinaryTerm} ->
+	    erlang:binary_to_term(BinaryTerm);
+	{error, Reason} -> throw({read_file, Reason})
     end.
