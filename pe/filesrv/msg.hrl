@@ -14,3 +14,9 @@
 
 % fetch obtains the data referenced by an alternative name.
 -record(fetch, {client, name}).
+
+% stop tells the server to shutdown.
+-record(stop, {client}).
+
+% dump tells the server to send the current state of the system.
+-record(dump, {client}).
