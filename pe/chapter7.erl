@@ -38,6 +38,8 @@ test() ->
     <<246, 54, 54, 166, 22>> = reverse_bits(<<"hello">>).
 
 %% 5. Write a function to reverse the bits in a binary.
+
+%% This feels pretty inelegant.
 reverse_byte(<<A:1, B:1, C:1, D:1, E:1, F:1, G:1, H:1>>) ->
     <<H:1,G:1,F:1,E:1,D:1,C:1,B:1,A:1>>;
 reverse_byte(<<>>) -> <<>>.
