@@ -13,14 +13,14 @@ breverse(Bin) ->
 
 %% Need to packetize
 term_to_packet(Term) ->
-    BinaryTerm = erlang:term_to_binary(Term),
-    Length = erlang:byte_size(BinaryTerm),
+    BinaryTerm = term_to_binary(Term),
+    Length = byte_size(BinaryTerm),
     <<Length:32, BinaryTerm:Length/bytes>>.
     
 %% 3. Write the inverse function packet_to_term(Packet) -> Term that
 %%    is the inverse of the previous function.
 packet_to_term(<<Length:32, BinaryTerm:Length/bytes>>) ->
-    erlang:binary_to_term(BinaryTerm).
+    binary_to_term(BinaryTerm).
 
 packet_test(Term) ->
     Term = packet_to_term(term_to_packet(Term)).
@@ -34,7 +34,8 @@ test() ->
     packet_test(Squared),
     packet_test(32),
     packet_test(<<"Goodbye, Joe.">>),
-    <<0:7, 1:1>> = reverse_byte(<<1:1, 0:7>>).
+    <<0:7, 1:1>> = reverse_byte(<<1:1, 0:7>>),
+    <<246, 54, 54, 166, 22>> = reverse_bits(<<"hello">>).
 
 %% 5. Write a function to reverse the bits in a binary.
 reverse_byte(<<A:1, B:1, C:1, D:1, E:1, F:1, G:1, H:1>>) ->
@@ -43,10 +44,8 @@ reverse_byte(<<>>) -> <<>>.
 
 reverse_bitlist([]) -> [];
 reverse_bitlist([H|T]) ->
-    [reverse_byte(H) || reverse_bitlist(T)].
+    [reverse_byte(<<H>>) | reverse_bitlist(T)].
 
 reverse_bits(Binary) ->
-    erlang:list_to_binary(reverse_bitlist(erlang:binary_to_list(Binary))).
-
-
-
+    ReversedBits = reverse_bitlist(binary_to_list(Binary)),
+    erlang:list_to_binary(lists:reverse(ReversedBits)).
