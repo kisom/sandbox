@@ -69,3 +69,7 @@ hardware.out
 .clang_complete
 .gcc-flags.json
 
+
+# ada stuff
+*.ali
+
